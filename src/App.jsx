@@ -151,25 +151,10 @@ const demoRoles = [
   { name: 'Super Administrator', username: 'TVM_ADMIN', password: 'admin123' }
 ];
 
-// Themed realistic background photo for each sidebar page (like the Dashboard).
-// Remote stock photos keep the repo small; a light gradient wash is layered on
-// top in mainBgStyle so dense tables/text stay readable.
-const photo = (id) => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=1600&q=70`;
+// Background photo is used only on the Dashboard (the login screen has its own
+// backdrop defined in CSS). All other pages render on a clean neutral surface.
 const PAGE_BACKGROUNDS = {
-  Dashboard:      dashboardBgImg, // local uploaded cow-grazing photo (src/assets)
-  Farmers:        photo('photo-1492496913980-501348b61469'), // Indian farmer in the field
-  BulkUpload:     photo('photo-1658203897339-0b8c64a42fba'), // spreadsheet / excel data
-  Schemes:        photo('photo-1578269174936-2709b6aeb913'), // award / certificate
-  FormBuilder:    photo('photo-1468779036391-52341f60b55d'), // documents / form template
-  SubmitApp:      photo('photo-1603796846097-bee99e4a601f'), // application paperwork
-  ApprovalQueue:  photo('photo-1586281380117-5a60ae2050cc'), // checklist / clipboard
-  FarmerApproval: photo('photo-1530507629858-e4977d30e9e0'), // farmer verification
-  Statements:     photo('photo-1562654501-a0ccc0fc3fb1'),   // consolidated documents
-  Finance:        photo('photo-1565373679107-344d38dbf734'), // Indian rupee / money
-  Audit:          photo('photo-1614064641938-3bbee52942c7'), // security / lock
-  Reports:        photo('photo-1551288049-bebda4e38f71'),   // analytics dashboard
-  Tracking:       photo('photo-1586769852836-bc069f19e1b6'), // magnifier / search
-  Helpdesk:       photo('photo-1553775282-20af80779df7')    // support headset
+  Dashboard: dashboardBgImg // local uploaded cow-grazing photo (src/assets)
 };
 
 // Persist login across page refreshes (role + last page, never the password)
@@ -817,7 +802,7 @@ function App() {
   // Resolve the themed background image + readability overlay for the active page
   const pagePhoto = PAGE_BACKGROUNDS[activeMenu];
   const mainBgStyle = pagePhoto ? {
-    backgroundImage: `linear-gradient(135deg, rgba(247,250,252,0.86) 0%, rgba(236,244,240,0.62) 100%), url('${pagePhoto}')`,
+    backgroundImage: `linear-gradient(135deg, rgba(247,250,252,0.66) 0%, rgba(236,244,240,0.40) 100%), url('${pagePhoto}')`,
     backgroundSize: 'cover',
     backgroundPosition: 'center center',
     backgroundRepeat: 'no-repeat'

@@ -398,7 +398,7 @@ body {
   font-size: 10px;
   font-weight: 700;
   text-transform: uppercase;
-  color: var(--text-light);
+  color: #4E5868;
   margin: 18px 10px 8px;
   letter-spacing: 0.9px;
 }
@@ -409,7 +409,7 @@ body {
   gap: 12px;
   padding: 11px 14px;
   border-radius: 12px;
-  color: var(--text-muted);
+  color: #2F3A55;
   font-size: 13.5px;
   font-weight: 600;
   cursor: pointer;
@@ -644,7 +644,7 @@ body {
 /* Dashboard background — outdoor grazing image with a light scrim for card readability */
 .main-content.dashboard-bg {
   background-image:
-    linear-gradient(135deg, rgba(247, 251, 255, 0.86) 0%, rgba(235, 245, 239, 0.10) 100%),
+    linear-gradient(135deg, rgba(247, 251, 255, 0.86) 0%, rgba(235, 245, 239, 0.5) 100%),
     url('./assets/photorealistic-view-cow-grazing-outdoors\ \(1\).jpg');
   background-size: cover;
   background-position: center;
