@@ -157,7 +157,7 @@ export default function Reports({ schemes, applications, statements, farmers, di
   const activeLabel = reportTypes.find(r => r.key === reportType)?.label || 'Report';
 
   const doExcel = () => exportToExcel(`${reportType}-report`, rows, headers);
-  const doPDF = () => exportToPDF(`${activeLabel} — TRCMPU MILMA`, `${reportType}-report`, rows, headers);
+  const doPDF = () => exportToPDF(`${activeLabel} — TRCMPU`, `${reportType}-report`, rows, headers);
 
   return (
     <div>

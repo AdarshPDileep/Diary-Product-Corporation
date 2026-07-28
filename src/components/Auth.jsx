@@ -18,7 +18,7 @@ export default function Auth({
         <div className="auth-brand">
           <div className="brand-head">
             <div className="brand-logo">M</div>
-            <h1>TRCMPU MILMA</h1>
+            <h1>TRCMPU</h1>
             <p className="tagline">Farmer Scheme ERP · Trivandrum Region Co-operative Milk Producers Union. Pick a role below to explore the portal with sample data.</p>
           </div>
 

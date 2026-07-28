@@ -36,7 +36,7 @@ import FarmerApproval from './components/FarmerApproval';
 const translations = {
   en: {
     title: "TRCMPU Farmer Scheme ERP",
-    tagline: "Trivandrum Dairy - MILMA",
+    tagline: "Trivandrum Dairy",
     dashboard: "Dashboard",
     farmers: "Farmer Master",
     bulkUpload: "Farmer Bulk Upload",
@@ -991,7 +991,7 @@ function App() {
               </button>
               <div className="nav-greeting">
                 <span className="hello">{(() => { const h = new Date().getHours(); return h < 12 ? 'Good morning' : h < 17 ? 'Good afternoon' : 'Good evening'; })()}, {username.split('_')[0]}</span>
-                <span className="sub">{currentRole} · Trivandrum Dairy MILMA</span>
+                <span className="sub">{currentRole} · Trivandrum Dairy </span>
               </div>
 
               <div className="nav-search">
