@@ -1,5 +1,5 @@
 import React from 'react';
-import { FileText, Plus } from 'lucide-react';
+import { FileText, Plus, Hash, Calendar, ChevronDown, UploadCloud, Trash2 } from 'lucide-react';
 
 export default function FormBuilder({
   builderFields, setBuilderFields, selectedBuilderField, setSelectedBuilderField,
@@ -45,6 +45,17 @@ export default function FormBuilder({
     selectToModify: 'Select a preview field to modify constraints',
   };
 
+  const getIcon = (type) => {
+    switch (type) {
+      case 'text': return <FileText size={16} />;
+      case 'number': return <Hash size={16} />;
+      case 'date': return <Calendar size={16} />;
+      case 'select': return <ChevronDown size={16} />;
+      case 'file': return <UploadCloud size={16} />;
+      default: return <FileText size={16} />;
+    }
+  };
+
   return (
     <div>
       <div className="page-header">
@@ -62,34 +73,80 @@ export default function FormBuilder({
         <div className="builder-panel">
           <div className="builder-panel-header">{ui.components}</div>
           <div className="builder-panel-body">
-            <div className="field-token" onClick={() => handleAddFieldToBuilder('text')}><FileText size={14}/> {ui.textInput}</div>
-            <div className="field-token" onClick={() => handleAddFieldToBuilder('number')}><span style={{fontWeight: 'bold'}}>#</span> {ui.number}</div>
-            <div className="field-token" onClick={() => handleAddFieldToBuilder('date')}><span style={{fontWeight: 'bold'}}>📅</span> {ui.date}</div>
-            <div className="field-token" onClick={() => handleAddFieldToBuilder('select')}><Plus size={14}/> {ui.dropdown}</div>
-            <div className="field-token" onClick={() => handleAddFieldToBuilder('file')}><Plus size={14}/> {ui.documentUpload}</div>
+            <div className="field-token" onClick={() => handleAddFieldToBuilder('text')}>
+              <FileText size={16} style={{ color: 'var(--primary)' }} />
+              <span>{ui.textInput}</span>
+            </div>
+            <div className="field-token" onClick={() => handleAddFieldToBuilder('number')}>
+              <Hash size={16} style={{ color: '#E91E63' }} />
+              <span>{ui.number}</span>
+            </div>
+            <div className="field-token" onClick={() => handleAddFieldToBuilder('date')}>
+              <Calendar size={16} style={{ color: '#9C27B0' }} />
+              <span>{ui.date}</span>
+            </div>
+            <div className="field-token" onClick={() => handleAddFieldToBuilder('select')}>
+              <ChevronDown size={16} style={{ color: '#FF9800' }} />
+              <span>{ui.dropdown}</span>
+            </div>
+            <div className="field-token" onClick={() => handleAddFieldToBuilder('file')}>
+              <UploadCloud size={16} style={{ color: '#4CAF50' }} />
+              <span>{ui.documentUpload}</span>
+            </div>
           </div>
         </div>
 
         {/* Middle preview canvas */}
         <div className="builder-canvas">
-          <div style={{fontSize: '12px', fontWeight: '700', textTransform: 'uppercase', color: 'var(--text-light)'}}>{ui.formPreview}</div>
+          <div style={{ fontSize: '11px', fontWeight: '700', textTransform: 'uppercase', color: 'var(--text-light)', letterSpacing: '0.5px' }}>
+            {ui.formPreview}
+          </div>
           {builderFields.length === 0 ? (
             <div className="canvas-placeholder">
-              <Plus size={24}/>
+              <Plus size={24} style={{ color: 'var(--text-light)' }} />
               <span>{ui.selectToAdd}</span>
             </div>
           ) : (
             builderFields.map(field => (
-              <div key={field.key} className={`canvas-field-row ${selectedBuilderField?.key === field.key ? 'selected' : ''}`} onClick={() => setSelectedBuilderField(field)}>
-                <div>
-                  <div style={{fontWeight: '600', fontSize: '13px'}}>{field.label}</div>
-                  <div style={{fontSize: '11px', color: 'var(--text-muted)'}}>{field.type} • {field.mandatory ? ui.required : ui.optional}</div>
+              <div
+                key={field.key}
+                className={`canvas-field-row ${selectedBuilderField?.key === field.key ? 'selected' : ''}`}
+                onClick={() => setSelectedBuilderField(field)}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+                  <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifycontent: 'center',
+                    width: '32px',
+                    height: '32px',
+                    borderRadius: '8px',
+                    background: selectedBuilderField?.key === field.key ? 'var(--card-bg)' : '#F1F5F9',
+                    color: 'var(--text-muted)',
+                    paddingLeft: '8px'
+                  }}>
+                    {getIcon(field.type)}
+                  </div>
+                  <div>
+                    <div style={{ fontWeight: '600', fontSize: '14px', color: 'var(--text-main)' }}>
+                      {field.label || <span style={{ fontStyle: 'italic', color: 'var(--text-light)' }}>Untitled Field</span>}
+                    </div>
+                    <div style={{ fontSize: '11px', color: 'var(--text-muted)', marginTop: '2px' }}>
+                      {field.type.toUpperCase()} • {field.mandatory ? ui.required : ui.optional}
+                    </div>
+                  </div>
                 </div>
-                <button className="btn btn-secondary" style={{padding: '4px 8px'}} onClick={(e) => {
-                  e.stopPropagation();
-                  setBuilderFields(builderFields.filter(f => f.key !== field.key));
-                  setSelectedBuilderField(null);
-                }}>{ui.remove}</button>
+                <button
+                  className="btn-icon-danger"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setBuilderFields(builderFields.filter(f => f.key !== field.key));
+                    setSelectedBuilderField(null);
+                  }}
+                  title={ui.remove}
+                >
+                  <Trash2 size={16} />
+                </button>
               </div>
             ))
           )}
@@ -100,34 +157,51 @@ export default function FormBuilder({
           <div className="builder-panel-header">{ui.fieldProperties}</div>
           <div className="builder-panel-body">
             {selectedBuilderField ? (
-              <div style={{display: 'flex', flexDirection: 'column', gap: '12px'}}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                 <div className="form-group">
                   <label>{ui.fieldLabel}</label>
-                  <input type="text" className="form-input" value={selectedBuilderField.label} onChange={e => {
-                    const val = e.target.value;
-                    setBuilderFields(builderFields.map(f => f.key === selectedBuilderField.key ? { ...f, label: val } : f));
-                    setSelectedBuilderField({ ...selectedBuilderField, label: val });
-                  }} />
+                  <input
+                    type="text"
+                    className="form-input"
+                    value={selectedBuilderField.label}
+                    onChange={e => {
+                      const val = e.target.value;
+                      setBuilderFields(builderFields.map(f => f.key === selectedBuilderField.key ? { ...f, label: val } : f));
+                      setSelectedBuilderField({ ...selectedBuilderField, label: val });
+                    }}
+                  />
                 </div>
                 <div className="form-group">
                   <label>{ui.malayalamLabel}</label>
-                  <input type="text" className="form-input" value={selectedBuilderField.labelMl} onChange={e => {
-                    const val = e.target.value;
-                    setBuilderFields(builderFields.map(f => f.key === selectedBuilderField.key ? { ...f, labelMl: val } : f));
-                    setSelectedBuilderField({ ...selectedBuilderField, labelMl: val });
-                  }} />
+                  <input
+                    type="text"
+                    className="form-input"
+                    value={selectedBuilderField.labelMl}
+                    onChange={e => {
+                      const val = e.target.value;
+                      setBuilderFields(builderFields.map(f => f.key === selectedBuilderField.key ? { ...f, labelMl: val } : f));
+                      setSelectedBuilderField({ ...selectedBuilderField, labelMl: val });
+                    }}
+                  />
                 </div>
-                <label style={{display: 'flex', gap: '6px', alignItems: 'center', fontSize: '13px', cursor: 'pointer', marginTop: '10px'}}>
-                  <input type="checkbox" checked={selectedBuilderField.mandatory} onChange={e => {
-                    const val = e.target.checked;
-                    setBuilderFields(builderFields.map(f => f.key === selectedBuilderField.key ? { ...f, mandatory: val } : f));
-                    setSelectedBuilderField({ ...selectedBuilderField, mandatory: val });
-                  }} />
-                  {ui.isMandatory}
+                <label style={{ display: 'flex', gap: '8px', alignItems: 'center', fontSize: '13px', color: 'var(--text-main)', cursor: 'pointer', marginTop: '4px' }}>
+                  <input
+                    type="checkbox"
+                    checked={selectedBuilderField.mandatory}
+                    style={{ accentColor: 'var(--primary)' }}
+                    onChange={e => {
+                      const val = e.target.checked;
+                      setBuilderFields(builderFields.map(f => f.key === selectedBuilderField.key ? { ...f, mandatory: val } : f));
+                      setSelectedBuilderField({ ...selectedBuilderField, mandatory: val });
+                    }}
+                  />
+                  <span>{ui.isMandatory}</span>
                 </label>
               </div>
             ) : (
-              <div style={{fontSize: '12px', color: 'var(--text-light)', textAlign: 'center', marginTop: '40px'}}>{ui.selectToModify}</div>
+              <div style={{ fontSize: '13px', color: 'var(--text-light)', textAlign: 'center', padding: '40px 10px' }}>
+                {ui.selectToModify}
+              </div>
             )}
           </div>
         </div>
