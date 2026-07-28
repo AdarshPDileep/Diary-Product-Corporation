@@ -1013,7 +1013,7 @@ function App() {
             {/* MAIN PORTAL AREA */}
             <main className="main-content page-bg" style={mainBgStyle}>
               {activeMenu === 'Dashboard' && (
-                <Dashboard 
+                <Dashboard
                   farmers={farmers}
                   schemes={schemes}
                   applications={applications}
@@ -1024,6 +1024,7 @@ function App() {
                   setSelectedApplication={setSelectedApplication}
                   setActiveMenu={setActiveMenu}
                   t={t}
+                  lang={lang}
                 />
               )}
 
@@ -1038,6 +1039,7 @@ function App() {
                   handleRequestModifyFarmer={handleRequestModifyFarmer}
                   setIsNewFarmerOpen={setIsNewFarmerOpen}
                   t={t}
+                  lang={lang}
                 />
               )}
 
@@ -1048,6 +1050,7 @@ function App() {
                   handleSubmitBatch={handleSubmitBatch}
                   bulkPreview={bulkPreview}
                   t={t}
+                  lang={lang}
                 />
               )}
 
@@ -1056,6 +1059,7 @@ function App() {
                   schemes={schemes}
                   onCreateScheme={() => openCreateScheme(true)}
                   t={t}
+                  lang={lang}
                 />
               )}
 
@@ -1068,6 +1072,7 @@ function App() {
                   handleAddFieldToBuilder={handleAddFieldToBuilder}
                   onPublishScheme={() => openCreateScheme(false)}
                   t={t}
+                  lang={lang}
                 />
               )}
 
@@ -1087,6 +1092,7 @@ function App() {
                   handleDocUploadForApp={handleDocUploadForApp}
                   handleAppSubmit={handleAppSubmit}
                   t={t}
+                  lang={lang}
                 />
               )}
 
@@ -1096,6 +1102,7 @@ function App() {
                   currentRole={currentRole}
                   setSelectedApplication={setSelectedApplication}
                   t={t}
+                  lang={lang}
                 />
               )}
 
@@ -1105,6 +1112,7 @@ function App() {
                   currentRole={currentRole}
                   handleCreateStatement={handleCreateStatement}
                   setSelectedStatement={setSelectedStatement}
+                  lang={lang}
                 />
               )}
 
@@ -1118,12 +1126,14 @@ function App() {
                   setMilkBillNo={setMilkBillNo}
                   setPaymentAmount={setPaymentAmount}
                   setPaymentUpdateModal={setPaymentUpdateModal}
+                  lang={lang}
                 />
               )}
 
               {activeMenu === 'Audit' && (
                 <Audit
                   auditLogs={auditLogs}
+                  lang={lang}
                 />
               )}
 
@@ -1136,11 +1146,12 @@ function App() {
                   districts={initialDistricts}
                   societies={initialSocieties}
                   t={t}
+                  lang={lang}
                 />
               )}
 
               {activeMenu === 'Tracking' && (
-                <Tracking applications={applications} t={t} />
+                <Tracking applications={applications} t={t} lang={lang} />
               )}
 
               {activeMenu === 'FarmerApproval' && (
@@ -1150,6 +1161,7 @@ function App() {
                   setSelectedFarmerApproval={setSelectedFarmerApproval}
                   setSelectedFarmer={setSelectedFarmer}
                   t={t}
+                  lang={lang}
                 />
               )}
 
@@ -1157,6 +1169,7 @@ function App() {
                 <Helpdesk
                   tickets={tickets}
                   setIsNewTicketOpen={setIsNewTicketOpen}
+                  lang={lang}
                 />
               )}
             </main>

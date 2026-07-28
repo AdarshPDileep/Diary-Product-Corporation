@@ -2,6 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { FileSpreadsheet, FileText, Download, Filter } from 'lucide-react';
 import { exportToExcel, exportToPDF } from '../utils/exporters';
 import { reportTypes } from '../mockData';
+import { statusText } from '../i18n';
 
 const fmtINR = (n) => '₹' + Number(n || 0).toLocaleString('en-IN');
 const isApproved = (s) => s === 'Approved' || s === 'Completed';
@@ -143,7 +144,57 @@ function computeReport(type, filters, { schemes, applications, statements, farme
   };
 }
 
-export default function Reports({ schemes, applications, statements, farmers, districts, societies, t }) {
+export default function Reports({ schemes, applications, statements, farmers, districts, societies, t, lang }) {
+  const ui = lang === 'ml' ? {
+    subtitle: 'പദ്ധതി, ജില്ലാ, സംഘം അടിസ്ഥാനത്തിലുള്ളതും ഏകീകൃതവും പ്രതിമാസവും ബാച്ച് അടിസ്ഥാനത്തിലുള്ളതുമായ റിപ്പോർട്ടുകൾ. എക്സൽ അല്ലെങ്കിൽ പിഡിഎഫ് ആയി എക്സ്പോർട്ട് ചെയ്യുക.',
+    excel: 'എക്സൽ',
+    pdf: 'പിഡിഎഫ്',
+    reportType: 'റിപ്പോർട്ട് തരം',
+    scheme: 'പദ്ധതി',
+    district: 'ജില്ല',
+    society: 'സഹകരണ സംഘം',
+    allSchemes: 'എല്ലാ പദ്ധതികളും',
+    allDistricts: 'എല്ലാ ജില്ലകളും',
+    allSocieties: 'എല്ലാ സംഘങ്ങളും',
+    records: 'രേഖ(കൾ)',
+    noRecords: 'തിരഞ്ഞെടുത്ത റിപ്പോർട്ട്/ഫിൽട്ടറുകൾക്ക് രേഖകളൊന്നുമില്ല.',
+    report: 'റിപ്പോർട്ട്',
+    headerLabels: {
+      'Scheme': 'പദ്ധതി',
+      'Applications': 'അപേക്ഷകൾ',
+      'Approved': 'അംഗീകരിച്ചത്',
+      'Pending': 'തീരുമാനമാകാത്തത്',
+      'Rejected': 'നിരസിച്ചത്',
+      'Total Benefit': 'മൊത്തം ആനുകൂല്യം',
+      'District': 'ജില്ല',
+      'Beneficiaries': 'ഗുണഭോക്താക്കൾ',
+      'Total Disbursed': 'മൊത്തം വിതരണം',
+      'Society': 'സഹകരണ സംഘം',
+      'Statement No': 'പ്രസ്താവന നമ്പർ',
+      'Total Amount': 'മൊത്തം തുക',
+      'Status': 'നില',
+      'Month': 'മാസം',
+      'Submitted': 'സമർപ്പിച്ചത്',
+      'Returned': 'തിരികെ നൽകിയത്',
+      'Batch No': 'ബാച്ച് നമ്പർ'
+    }
+  } : {
+    subtitle: 'Scheme-wise, district-wise, society-wise, consolidated, monthly and batch-wise reports. Export to Excel or PDF.',
+    excel: 'Excel',
+    pdf: 'PDF',
+    reportType: 'Report Type',
+    scheme: 'Scheme',
+    district: 'District',
+    society: 'Society',
+    allSchemes: 'All Schemes',
+    allDistricts: 'All Districts',
+    allSocieties: 'All Societies',
+    records: 'record(s)',
+    noRecords: 'No records for the selected report / filters.',
+    report: 'Report',
+    headerLabels: {}
+  };
+
   const [reportType, setReportType] = useState('scheme-wise');
   const [schemeFilter, setSchemeFilter] = useState('');
   const [districtFilter, setDistrictFilter] = useState('');
@@ -154,24 +205,27 @@ export default function Reports({ schemes, applications, statements, farmers, di
     [reportType, schemeFilter, districtFilter, societyFilter, schemes, applications, statements, farmers, districts, societies]
   );
 
-  const activeLabel = reportTypes.find(r => r.key === reportType)?.label || 'Report';
+  const tHeaders = headers.map(h => ({ ...h, label: ui.headerLabels[h.label] ?? h.label }));
 
-  const doExcel = () => exportToExcel(`${reportType}-report`, rows, headers);
-  const doPDF = () => exportToPDF(`${activeLabel} — TRCMPU`, `${reportType}-report`, rows, headers);
+  const rt = reportTypes.find(r => r.key === reportType);
+  const activeLabel = (lang === 'ml' ? rt?.labelMl : rt?.label) || ui.report;
+
+  const doExcel = () => exportToExcel(`${reportType}-report`, rows, tHeaders);
+  const doPDF = () => exportToPDF(`${activeLabel} — TRCMPU`, `${reportType}-report`, rows, tHeaders);
 
   return (
     <div>
       <div className="page-header">
         <div className="page-title">
           <h1>{t('reports')}</h1>
-          <p>Scheme-wise, district-wise, society-wise, consolidated, monthly and batch-wise reports. Export to Excel or PDF.</p>
+          <p>{ui.subtitle}</p>
         </div>
         <div style={{ display: 'flex', gap: '8px' }}>
           <button className="btn btn-secondary" onClick={doExcel} disabled={!rows.length}>
-            <Download size={15} /> Excel
+            <Download size={15} /> {ui.excel}
           </button>
           <button className="btn btn-primary" onClick={doPDF} disabled={!rows.length}>
-            <FileText size={15} /> PDF
+            <FileText size={15} /> {ui.pdf}
           </button>
         </div>
       </div>
@@ -179,17 +233,17 @@ export default function Reports({ schemes, applications, statements, farmers, di
       {/* Filters */}
       <div className="card-section" style={{ padding: '16px 20px', display: 'flex', gap: '12px', flexWrap: 'wrap', alignItems: 'flex-end' }}>
         <div className="form-group" style={{ minWidth: '220px' }}>
-          <label><Filter size={12} style={{ display: 'inline', marginRight: '4px' }} />Report Type</label>
+          <label><Filter size={12} style={{ display: 'inline', marginRight: '4px' }} />{ui.reportType}</label>
           <select className="form-select" value={reportType} onChange={e => { setReportType(e.target.value); setSchemeFilter(''); setDistrictFilter(''); setSocietyFilter(''); }}>
-            {reportTypes.map(r => <option key={r.key} value={r.key}>{r.label}</option>)}
+            {reportTypes.map(r => <option key={r.key} value={r.key}>{lang === 'ml' ? r.labelMl : r.label}</option>)}
           </select>
         </div>
 
         {reportType === 'scheme-wise' && (
           <div className="form-group" style={{ minWidth: '220px' }}>
-            <label>Scheme</label>
+            <label>{ui.scheme}</label>
             <select className="form-select" value={schemeFilter} onChange={e => setSchemeFilter(e.target.value)}>
-              <option value="">All Schemes</option>
+              <option value="">{ui.allSchemes}</option>
               {schemes.map(s => <option key={s.code} value={s.code}>{s.name}</option>)}
             </select>
           </div>
@@ -197,9 +251,9 @@ export default function Reports({ schemes, applications, statements, farmers, di
 
         {reportType === 'district-wise' && (
           <div className="form-group" style={{ minWidth: '200px' }}>
-            <label>District</label>
+            <label>{ui.district}</label>
             <select className="form-select" value={districtFilter} onChange={e => setDistrictFilter(e.target.value)}>
-              <option value="">All Districts</option>
+              <option value="">{ui.allDistricts}</option>
               {districts.map(d => <option key={d.code} value={d.code}>{d.name}</option>)}
             </select>
           </div>
@@ -207,9 +261,9 @@ export default function Reports({ schemes, applications, statements, farmers, di
 
         {reportType === 'society-wise' && (
           <div className="form-group" style={{ minWidth: '220px' }}>
-            <label>Society</label>
+            <label>{ui.society}</label>
             <select className="form-select" value={societyFilter} onChange={e => setSocietyFilter(e.target.value)}>
-              <option value="">All Societies</option>
+              <option value="">{ui.allSocieties}</option>
               {societies.map(s => <option key={s.id} value={s.id}>{s.name}</option>)}
             </select>
           </div>
@@ -220,29 +274,29 @@ export default function Reports({ schemes, applications, statements, farmers, di
       <div className="card-section">
         <div className="card-section-header">
           <span className="card-section-title"><FileSpreadsheet size={16} /> {activeLabel}</span>
-          <span className="card-subtitle">{rows.length} record(s)</span>
+          <span className="card-subtitle">{rows.length} {ui.records}</span>
         </div>
         <div className="table-responsive">
           <table className="app-table">
             <thead>
-              <tr>{headers.map(h => <th key={h.key}>{h.label}</th>)}</tr>
+              <tr>{tHeaders.map(h => <th key={h.key}>{h.label}</th>)}</tr>
             </thead>
             <tbody>
               {rows.map((r, i) => (
                 <tr key={i}>
-                  {headers.map(h => {
+                  {tHeaders.map(h => {
                     const isStatus = h.key === 'status';
                     const val = r[h.key];
                     return isStatus ? (
-                      <td key={h.key}><span className={`badge badge-${val === 'Approved' || val === 'Processed' ? 'approved' : 'pending'}`}>{val}</span></td>
+                      <td key={h.key}><span className={`badge badge-${val === 'Approved' || val === 'Processed' ? 'approved' : 'pending'}`}>{statusText(lang, val)}</span></td>
                     ) : <td key={h.key}>{val}</td>;
                   })}
                 </tr>
               ))}
               {rows.length === 0 && (
                 <tr>
-                  <td colSpan={headers.length} style={{ textAlign: 'center', padding: '24px', color: 'var(--text-light)' }}>
-                    No records for the selected report / filters.
+                  <td colSpan={tHeaders.length} style={{ textAlign: 'center', padding: '24px', color: 'var(--text-light)' }}>
+                    {ui.noRecords}
                   </td>
                 </tr>
               )}

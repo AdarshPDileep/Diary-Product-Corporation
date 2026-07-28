@@ -1,15 +1,38 @@
 import React from 'react';
+import { statusText } from '../i18n';
 
-export default function Helpdesk({ tickets, setIsNewTicketOpen }) {
+export default function Helpdesk({ tickets, setIsNewTicketOpen, lang }) {
+  const ui = lang === 'ml' ? {
+    title: 'ഹെൽപ്പ്ഡെസ്ക് & പിന്തുണാ ടിക്കറ്റുകൾ',
+    subtitle: 'ബഗ് രേഖകൾ, സിസ്റ്റം പ്രശ്നങ്ങൾ അല്ലെങ്കിൽ ലേഔട്ട് ചോദ്യങ്ങൾ രജിസ്റ്റർ ചെയ്യുക.',
+    raiseTicket: 'ടിക്കറ്റ് രജിസ്റ്റർ ചെയ്യുക',
+    ticketNo: 'ടിക്കറ്റ് നമ്പർ',
+    module: 'മോഡ്യൂൾ',
+    category: 'വിഭാഗം',
+    subject: 'വിഷയം',
+    status: 'നില',
+    createdDate: 'സൃഷ്ടിച്ച തീയതി'
+  } : {
+    title: 'Helpdesk & Support Tickets',
+    subtitle: 'Submit bug logs, system issues, or layout queries.',
+    raiseTicket: 'Raise Ticket',
+    ticketNo: 'Ticket No',
+    module: 'Module',
+    category: 'Category',
+    subject: 'Subject',
+    status: 'Status',
+    createdDate: 'Created Date'
+  };
+
   return (
     <div>
       <div className="page-header">
         <div className="page-title">
-          <h1>Helpdesk & Support Tickets</h1>
-          <p>Submit bug logs, system issues, or layout queries.</p>
+          <h1>{ui.title}</h1>
+          <p>{ui.subtitle}</p>
         </div>
         <button className="btn btn-primary" onClick={() => setIsNewTicketOpen(true)}>
-          Raise Ticket
+          {ui.raiseTicket}
         </button>
       </div>
 
@@ -18,12 +41,12 @@ export default function Helpdesk({ tickets, setIsNewTicketOpen }) {
           <table className="app-table">
             <thead>
               <tr>
-                <th>Ticket No</th>
-                <th>Module</th>
-                <th>Category</th>
-                <th>Subject</th>
-                <th>Status</th>
-                <th>Created Date</th>
+                <th>{ui.ticketNo}</th>
+                <th>{ui.module}</th>
+                <th>{ui.category}</th>
+                <th>{ui.subject}</th>
+                <th>{ui.status}</th>
+                <th>{ui.createdDate}</th>
               </tr>
             </thead>
             <tbody>
@@ -33,7 +56,7 @@ export default function Helpdesk({ tickets, setIsNewTicketOpen }) {
                   <td>{tkt.module}</td>
                   <td>{tkt.category}</td>
                   <td>{tkt.subject}</td>
-                  <td><span className="badge badge-pending">{tkt.status}</span></td>
+                  <td><span className="badge badge-pending">{statusText(lang, tkt.status)}</span></td>
                   <td>{tkt.createdDate}</td>
                 </tr>
               ))}

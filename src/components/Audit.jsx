@@ -1,29 +1,59 @@
 import React from 'react';
 import { exportToExcel } from '../utils/exporters';
 
-const auditHeaders = [
-  { label: 'Timestamp', key: 'timestamp' },
-  { label: 'User', key: 'user' },
-  { label: 'Role', key: 'role' },
-  { label: 'Module', key: 'module' },
-  { label: 'Action', key: 'action' },
-  { label: 'Record Ref', key: 'recordId' },
-  { label: 'Prev Value', key: 'prevValue' },
-  { label: 'New Value', key: 'newValue' },
-  { label: 'Remarks', key: 'remarks' },
-  { label: 'IP Address', key: 'ipAddress' }
-];
+export default function Audit({ auditLogs, lang }) {
+  const ui = lang === 'ml' ? {
+    title: 'ഓഡിറ്റ് ലോഗുകൾ & പ്രവർത്തന ലോഗുകൾ',
+    subtitle: 'കർഷക രജിസ്ട്രേഷനുകൾ, അപേക്ഷ സമർപ്പണങ്ങൾ, വർക്ക്ഫ്ലോ അഭിപ്രായങ്ങൾ എന്നിവയുടെ മുഴുവൻ ചരിത്രവും.',
+    exportExcel: 'എക്സൽ എക്സ്പോർട്ട്',
+    timestamp: 'സമയം',
+    user: 'ഉപയോക്താവ്',
+    role: 'പദവി',
+    module: 'മോഡ്യൂൾ',
+    action: 'നടപടി',
+    recordRef: 'രേഖ റഫറൻസ്',
+    prevValue: 'മുൻ മൂല്യം',
+    newValue: 'പുതിയ മൂല്യം',
+    remarks: 'അഭിപ്രായങ്ങൾ',
+    ipAddress: 'ഐപി വിലാസം'
+  } : {
+    title: 'Audit Trail & Activity Log',
+    subtitle: 'Complete historical logs of farmer registrations, application submissions, and workflow comments.',
+    exportExcel: 'Export Excel',
+    timestamp: 'Timestamp',
+    user: 'User',
+    role: 'Role',
+    module: 'Module',
+    action: 'Action',
+    recordRef: 'Record Ref',
+    prevValue: 'Prev Value',
+    newValue: 'New Value',
+    remarks: 'Remarks',
+    ipAddress: 'IP Address'
+  };
 
-export default function Audit({ auditLogs }) {
+  const auditHeaders = [
+    { label: ui.timestamp, key: 'timestamp' },
+    { label: ui.user, key: 'user' },
+    { label: ui.role, key: 'role' },
+    { label: ui.module, key: 'module' },
+    { label: ui.action, key: 'action' },
+    { label: ui.recordRef, key: 'recordId' },
+    { label: ui.prevValue, key: 'prevValue' },
+    { label: ui.newValue, key: 'newValue' },
+    { label: ui.remarks, key: 'remarks' },
+    { label: ui.ipAddress, key: 'ipAddress' }
+  ];
+
   return (
     <div>
       <div className="page-header">
         <div className="page-title">
-          <h1>Audit Trail & Activity Log</h1>
-          <p>Complete historical logs of farmer registrations, application submissions, and workflow comments.</p>
+          <h1>{ui.title}</h1>
+          <p>{ui.subtitle}</p>
         </div>
         <button className="btn btn-secondary" onClick={() => exportToExcel('audit-trail', auditLogs, auditHeaders)}>
-          Export Excel
+          {ui.exportExcel}
         </button>
       </div>
 
@@ -32,14 +62,14 @@ export default function Audit({ auditLogs }) {
           <table className="app-table">
             <thead>
               <tr>
-                <th>Timestamp</th>
-                <th>User</th>
-                <th>Role</th>
-                <th>Module</th>
-                <th>Action</th>
-                <th>Record Ref</th>
-                <th>Remarks</th>
-                <th>IP Address</th>
+                <th>{ui.timestamp}</th>
+                <th>{ui.user}</th>
+                <th>{ui.role}</th>
+                <th>{ui.module}</th>
+                <th>{ui.action}</th>
+                <th>{ui.recordRef}</th>
+                <th>{ui.remarks}</th>
+                <th>{ui.ipAddress}</th>
               </tr>
             </thead>
             <tbody>

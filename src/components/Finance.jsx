@@ -1,39 +1,102 @@
 import React from 'react';
 import { CreditCard, CheckCircle, PieChart, Layers, MapPin, Building2 } from 'lucide-react';
+import { statusText } from '../i18n';
 
 const fmtINR = (n) => '₹' + Number(n || 0).toLocaleString('en-IN');
 
 export default function Finance({
   budgetAllocation, applications, schemes, financeBreakdown,
-  setActivePaymentApp, setMilkBillNo, setPaymentAmount, setPaymentUpdateModal
+  setActivePaymentApp, setMilkBillNo, setPaymentAmount, setPaymentUpdateModal, lang
 }) {
+  const ui = lang === 'ml' ? {
+    dashboardTitle: 'ധനകാര്യം & ബഡ്ജറ്റ് ഡാഷ്ബോർഡ്',
+    dashboardDesc: 'അംഗീകരിച്ച ഗ്രാന്റുകൾ വിതരണം ചെയ്യുകയും പാൽ ബിൽ നമ്പറുകൾ സമന്വയിപ്പിക്കുകയും ചെയ്യുക.',
+    totalAllocated: 'മൊത്തം വകയിരുത്തിയ ബഡ്ജറ്റ്',
+    totalDisbursed: 'മൊത്തം വിതരണം ചെയ്തത്',
+    remainingBalance: 'ശേഷിക്കുന്ന തുക',
+    processingQueue: 'ധനകാര്യ അപേക്ഷാ പ്രോസസ്സിംഗ് ക്യൂ',
+    applicationRef: 'അപേക്ഷ റഫ്',
+    farmer: 'കർഷകൻ',
+    society: 'സഹകരണ സംഘം',
+    sanctionedAmount: 'അനുവദിച്ച തുക',
+    paymentStatus: 'ധനമിടപാട് നില',
+    milkBillRef: 'പാൽ ബിൽ റഫറൻസ്',
+    actions: 'നടപടികൾ',
+    unassigned: 'നൽകിയിട്ടില്ല',
+    updatePayment: 'ധനമിടപാട് അപ്ഡേറ്റ് ചെയ്യുക',
+    completed: 'പൂർത്തിയായി',
+    schemeBudgetTitle: 'പദ്ധതി തിരിച്ചുള്ള ബഡ്ജറ്റ് വിഹിതം',
+    scheme: 'പദ്ധതി',
+    allocated: 'വകയിരുത്തിയത്',
+    utilized: 'ഉപയോഗിച്ചത്',
+    utilization: 'ഉപയോഗം',
+    districtTitle: 'ജില്ല തിരിച്ചുള്ള ചെലവ്',
+    district: 'ജില്ല',
+    expended: 'ചെലവഴിച്ചത്',
+    remaining: 'ശേഷിക്കുന്നത്',
+    societyFundTitle: 'സഹകരണ സംഘം തിരിച്ചുള്ള ഫണ്ട് വിതരണം',
+    fundAllocated: 'വകയിരുത്തിയ ഫണ്ട്',
+    distributed: 'വിതരണം ചെയ്തത്',
+    beneficiaries: 'ഗുണഭോക്താക്കൾ'
+  } : {
+    dashboardTitle: 'Finance & Budget Dashboard',
+    dashboardDesc: 'Disburse approved grants and reconcile Milk Bill numbers.',
+    totalAllocated: 'Total Allocated Budget',
+    totalDisbursed: 'Total Disbursed',
+    remainingBalance: 'Remaining Balance',
+    processingQueue: 'Finance Application Processing Queue',
+    applicationRef: 'Application Ref',
+    farmer: 'Farmer',
+    society: 'Society',
+    sanctionedAmount: 'Sanctioned Amount',
+    paymentStatus: 'Payment Status',
+    milkBillRef: 'Milk Bill Reference',
+    actions: 'Actions',
+    unassigned: 'Unassigned',
+    updatePayment: 'Update Payment',
+    completed: 'Completed',
+    schemeBudgetTitle: 'Scheme-wise Budget Allocation',
+    scheme: 'Scheme',
+    allocated: 'Allocated',
+    utilized: 'Utilized',
+    utilization: 'Utilization',
+    districtTitle: 'District-wise Expenditure',
+    district: 'District',
+    expended: 'Expended',
+    remaining: 'Remaining',
+    societyFundTitle: 'Society-wise Fund Distribution',
+    fundAllocated: 'Fund Allocated',
+    distributed: 'Distributed',
+    beneficiaries: 'Beneficiaries'
+  };
+
   return (
     <div>
       <div className="page-header">
         <div className="page-title">
-          <h1>Finance & Budget Dashboard</h1>
-          <p>Disburse approved grants and reconcile Milk Bill numbers.</p>
+          <h1>{ui.dashboardTitle}</h1>
+          <p>{ui.dashboardDesc}</p>
         </div>
       </div>
 
       <div className="metrics-grid">
         <div className="metric-card">
           <div className="metric-header">
-            <span className="metric-title">Total Allocated Budget</span>
+            <span className="metric-title">{ui.totalAllocated}</span>
             <div className="metric-icon-wrapper"><CreditCard size={16}/></div>
           </div>
           <span className="metric-val">₹{(budgetAllocation.total/100000).toFixed(1)}L</span>
         </div>
         <div className="metric-card">
           <div className="metric-header">
-            <span className="metric-title">Total Disbursed</span>
+            <span className="metric-title">{ui.totalDisbursed}</span>
             <div className="metric-icon-wrapper"><CheckCircle size={16}/></div>
           </div>
           <span className="metric-val">₹{(budgetAllocation.utilized/100000).toFixed(1)}L</span>
         </div>
         <div className="metric-card">
           <div className="metric-header">
-            <span className="metric-title">Remaining Balance</span>
+            <span className="metric-title">{ui.remainingBalance}</span>
             <div className="metric-icon-wrapper"><PieChart size={16}/></div>
           </div>
           <span className="metric-val">₹{((budgetAllocation.total - budgetAllocation.utilized)/100000).toFixed(1)}L</span>
@@ -42,19 +105,19 @@ export default function Finance({
 
       <div className="card-section">
         <div className="card-section-header">
-          <span className="card-section-title">Finance Application Processing Queue</span>
+          <span className="card-section-title">{ui.processingQueue}</span>
         </div>
         <div className="table-responsive">
           <table className="app-table">
             <thead>
               <tr>
-                <th>Application Ref</th>
-                <th>Farmer</th>
-                <th>Society</th>
-                <th>Sanctioned Amount</th>
-                <th>Payment Status</th>
-                <th>Milk Bill Reference</th>
-                <th>Actions</th>
+                <th>{ui.applicationRef}</th>
+                <th>{ui.farmer}</th>
+                <th>{ui.society}</th>
+                <th>{ui.sanctionedAmount}</th>
+                <th>{ui.paymentStatus}</th>
+                <th>{ui.milkBillRef}</th>
+                <th>{ui.actions}</th>
               </tr>
             </thead>
             <tbody>
@@ -68,10 +131,10 @@ export default function Finance({
                     <td>₹{app.benefitAmount.toLocaleString()}</td>
                     <td>
                       <span className={`badge badge-${app.paymentStatus === 'Paid' ? 'approved' : 'pending'}`}>
-                        {app.paymentStatus}
+                        {statusText(lang, app.paymentStatus)}
                       </span>
                     </td>
-                    <td>{app.milkBillRef || <span style={{color: 'var(--text-light)'}}>Unassigned</span>}</td>
+                    <td>{app.milkBillRef || <span style={{color: 'var(--text-light)'}}>{ui.unassigned}</span>}</td>
                     <td>
                       {app.paymentStatus !== 'Paid' ? (
                         <button className="btn btn-primary" style={{padding: '6px 12px', fontSize: '12px'}} onClick={() => {
@@ -80,10 +143,10 @@ export default function Finance({
                           setPaymentAmount(app.benefitAmount);
                           setPaymentUpdateModal(true);
                         }}>
-                          Update Payment
+                          {ui.updatePayment}
                         </button>
                       ) : (
-                        <span style={{fontSize: '12px', color: '#10b981', fontWeight: '600'}}>Completed</span>
+                        <span style={{fontSize: '12px', color: '#10b981', fontWeight: '600'}}>{ui.completed}</span>
                       )}
                     </td>
                   </tr>
@@ -96,16 +159,16 @@ export default function Finance({
       {/* Scheme-wise Budget Allocation (URS §9) */}
       <div className="card-section">
         <div className="card-section-header">
-          <span className="card-section-title"><Layers size={16} /> Scheme-wise Budget Allocation</span>
+          <span className="card-section-title"><Layers size={16} /> {ui.schemeBudgetTitle}</span>
         </div>
         <div className="table-responsive">
           <table className="app-table">
             <thead>
               <tr>
-                <th>Scheme</th>
-                <th>Allocated</th>
-                <th>Utilized</th>
-                <th style={{ minWidth: '180px' }}>Utilization</th>
+                <th>{ui.scheme}</th>
+                <th>{ui.allocated}</th>
+                <th>{ui.utilized}</th>
+                <th style={{ minWidth: '180px' }}>{ui.utilization}</th>
               </tr>
             </thead>
             <tbody>
@@ -136,12 +199,12 @@ export default function Finance({
         {/* District-wise Expenditure */}
         <div className="card-section" style={{ marginBottom: '0' }}>
           <div className="card-section-header">
-            <span className="card-section-title"><MapPin size={16} /> District-wise Expenditure</span>
+            <span className="card-section-title"><MapPin size={16} /> {ui.districtTitle}</span>
           </div>
           <div className="table-responsive">
             <table className="app-table">
               <thead>
-                <tr><th>District</th><th>Allocated</th><th>Expended</th><th>Remaining</th></tr>
+                <tr><th>{ui.district}</th><th>{ui.allocated}</th><th>{ui.expended}</th><th>{ui.remaining}</th></tr>
               </thead>
               <tbody>
                 {(financeBreakdown?.districtWise || []).map((d, i) => (
@@ -160,12 +223,12 @@ export default function Finance({
         {/* Society-wise Fund Distribution */}
         <div className="card-section" style={{ marginBottom: '0' }}>
           <div className="card-section-header">
-            <span className="card-section-title"><Building2 size={16} /> Society-wise Fund Distribution</span>
+            <span className="card-section-title"><Building2 size={16} /> {ui.societyFundTitle}</span>
           </div>
           <div className="table-responsive">
             <table className="app-table">
               <thead>
-                <tr><th>Society</th><th>Fund Allocated</th><th>Distributed</th><th>Beneficiaries</th></tr>
+                <tr><th>{ui.society}</th><th>{ui.fundAllocated}</th><th>{ui.distributed}</th><th>{ui.beneficiaries}</th></tr>
               </thead>
               <tbody>
                 {(financeBreakdown?.societyWise || []).map((s, i) => (
