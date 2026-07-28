@@ -209,6 +209,7 @@ const translations = {
     applicationsSubmission: "Applications submission",
     farmerMasterDetails: "Farmer Master Details",
     financePayment: "Finance & Payment",
+    generalInquiry: "General Inquiry",
     validationError: "Validation Error",
     systemCrash: "System crash / Speed issues",
     subject: "Subject",
@@ -264,7 +265,135 @@ const translations = {
     myApplications: "എന്റെ അപേക്ഷകൾ",
     schemeNotifications: "പദ്ധതി അറിയിപ്പുകൾ",
     schemeWiseCounts: "പദ്ധതി അടിസ്ഥാനത്തിൽ എണ്ണം",
-    fundDistribution: "ഫണ്ട് വിതരണം"
+    fundDistribution: "ഫണ്ട് വിതരണം",
+    // Header greetings
+    goodMorning: "സുപ്രഭാതം",
+    goodAfternoon: "ശുഭ ഉച്ചാഹാരം",
+    goodEvening: "ശുഭ സന്ധ്യ",
+    // Session expired modal
+    sessionExpired: "സെഷൻ കാലഹരണപ്പെട്ടു",
+    sessionExpiredMsg: "നിങ്ങളുടെ ലോഗിൻ സെഷൻ നിഷ്ക്രിയത്വം കാരണം കാലഹരണപ്പെട്ടു. ദയവായി വീണ്ടും പ്രാമാണീകരണം നടത്തുക.",
+    loginAgain: "വീണ്ടും ലോഗിൻ ചെയ്യുക",
+    // Farmer approval/reject modal
+    farmerRecord: "കർഷക രേഖ",
+    remarks: "അഭിപ്രായങ്ങൾ",
+    farmerApprovalRemarksPlaceholder: "ഈ തീരുമാനത്തിനായുള്ള അഭിപ്രായങ്ങൾ ചേർക്കുക (ഓഡിറ്റ് ലോഗിൽ രേഖപ്പെടുത്തും)...",
+    confirmReject: "നിരസിക്കൽ ഉറപ്പാക്കുക",
+    confirmApprove: "അംഗീകാരം ഉറപ്പാക്കുക",
+    // Create Scheme modal
+    configureNewScheme: "പുതിയ പദ്ധതി ക്രമീകരിക്കുക",
+    configureNewSchemeDesc: "പദ്ധതി വിശദാംശങ്ങൾ, യോഗ്യത, ആവശ്യമായ രേഖകൾ, അപേക്ഷാ ഫീൽഡുകൾ എന്നിവ നിർവചിക്കുക.",
+    schemeDetails: "പദ്ധതി വിശദാംശങ്ങൾ",
+    schemeNameEn: "പദ്ധതിയുടെ പേര് (ഇംഗ്ലീഷ്)",
+    schemeNameMl: "പദ്ധതിയുടെ പേര് (മലയാളം)",
+    schemeNamePlaceholder: "ഉദാ. കാളക്കുട്ടി വളർത്തൽ സബ്സിഡി 2026",
+    schemeType: "പദ്ധതി തരം",
+    financialYear: "സാമ്പത്തിക വർഷം",
+    openDate: "തുറക്കുന്ന തീയതി",
+    closeDate: "അടയ്ക്കുന്ന തീയതി",
+    maxBenefitAmount: "പരമാവധി ആനുകൂല്യ തുക (₹)",
+    budgetAllocation: "ബഡ്ജറ്റ് വിഹിതം (₹)",
+    beneficiaryType: "ഗുണഭോക്തൃ തരം",
+    requiredDocs: "ആവശ്യമായ രേഖകൾ (കോമ ഉപയോഗിച്ച് വേർതിരിക്കുക)",
+    eligibilityDesc: "യോഗ്യതയും വിവരണവും",
+    minCattleCount: "കുറഞ്ഞ കന്നുകാലി എണ്ണം",
+    minMilkSupply: "കുറഞ്ഞ പാൽ വിതരണം (ലി/ദിവസം)",
+    descriptionObjective: "വിവരണം / ലക്ഷ്യം",
+    descriptionPlaceholder: "പദ്ധതിയും അതിന്റെ ലക്ഷ്യവും ചുരുക്കത്തിൽ വിവരിക്കുക...",
+    customAppFields: "ഇഷ്ടാനുസൃത അപേക്ഷാ ഫീൽഡുകൾ",
+    noCustomFields: "ഇഷ്ടാനുസൃത ഫീൽഡുകളൊന്നും ചേർത്തിട്ടില്ല — അപേക്ഷാ ഫോം സ്റ്റാൻഡേർഡ് കർഷക പദ്ധതി വിവരങ്ങൾ മാത്രം ശേഖരിക്കും.",
+    remove: "നീക്കംചെയ്യുക",
+    required: "ആവശ്യമാണ്",
+    formBuilderTip: "സൂചന: മലയാളം ലേബലുകളും ഫീൽഡ് നിയന്ത്രണങ്ങളും സജ്ജമാക്കാൻ പ്രത്യേക ഫോം ബിൽഡർ ഉപയോഗിക്കുക.",
+    publishScheme: "പദ്ധതി പ്രസിദ്ധീകരിക്കുക",
+    // Farmer detail modal
+    farmerDetails: "കർഷക വിശദാംശങ്ങൾ",
+    uniqueFarmerId: "അദ്വിതീയ കർഷക ഐഡി",
+    societyId: "സഹകരണ സംഘം ഐഡി",
+    memberNumber: "അംഗ നമ്പർ",
+    cattleCount: "കന്നുകാലി എണ്ണം",
+    cows: "പശുക്കൾ",
+    averageSupply: "ശരാശരി വിതരണം",
+    litersPerDay: "ലിറ്റർ/ദിവസം",
+    bankAccount: "ബാങ്ക് അക്കൗണ്ട്",
+    kycVerification: "KYC പരിശോധന",
+    close: "അടയ്ക്കുക",
+    // Application review modal
+    applicationReview: "അപേക്ഷാ പരിശോധന",
+    farmerInfo: "കർഷക വിവരം",
+    nameLabel: "പേര്:",
+    societyLabel: "സഹകരണ സംഘം:",
+    customSchemeDetails: "ഇഷ്ടാനുസൃത പദ്ധതി വിശദാംശങ്ങൾ",
+    uploadedDocuments: "അപ്‌ലോഡ് ചെയ്ത രേഖകൾ",
+    previewPdf: "PDF പ്രിവ്യൂ",
+    verificationProgress: "പരിശോധന പുരോഗതി",
+    verificationChecklist: "പരിശോധന ചെക്ക്‌ലിസ്റ്റ്",
+    checklistMembership: "കർഷക അംഗത്വം പരിശോധിച്ചു & സജീവം",
+    checklistAadhaar: "ആധാർ തിരിച്ചറി രേഖ പൊരുത്തപ്പെടുന്നു",
+    checklistCattle: "കന്നുകാലി സെൻസസ് എണ്ണ പരിശോധന",
+    checklistDuplicate: "പദ്ധതി വർഷത്തിൽ തനിപ്പകർപ്പ് ആനുകൂല്യങ്ങളൊന്നുമില്ല",
+    verifyForward: "പരിശോധിച്ച് കൈമാറുക (അംഗീകരിക്കുക)",
+    // Statement detail modal
+    statementDetails: "പ്രസ്താവന വിശദാംശങ്ങൾ",
+    consolidatedApplications: "ഏകീകരിച്ച അപേക്ഷകൾ",
+    refNo: "റെഫ് നമ്പർ",
+    applicantName: "അപേക്ഷകന്റെ പേര്",
+    identityDocument: "തിരിച്ചറി രേഖ",
+    schemeSpecificFields: "പദ്ധതി-നിഷ്ട ഫീൽഡുകൾ",
+    amount: "തുക",
+    approveStatement: "പ്രസ്താവന അംഗീകരിക്കുക",
+    // Return for review modal
+    invalidMissingDocuments: "സാധുവല്ലാത്ത/ലഭ്യമല്ലാത്ത രേഖകൾ",
+    incorrectBankDetails: "തെറ്റായ ബാങ്ക് വിശദാംശങ്ങൾ",
+    cattleCountMismatch: "കന്നുകാലി എണ്ണം പൊരുത്തപ്പെടുന്നില്ല",
+    detailedCorrectionRemarks: "വിശദമായ തിരുത്തൽ അഭിപ്രായങ്ങൾ",
+    correctionRemarksPlaceholder: "തിരുത്തലിനുള്ള നിർദ്ദേശങ്ങൾ നൽകുക...",
+    confirmReturn: "തിരിക്കൽ ഉറപ്പാക്കുക",
+    // Rejection modal
+    rejectApplication: "അപേക്ഷ നിരസിക്കുക",
+    rejectionCategory: "നിരസന വിഭാഗം",
+    farmerNotEligible: "കർഷകൻ യോഗ്യനല്ല",
+    duplicateBenefit: "തനിപ്പകർപ്പ് ആനുകൂല്യം",
+    incorrectDeclaration: "തെറ്റായ പ്രഖ്യാപനം",
+    budgetUnavailable: "ബഡ്ജറ്റ് ലഭ്യമല്ല",
+    rejectionRemarks: "നിരസന അഭിപ്രായങ്ങൾ",
+    rejectionRemarksPlaceholder: "നിരസനത്തിന്റെ കൃത്യമായ കാരണങ്ങൾ വിശദീകരിക്കുക...",
+    // Payment modal
+    recordDisbursedPayment: "വിതരണം ചെയ്ത ധനമിടപാട് രേഖപ്പെടുത്തുക",
+    milkBillRefNumber: "പാൽ ബിൽ റഫറൻസ് നമ്പർ",
+    disbursementAmount: "വിതരണ തുക (₹)",
+    confirmPaid: "അടച്ചതായി ഉറപ്പാക്കുക",
+    // New Farmer modal
+    registerNewFarmer: "പുതിയ കർഷക മാസ്റ്റർ രേഖ രജിസ്റ്റർ ചെയ്യുക",
+    farmerNameEnLabel: "കർഷകന്റെ പേര് (ഇംഗ്ലീഷ്)",
+    farmerNameMlLabel: "കർഷകന്റെ പേര് (മലയാളം)",
+    fatherSpouseName: "പിതാവിന്റെ / പങ്കാളിയുടെ പേര്",
+    dateOfBirth: "ജനന തീയതി",
+    mobileNumber: "മൊബൈൽ നമ്പർ",
+    coopSocietyId: "സഹകരണ സംഘം ഐഡി",
+    coopMemberNumber: "സഹകരണ സംഘം അംഗ നമ്പർ",
+    identityProofType: "തിരിച്ചറി തെളിവ് തരം",
+    aadhaarCard: "ആധാർ കാർഡ്",
+    voterId: "വോട്ടർ ഐഡി",
+    rationCard: "റേഷൻ കാർഡ്",
+    identityDocNumber: "തിരിച്ചറി രേഖ നമ്പർ",
+    bankName: "ബാങ്കിന്റെ പേര്",
+    bankAccountNumber: "ബാങ്ക് അക്കൗണ്ട് നമ്പർ",
+    ifscCode: "IFSC കോഡ്",
+    avgDailySupply: "ശരാശരി ദൈനംദിന വിതരണം (ലിറ്റർ)",
+    saveFarmer: "കർഷകനെ സേവ് ചെയ്യുക",
+    // New Ticket modal
+    raiseSupportTicket: "പിന്തുണാ ടിക്കറ്റ് ഉയർത്തുക",
+    moduleContext: "മൊഡ്യൂൾ സന്ദർഭം",
+    applicationsSubmission: "അപേക്ഷകൾ സമർപ്പിക്കൽ",
+    farmerMasterDetails: "കർഷക മാസ്റ്റർ വിശദാംശങ്ങൾ",
+    financePayment: "ധനകാര്യവും ധനമിടപാടും",
+    generalInquiry: "പൊതുവായ അന്വേഷണം",
+    validationError: "മൂല്യനിർണ്ണയ പിശക്",
+    systemCrash: "സിസ്റ്റം തകർച്ച / വേഗതാ പ്രശ്നങ്ങൾ",
+    subject: "വിഷയം",
+    subjectPlaceholder: "പ്രശ്നം ചുരുക്കി പറയുക...",
+    raiseTicket: "ടിക്കറ്റ് ഉയർത്തുക"
   }
 };
 
@@ -945,9 +1074,9 @@ function App() {
         <div className="modal-overlay">
           <div className="auth-card text-center" style={{textAlign: 'center'}}>
             <div className="logo-circle" style={{margin: '0 auto 16px auto'}}><Clock size={24}/></div>
-            <h3 style={{fontSize: '18px', fontWeight: '700', marginBottom: '8px'}}>Session Expired</h3>
-            <p style={{color: 'var(--text-muted)', fontSize: '13px', marginBottom: '24px'}}>Your login session has timed out due to inactivity. Please re-authenticate.</p>
-            <button className="btn btn-primary" style={{width: '100%'}} onClick={() => { setSessionExpired(false); setIsLoggedIn(false); setAuthStep('login'); }}>Login Again</button>
+            <h3 style={{fontSize: '18px', fontWeight: '700', marginBottom: '8px'}}>{t('sessionExpired')}</h3>
+            <p style={{color: 'var(--text-muted)', fontSize: '13px', marginBottom: '24px'}}>{t('sessionExpiredMsg')}</p>
+            <button className="btn btn-primary" style={{width: '100%'}} onClick={() => { setSessionExpired(false); setIsLoggedIn(false); setAuthStep('login'); }}>{t('loginAgain')}</button>
           </div>
         </div>
       )}
@@ -1105,7 +1234,7 @@ function App() {
                 <Menu size={20} />
               </button>
               <div className="nav-greeting">
-                <span className="hello">{(() => { const h = new Date().getHours(); return h < 12 ? 'Good morning' : h < 17 ? 'Good afternoon' : 'Good evening'; })()}, {username.split('_')[0]}</span>
+                <span className="hello">{(() => { const h = new Date().getHours(); return h < 12 ? t('goodMorning') : h < 17 ? t('goodAfternoon') : t('goodEvening'); })()}, {username.split('_')[0]}</span>
                 <span className="sub">{currentRole} · Trivandrum Dairy </span>
               </div>
 
@@ -1312,19 +1441,19 @@ function App() {
         <div className="modal-overlay" style={{zIndex: 110}}>
           <div className="auth-card">
             <h3 style={{fontWeight: '700', fontSize: '16px', marginBottom: '8px', color: selectedFarmerApproval.action === 'reject' ? '#ef4444' : 'var(--text-main)'}}>
-              {selectedFarmerApproval.action === 'reject' ? 'Reject' : 'Approve'} Farmer Record
+              {selectedFarmerApproval.action === 'reject' ? t('reject') : t('approve')} {t('farmerRecord')}
             </h3>
             <p style={{fontSize: '13px', color: 'var(--text-muted)', marginBottom: '14px'}}>
               {selectedFarmerApproval.farmer.name} · <span style={{fontFamily: 'monospace'}}>{selectedFarmerApproval.farmer.farmerId}</span>
             </p>
             <div className="form-group" style={{marginBottom: '16px'}}>
-              <label>Remarks</label>
-              <textarea className="form-textarea" placeholder="Add remarks for this decision (recorded in audit log)..." value={farmerApprovalRemarks} onChange={e => setFarmerApprovalRemarks(e.target.value)} />
+              <label>{t('remarks')}</label>
+              <textarea className="form-textarea" placeholder={t('farmerApprovalRemarksPlaceholder')} value={farmerApprovalRemarks} onChange={e => setFarmerApprovalRemarks(e.target.value)} />
             </div>
             <div style={{display: 'flex', gap: '10px'}}>
-              <button className="btn btn-secondary" style={{flex: 1}} onClick={() => { setSelectedFarmerApproval(null); setFarmerApprovalRemarks(''); }}>Cancel</button>
+              <button className="btn btn-secondary" style={{flex: 1}} onClick={() => { setSelectedFarmerApproval(null); setFarmerApprovalRemarks(''); }}>{t('cancel')}</button>
               <button className={selectedFarmerApproval.action === 'reject' ? 'btn btn-danger' : 'btn btn-primary'} style={{flex: 1}} onClick={selectedFarmerApproval.action === 'reject' ? handleRejectFarmer : handleApproveFarmer}>
-                Confirm {selectedFarmerApproval.action === 'reject' ? 'Reject' : 'Approve'}
+                {selectedFarmerApproval.action === 'reject' ? t('confirmReject') : t('confirmApprove')}
               </button>
             </div>
           </div>
@@ -1337,24 +1466,24 @@ function App() {
           <form className="modal-content" style={{ maxWidth: '840px' }} onSubmit={handleCreateSchemeSubmit}>
             <div className="modal-header">
               <div>
-                <h3 style={{ fontWeight: '700', fontSize: '17px' }}>Configure New Scheme</h3>
-                <p style={{ fontSize: '12px', color: 'var(--text-muted)' }}>Define scheme details, eligibility, required documents and application fields.</p>
+                <h3 style={{ fontWeight: '700', fontSize: '17px' }}>{t('configureNewScheme')}</h3>
+                <p style={{ fontSize: '12px', color: 'var(--text-muted)' }}>{t('configureNewSchemeDesc')}</p>
               </div>
               <button type="button" onClick={() => setIsNewSchemeOpen(false)} style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: '20px' }}>×</button>
             </div>
             <div className="modal-body" style={{ maxHeight: '72vh', overflowY: 'auto' }}>
-              <label style={{ fontSize: '11px', fontWeight: '700', textTransform: 'uppercase', color: 'var(--text-light)', letterSpacing: '0.5px' }}>Scheme Details</label>
+              <label style={{ fontSize: '11px', fontWeight: '700', textTransform: 'uppercase', color: 'var(--text-light)', letterSpacing: '0.5px' }}>{t('schemeDetails')}</label>
               <div className="form-grid" style={{ marginTop: '10px' }}>
                 <div className="form-group">
-                  <label>Scheme Name (English) <span className="required">*</span></label>
-                  <input type="text" className="form-input" value={newScheme.name} onChange={e => setNewScheme({ ...newScheme, name: e.target.value })} placeholder="e.g. Calf Rearing Subsidy 2026" required />
+                  <label>{t('schemeNameEn')} <span className="required">*</span></label>
+                  <input type="text" className="form-input" value={newScheme.name} onChange={e => setNewScheme({ ...newScheme, name: e.target.value })} placeholder={t('schemeNamePlaceholder')} required />
                 </div>
                 <div className="form-group">
-                  <label>Scheme Name (Malayalam)</label>
+                  <label>{t('schemeNameMl')}</label>
                   <input type="text" className="form-input" value={newScheme.nameMl} onChange={e => setNewScheme({ ...newScheme, nameMl: e.target.value })} />
                 </div>
                 <div className="form-group">
-                  <label>Scheme Type</label>
+                  <label>{t('schemeType')}</label>
                   <select className="form-select" value={newScheme.type} onChange={e => setNewScheme({ ...newScheme, type: e.target.value })}>
                     <option>Subsidy</option>
                     <option>Subsidy Support</option>
@@ -1363,52 +1492,52 @@ function App() {
                   </select>
                 </div>
                 <div className="form-group">
-                  <label>Financial Year</label>
+                  <label>{t('financialYear')}</label>
                   <input type="text" className="form-input" value={newScheme.schemeYear} onChange={e => setNewScheme({ ...newScheme, schemeYear: e.target.value })} />
                 </div>
                 <div className="form-group">
-                  <label>Open Date</label>
+                  <label>{t('openDate')}</label>
                   <input type="date" className="form-input" value={newScheme.openDate} onChange={e => setNewScheme({ ...newScheme, openDate: e.target.value })} />
                 </div>
                 <div className="form-group">
-                  <label>Close Date</label>
+                  <label>{t('closeDate')}</label>
                   <input type="date" className="form-input" value={newScheme.closeDate} onChange={e => setNewScheme({ ...newScheme, closeDate: e.target.value })} />
                 </div>
                 <div className="form-group">
-                  <label>Max Benefit Amount (₹)</label>
+                  <label>{t('maxBenefitAmount')}</label>
                   <input type="number" className="form-input" value={newScheme.maxBenefitAmount} onChange={e => setNewScheme({ ...newScheme, maxBenefitAmount: e.target.value })} />
                 </div>
                 <div className="form-group">
-                  <label>Budget Allocation (₹)</label>
+                  <label>{t('budgetAllocation')}</label>
                   <input type="number" className="form-input" value={newScheme.budgetAllocation} onChange={e => setNewScheme({ ...newScheme, budgetAllocation: e.target.value })} />
                 </div>
                 <div className="form-group">
-                  <label>Beneficiary Type</label>
+                  <label>{t('beneficiaryType')}</label>
                   <input type="text" className="form-input" value={newScheme.beneficiaryType} onChange={e => setNewScheme({ ...newScheme, beneficiaryType: e.target.value })} />
                 </div>
                 <div className="form-group">
-                  <label>Required Documents (comma separated)</label>
+                  <label>{t('requiredDocs')}</label>
                   <input type="text" className="form-input" value={newScheme.requiredDocs} onChange={e => setNewScheme({ ...newScheme, requiredDocs: e.target.value })} />
                 </div>
               </div>
 
-              <label style={{ fontSize: '11px', fontWeight: '700', textTransform: 'uppercase', color: 'var(--text-light)', letterSpacing: '0.5px', display: 'block', marginTop: '20px' }}>Eligibility &amp; Description</label>
+              <label style={{ fontSize: '11px', fontWeight: '700', textTransform: 'uppercase', color: 'var(--text-light)', letterSpacing: '0.5px', display: 'block', marginTop: '20px' }}>{t('eligibilityDesc')}</label>
               <div className="form-grid" style={{ marginTop: '10px' }}>
                 <div className="form-group">
-                  <label>Minimum Cattle Count</label>
+                  <label>{t('minCattleCount')}</label>
                   <input type="number" className="form-input" value={newScheme.minCattle} onChange={e => setNewScheme({ ...newScheme, minCattle: e.target.value })} />
                 </div>
                 <div className="form-group">
-                  <label>Minimum Milk Supply (L/day)</label>
+                  <label>{t('minMilkSupply')}</label>
                   <input type="number" className="form-input" value={newScheme.minMilkSupply} onChange={e => setNewScheme({ ...newScheme, minMilkSupply: e.target.value })} />
                 </div>
                 <div className="form-group" style={{ gridColumn: '1 / -1' }}>
-                  <label>Description / Objective</label>
-                  <textarea className="form-textarea" value={newScheme.description} onChange={e => setNewScheme({ ...newScheme, description: e.target.value })} placeholder="Briefly describe the scheme and its objective..." />
+                  <label>{t('descriptionObjective')}</label>
+                  <textarea className="form-textarea" value={newScheme.description} onChange={e => setNewScheme({ ...newScheme, description: e.target.value })} placeholder={t('descriptionPlaceholder')} />
                 </div>
               </div>
 
-              <label style={{ fontSize: '11px', fontWeight: '700', textTransform: 'uppercase', color: 'var(--text-light)', letterSpacing: '0.5px', display: 'block', marginTop: '20px', marginBottom: '10px' }}>Custom Application Fields</label>
+              <label style={{ fontSize: '11px', fontWeight: '700', textTransform: 'uppercase', color: 'var(--text-light)', letterSpacing: '0.5px', display: 'block', marginTop: '20px', marginBottom: '10px' }}>{t('customAppFields')}</label>
               <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '12px' }}>
                 {['text', 'number', 'date', 'select', 'file'].map(tp => (
                   <button key={tp} type="button" className="btn btn-secondary" style={{ padding: '6px 10px', fontSize: '12px', textTransform: 'capitalize' }} onClick={() => handleAddFieldToBuilder(tp)}>
@@ -1417,22 +1546,22 @@ function App() {
                 ))}
               </div>
               {builderFields.length === 0 ? (
-                <p style={{ fontSize: '12px', color: 'var(--text-light)' }}>No custom fields added — the application form will capture standard farmer and scheme data only.</p>
+                <p style={{ fontSize: '12px', color: 'var(--text-light)' }}>{t('noCustomFields')}</p>
               ) : (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                   {builderFields.map(f => (
                     <div key={f.key} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '9px 12px', background: '#F8FAFC', border: '1px solid var(--hairline)', borderRadius: '10px' }}>
-                      <span style={{ fontSize: '13px' }}>{f.label} <span style={{ color: 'var(--text-light)', fontSize: '11px' }}>({f.type}{f.mandatory ? ' · required' : ''})</span></span>
-                      <button type="button" className="btn btn-secondary" style={{ padding: '4px 8px', fontSize: '11px' }} onClick={() => setBuilderFields(builderFields.filter(x => x.key !== f.key))}>Remove</button>
+                      <span style={{ fontSize: '13px' }}>{f.label} <span style={{ color: 'var(--text-light)', fontSize: '11px' }}>({f.type}{f.mandatory ? ` · ${t('required')}` : ''})</span></span>
+                      <button type="button" className="btn btn-secondary" style={{ padding: '4px 8px', fontSize: '11px' }} onClick={() => setBuilderFields(builderFields.filter(x => x.key !== f.key))}>{t('remove')}</button>
                     </div>
                   ))}
                 </div>
               )}
-              <p style={{ fontSize: '11px', color: 'var(--text-light)', marginTop: '10px' }}>Tip: use the dedicated Form Builder to set Malayalam labels and field constraints.</p>
+              <p style={{ fontSize: '11px', color: 'var(--text-light)', marginTop: '10px' }}>{t('formBuilderTip')}</p>
             </div>
             <div className="modal-footer">
-              <button type="button" className="btn btn-secondary" onClick={() => setIsNewSchemeOpen(false)}>Cancel</button>
-              <button type="submit" className="btn btn-primary">Publish Scheme</button>
+              <button type="button" className="btn btn-secondary" onClick={() => setIsNewSchemeOpen(false)}>{t('cancel')}</button>
+              <button type="submit" className="btn btn-primary">{t('publishScheme')}</button>
             </div>
           </form>
         </div>
@@ -1443,23 +1572,23 @@ function App() {
         <div className="modal-overlay">
           <div className="modal-content">
             <div className="modal-header">
-              <h3 style={{fontWeight: '700', fontSize: '18px'}}>Farmer Details: {selectedFarmer.name}</h3>
+              <h3 style={{fontWeight: '700', fontSize: '18px'}}>{t('farmerDetails')}: {selectedFarmer.name}</h3>
               <button onClick={() => setSelectedFarmer(null)} style={{background: 'none', border: 'none', cursor: 'pointer', fontSize: '20px'}}>×</button>
             </div>
             <div className="modal-body">
               <div className="detail-grid">
-                <div className="detail-item"><span className="detail-label">Unique Farmer ID</span><span className="detail-val">{selectedFarmer.farmerId}</span></div>
-                <div className="detail-item"><span className="detail-label">District</span><span className="detail-val">{selectedFarmer.district}</span></div>
-                <div className="detail-item"><span className="detail-label">Society ID</span><span className="detail-val">{selectedFarmer.societyId}</span></div>
-                <div className="detail-item"><span className="detail-label">Member Number</span><span className="detail-val">{selectedFarmer.memberNo}</span></div>
-                <div className="detail-item"><span className="detail-label">Cattle Count</span><span className="detail-val">{selectedFarmer.cattleCount} Cows</span></div>
-                <div className="detail-item"><span className="detail-label">Average supply</span><span className="detail-val">{selectedFarmer.milkSupplyAvg} Liters/Day</span></div>
-                <div className="detail-item"><span className="detail-label">Bank Account</span><span className="detail-val">{selectedFarmer.bankName} - {selectedFarmer.bankAccount}</span></div>
-                <div className="detail-item"><span className="detail-label">KYC Verification</span><span className="detail-val">{selectedFarmer.kycType}: {selectedFarmer.kycNumber}</span></div>
+                <div className="detail-item"><span className="detail-label">{t('uniqueFarmerId')}</span><span className="detail-val">{selectedFarmer.farmerId}</span></div>
+                <div className="detail-item"><span className="detail-label">{t('district')}</span><span className="detail-val">{selectedFarmer.district}</span></div>
+                <div className="detail-item"><span className="detail-label">{t('societyId')}</span><span className="detail-val">{selectedFarmer.societyId}</span></div>
+                <div className="detail-item"><span className="detail-label">{t('memberNumber')}</span><span className="detail-val">{selectedFarmer.memberNo}</span></div>
+                <div className="detail-item"><span className="detail-label">{t('cattleCount')}</span><span className="detail-val">{selectedFarmer.cattleCount} {t('cows')}</span></div>
+                <div className="detail-item"><span className="detail-label">{t('averageSupply')}</span><span className="detail-val">{selectedFarmer.milkSupplyAvg} {t('litersPerDay')}</span></div>
+                <div className="detail-item"><span className="detail-label">{t('bankAccount')}</span><span className="detail-val">{selectedFarmer.bankName} - {selectedFarmer.bankAccount}</span></div>
+                <div className="detail-item"><span className="detail-label">{t('kycVerification')}</span><span className="detail-val">{selectedFarmer.kycType}: {selectedFarmer.kycNumber}</span></div>
               </div>
             </div>
             <div className="modal-footer">
-              <button className="btn btn-secondary" onClick={() => setSelectedFarmer(null)}>Close</button>
+              <button className="btn btn-secondary" onClick={() => setSelectedFarmer(null)}>{t('close')}</button>
             </div>
           </div>
         </div>
@@ -1471,35 +1600,35 @@ function App() {
           <div className="modal-content" style={{maxWidth: '900px'}}>
             <div className="modal-header">
               <div>
-                <h3 style={{fontWeight: '700', fontSize: '16px'}}>Application Review: {selectedApplication.refNo}</h3>
+                <h3 style={{fontWeight: '700', fontSize: '16px'}}>{t('applicationReview')}: {selectedApplication.refNo}</h3>
                 <p style={{fontSize: '12px', color: 'var(--text-muted)'}}>{selectedApplication.schemeName}</p>
               </div>
               <button onClick={() => setSelectedApplication(null)} style={{background: 'none', border: 'none', cursor: 'pointer', fontSize: '20px'}}>×</button>
             </div>
-            
+
             <div className="modal-body split-pane">
               {/* Left pane: application data */}
               <div style={{display: 'flex', flexDirection: 'column', gap: '20px'}}>
                 <div style={{padding: '16px', backgroundColor: '#f8fafc', borderRadius: '8px'}}>
-                  <h4 style={{fontSize: '13px', fontWeight: '700', textTransform: 'uppercase', marginBottom: '10px'}}>Farmer Info</h4>
-                  <p style={{fontSize: '14px'}}><strong>Name:</strong> {selectedApplication.farmerName} ({selectedApplication.farmerId})</p>
-                  <p style={{fontSize: '14px', marginTop: '4px'}}><strong>Society:</strong> {selectedApplication.societyName}</p>
+                  <h4 style={{fontSize: '13px', fontWeight: '700', textTransform: 'uppercase', marginBottom: '10px'}}>{t('farmerInfo')}</h4>
+                  <p style={{fontSize: '14px'}}><strong>{t('nameLabel')}</strong> {selectedApplication.farmerName} ({selectedApplication.farmerId})</p>
+                  <p style={{fontSize: '14px', marginTop: '4px'}}><strong>{t('societyLabel')}</strong> {selectedApplication.societyName}</p>
                 </div>
 
                 <div style={{padding: '16px', backgroundColor: '#f8fafc', borderRadius: '8px'}}>
-                  <h4 style={{fontSize: '13px', fontWeight: '700', textTransform: 'uppercase', marginBottom: '10px'}}>Custom Scheme Details</h4>
+                  <h4 style={{fontSize: '13px', fontWeight: '700', textTransform: 'uppercase', marginBottom: '10px'}}>{t('customSchemeDetails')}</h4>
                   {Object.keys(selectedApplication.data).map(k => (
                     <p style={{fontSize: '14px', key: k}}><strong style={{textTransform: 'capitalize'}}>{k}:</strong> {selectedApplication.data[k]}</p>
                   ))}
                 </div>
 
                 <div>
-                  <h4 style={{fontSize: '13px', fontWeight: '700', textTransform: 'uppercase', marginBottom: '8px'}}>Uploaded Documents</h4>
+                  <h4 style={{fontSize: '13px', fontWeight: '700', textTransform: 'uppercase', marginBottom: '8px'}}>{t('uploadedDocuments')}</h4>
                   <div style={{display: 'flex', gap: '10px'}}>
                     {selectedApplication.documents.map((d, i) => (
                       <div key={i} style={{flex: 1, padding: '10px', border: '1px solid var(--border-color)', borderRadius: '6px', textAlign: 'center', backgroundColor: '#fff', cursor: 'pointer'}} onClick={() => alert('PDF Document Preview loaded with TRCMPU watermark')}>
                         <span style={{fontSize: '12px', fontWeight: '600'}}>{d.name}</span>
-                        <div style={{fontSize: '10px', color: 'var(--text-muted)', marginTop: '4px'}}>Preview PDF</div>
+                        <div style={{fontSize: '10px', color: 'var(--text-muted)', marginTop: '4px'}}>{t('previewPdf')}</div>
                       </div>
                     ))}
                   </div>
@@ -1507,7 +1636,7 @@ function App() {
 
                 {/* Verification timeline history */}
                 <div>
-                  <h4 style={{fontSize: '13px', fontWeight: '700', textTransform: 'uppercase', marginBottom: '8px'}}>Verification Progress</h4>
+                  <h4 style={{fontSize: '13px', fontWeight: '700', textTransform: 'uppercase', marginBottom: '8px'}}>{t('verificationProgress')}</h4>
                   <div className="timeline">
                     {selectedApplication.remarksLog.map((log, index) => (
                       <div key={index} className="timeline-item">
@@ -1531,23 +1660,23 @@ function App() {
 
               {/* Right pane: Checklist & Workflow actions */}
               <div className="verification-checklist-box">
-                <h4 style={{fontSize: '13px', fontWeight: '700', textTransform: 'uppercase', marginBottom: '12px'}}>Verification Checklist</h4>
+                <h4 style={{fontSize: '13px', fontWeight: '700', textTransform: 'uppercase', marginBottom: '12px'}}>{t('verificationChecklist')}</h4>
                 <div style={{display: 'flex', flexDirection: 'column', gap: '8px'}}>
                   <label className="checklist-item">
                     <input type="checkbox" defaultChecked />
-                    <span style={{fontSize: '13px'}}>Farmer membership verified & active</span>
+                    <span style={{fontSize: '13px'}}>{t('checklistMembership')}</span>
                   </label>
                   <label className="checklist-item">
                     <input type="checkbox" defaultChecked />
-                    <span style={{fontSize: '13px'}}>Aadhaar identity documentation matches</span>
+                    <span style={{fontSize: '13px'}}>{t('checklistAadhaar')}</span>
                   </label>
                   <label className="checklist-item">
                     <input type="checkbox" defaultChecked />
-                    <span style={{fontSize: '13px'}}>Cattle census count verification</span>
+                    <span style={{fontSize: '13px'}}>{t('checklistCattle')}</span>
                   </label>
                   <label className="checklist-item">
                     <input type="checkbox" defaultChecked />
-                    <span style={{fontSize: '13px'}}>No duplicate benefits claimed in scheme year</span>
+                    <span style={{fontSize: '13px'}}>{t('checklistDuplicate')}</span>
                   </label>
                 </div>
 
@@ -1556,7 +1685,7 @@ function App() {
                   {selectedApplication.currentLevel !== 'Completed' && (
                     <>
                       <button className="btn btn-primary" style={{width: '100%'}} onClick={() => handleApproveWorkflow(selectedApplication)}>
-                        Verify & Forward (Approve)
+                        {t('verifyForward')}
                       </button>
                       <button className="btn btn-warning" style={{width: '100%'}} onClick={() => setReturnModalOpen(true)}>
                         {t('return')}
@@ -1568,7 +1697,7 @@ function App() {
                       )}
                     </>
                   )}
-                  <button className="btn btn-secondary" style={{width: '100%'}} onClick={() => setSelectedApplication(null)}>Close</button>
+                  <button className="btn btn-secondary" style={{width: '100%'}} onClick={() => setSelectedApplication(null)}>{t('close')}</button>
                 </div>
               </div>
             </div>
@@ -1581,22 +1710,22 @@ function App() {
         <div className="modal-overlay">
           <div className="modal-content">
             <div className="modal-header">
-              <h3 style={{fontWeight: '700', fontSize: '18px'}}>Statement Details: {selectedStatement.stmtNo}</h3>
+              <h3 style={{fontWeight: '700', fontSize: '18px'}}>{t('statementDetails')}: {selectedStatement.stmtNo}</h3>
               <button onClick={() => setSelectedStatement(null)} style={{background: 'none', border: 'none', cursor: 'pointer', fontSize: '20px'}}>×</button>
             </div>
             <div className="modal-body">
-              <p style={{marginBottom: '12px'}}><strong>Consolidated applications ({selectedStatement.applications.length}):</strong></p>
+              <p style={{marginBottom: '12px'}}><strong>{t('consolidatedApplications')} ({selectedStatement.applications.length}):</strong></p>
               <div className="table-responsive">
                 <table className="app-table">
                   <thead>
                     <tr>
-                      <th>Ref No</th>
-                      <th>Applicant Name</th>
-                      <th>Society</th>
-                      <th>Identity Document</th>
-                      <th>Scheme-specific Fields</th>
-                      <th>Amount</th>
-                      <th>Status</th>
+                      <th>{t('refNo')}</th>
+                      <th>{t('applicantName')}</th>
+                      <th>{t('society')}</th>
+                      <th>{t('identityDocument')}</th>
+                      <th>{t('schemeSpecificFields')}</th>
+                      <th>{t('amount')}</th>
+                      <th>{t('status')}</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -1612,7 +1741,7 @@ function App() {
                           <td style={{fontSize: '11px', maxWidth: '220px'}}>{app ? Object.entries(app.data).map(([k, v]) => `${k}: ${v}`).join(', ') : '—'}</td>
                           <td>₹{(app?.benefitAmount || 0).toLocaleString()}</td>
                           <td>
-                            <span className={`badge badge-${app?.status === 'Approved' || app?.status === 'Completed' ? 'approved' : 'pending'}`}>{app?.status || '—'}</span>
+                            <span className={`badge badge-${app?.status === 'Approved' || app?.status === 'Completed' ? 'approved' : 'pending'}`}>{statusText(lang, app?.status) || '—'}</span>
                           </td>
                         </tr>
                       );
@@ -1628,10 +1757,10 @@ function App() {
                   setSelectedStatement(null);
                   alert('Statement approved successfully!');
                 }}>
-                  Approve Statement
+                  {t('approveStatement')}
                 </button>
               )}
-              <button className="btn btn-secondary" onClick={() => setSelectedStatement(null)}>Close</button>
+              <button className="btn btn-secondary" onClick={() => setSelectedStatement(null)}>{t('close')}</button>
             </div>
           </div>
         </div>
@@ -1641,19 +1770,19 @@ function App() {
       {returnModalOpen && (
         <div className="modal-overlay" style={{zIndex: 110}}>
           <div className="auth-card">
-            <h3 style={{fontWeight: '700', fontSize: '16px', marginBottom: '12px'}}>Return for Review</h3>
+            <h3 style={{fontWeight: '700', fontSize: '16px', marginBottom: '12px'}}>{t('return')}</h3>
             <div style={{display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '16px'}}>
-              <label><input type="checkbox" onChange={e => setReturnChecklist({...returnChecklist, documents: e.target.checked})}/> Invalid/Missing Documents</label>
-              <label><input type="checkbox" onChange={e => setReturnChecklist({...returnChecklist, bankDetails: e.target.checked})}/> Incorrect Bank Details</label>
-              <label><input type="checkbox" onChange={e => setReturnChecklist({...returnChecklist, cattleCount: e.target.checked})}/> Cattle Count mismatch</label>
+              <label><input type="checkbox" onChange={e => setReturnChecklist({...returnChecklist, documents: e.target.checked})}/> {t('invalidMissingDocuments')}</label>
+              <label><input type="checkbox" onChange={e => setReturnChecklist({...returnChecklist, bankDetails: e.target.checked})}/> {t('incorrectBankDetails')}</label>
+              <label><input type="checkbox" onChange={e => setReturnChecklist({...returnChecklist, cattleCount: e.target.checked})}/> {t('cattleCountMismatch')}</label>
             </div>
             <div className="form-group" style={{marginBottom: '16px'}}>
-              <label>Detailed Correction Remarks</label>
-              <textarea className="form-textarea" placeholder="Provide instructions for correction..." value={returnRemarks} onChange={e => setReturnRemarks(e.target.value)} required></textarea>
+              <label>{t('detailedCorrectionRemarks')}</label>
+              <textarea className="form-textarea" placeholder={t('correctionRemarksPlaceholder')} value={returnRemarks} onChange={e => setReturnRemarks(e.target.value)} required></textarea>
             </div>
             <div style={{display: 'flex', gap: '10px'}}>
-              <button className="btn btn-secondary" style={{flex: 1}} onClick={() => setReturnModalOpen(false)}>Cancel</button>
-              <button className="btn btn-warning" style={{flex: 1}} onClick={handleReturnToReviewSubmit}>Confirm Return</button>
+              <button className="btn btn-secondary" style={{flex: 1}} onClick={() => setReturnModalOpen(false)}>{t('cancel')}</button>
+              <button className="btn btn-warning" style={{flex: 1}} onClick={handleReturnToReviewSubmit}>{t('confirmReturn')}</button>
             </div>
           </div>
         </div>
@@ -1663,23 +1792,23 @@ function App() {
       {rejectionModalOpen && (
         <div className="modal-overlay" style={{zIndex: 110}}>
           <div className="auth-card">
-            <h3 style={{fontWeight: '700', fontSize: '16px', marginBottom: '12px', color: '#ef4444'}}>Reject Application</h3>
+            <h3 style={{fontWeight: '700', fontSize: '16px', marginBottom: '12px', color: '#ef4444'}}>{t('rejectApplication')}</h3>
             <div className="form-group" style={{marginBottom: '12px'}}>
-              <label>Rejection Category</label>
+              <label>{t('rejectionCategory')}</label>
               <select className="form-select" value={rejectionCategory} onChange={e => setRejectionCategory(e.target.value)}>
-                <option value="Farmer not eligible">Farmer not eligible</option>
-                <option value="Duplicate benefit">Duplicate benefit</option>
-                <option value="Incorrect declaration">Incorrect declaration</option>
-                <option value="Budget unavailable">Budget unavailable</option>
+                <option value="Farmer not eligible">{t('farmerNotEligible')}</option>
+                <option value="Duplicate benefit">{t('duplicateBenefit')}</option>
+                <option value="Incorrect declaration">{t('incorrectDeclaration')}</option>
+                <option value="Budget unavailable">{t('budgetUnavailable')}</option>
               </select>
             </div>
             <div className="form-group" style={{marginBottom: '16px'}}>
-              <label>Rejection Remarks</label>
-              <textarea className="form-textarea" placeholder="Explain the exact reasons for rejection..." value={rejectionRemarks} onChange={e => setRejectionRemarks(e.target.value)} required></textarea>
+              <label>{t('rejectionRemarks')}</label>
+              <textarea className="form-textarea" placeholder={t('rejectionRemarksPlaceholder')} value={rejectionRemarks} onChange={e => setRejectionRemarks(e.target.value)} required></textarea>
             </div>
             <div style={{display: 'flex', gap: '10px'}}>
-              <button className="btn btn-secondary" style={{flex: 1}} onClick={() => setRejectionModalOpen(false)}>Cancel</button>
-              <button className="btn btn-danger" style={{flex: 1}} onClick={handleRejectionSubmit}>Confirm Reject</button>
+              <button className="btn btn-secondary" style={{flex: 1}} onClick={() => setRejectionModalOpen(false)}>{t('cancel')}</button>
+              <button className="btn btn-danger" style={{flex: 1}} onClick={handleRejectionSubmit}>{t('confirmReject')}</button>
             </div>
           </div>
         </div>
@@ -1689,18 +1818,18 @@ function App() {
       {paymentUpdateModal && (
         <div className="modal-overlay">
           <form className="auth-card" onSubmit={handlePaymentUpdateSubmit}>
-            <h3 style={{fontWeight: '700', fontSize: '16px', marginBottom: '12px'}}>Record Disbursed Payment</h3>
+            <h3 style={{fontWeight: '700', fontSize: '16px', marginBottom: '12px'}}>{t('recordDisbursedPayment')}</h3>
             <div className="form-group" style={{marginBottom: '12px'}}>
-              <label>Milk Bill Reference Number</label>
+              <label>{t('milkBillRefNumber')}</label>
               <input type="text" className="form-input" value={milkBillNo} onChange={e => setMilkBillNo(e.target.value)} required />
             </div>
             <div className="form-group" style={{marginBottom: '16px'}}>
-              <label>Disbursement Amount (₹)</label>
+              <label>{t('disbursementAmount')}</label>
               <input type="number" className="form-input" value={paymentAmount} onChange={e => setPaymentAmount(e.target.value)} required />
             </div>
             <div style={{display: 'flex', gap: '10px'}}>
-              <button type="button" className="btn btn-secondary" style={{flex: 1}} onClick={() => setPaymentUpdateModal(false)}>Cancel</button>
-              <button type="submit" className="btn btn-primary" style={{flex: 1}}>Confirm Paid</button>
+              <button type="button" className="btn btn-secondary" style={{flex: 1}} onClick={() => setPaymentUpdateModal(false)}>{t('cancel')}</button>
+              <button type="submit" className="btn btn-primary" style={{flex: 1}}>{t('confirmPaid')}</button>
             </div>
           </form>
         </div>
@@ -1712,79 +1841,79 @@ function App() {
           <div className="modal-content" style={{maxWidth: '750px'}}>
             <form onSubmit={handleCreateFarmer}>
               <div className="modal-header">
-                <h3 style={{fontWeight: '700', fontSize: '16px'}}>Register New Farmer Master Record</h3>
+                <h3 style={{fontWeight: '700', fontSize: '16px'}}>{t('registerNewFarmer')}</h3>
                 <button type="button" onClick={() => setIsNewFarmerOpen(false)} style={{background: 'none', border: 'none', cursor: 'pointer', fontSize: '20px'}}>×</button>
               </div>
               <div className="modal-body" style={{maxHeight: '70vh', overflowY: 'auto'}}>
                 <div className="form-grid">
                   <div className="form-group">
-                    <label>Farmer Name (English)<span className="required">*</span></label>
+                    <label>{t('farmerNameEnLabel')}<span className="required">*</span></label>
                     <input type="text" className="form-input" value={newFarmer.name} onChange={e => setNewFarmer({...newFarmer, name: e.target.value})} required />
                   </div>
                   <div className="form-group">
-                    <label>Farmer Name (Malayalam)<span className="required">*</span></label>
+                    <label>{t('farmerNameMlLabel')}<span className="required">*</span></label>
                     <input type="text" className="form-input" value={newFarmer.nameMl} onChange={e => setNewFarmer({...newFarmer, nameMl: e.target.value})} required />
                   </div>
                   <div className="form-group">
-                    <label>Father / Spouse Name</label>
+                    <label>{t('fatherSpouseName')}</label>
                     <input type="text" className="form-input" value={newFarmer.fatherSpouse} onChange={e => setNewFarmer({...newFarmer, fatherSpouse: e.target.value})} />
                   </div>
                   <div className="form-group">
-                    <label>Date of Birth</label>
+                    <label>{t('dateOfBirth')}</label>
                     <input type="date" className="form-input" value={newFarmer.dob} onChange={e => setNewFarmer({...newFarmer, dob: e.target.value})} />
                   </div>
                   <div className="form-group">
-                    <label>Mobile Number<span className="required">*</span></label>
+                    <label>{t('mobileNumber')}<span className="required">*</span></label>
                     <input type="tel" className="form-input" maxLength={10} value={newFarmer.mobile} onChange={e => setNewFarmer({...newFarmer, mobile: e.target.value})} required />
                   </div>
                   <div className="form-group">
-                    <label>Co-op Society ID<span className="required">*</span></label>
+                    <label>{t('coopSocietyId')}<span className="required">*</span></label>
                     <select className="form-select" value={newFarmer.societyId} onChange={e => setNewFarmer({...newFarmer, societyId: e.target.value})}>
                       <option value="SOC101">SOC101 (Vattiyoorkavu)</option>
                       <option value="SOC102">SOC102 (Kazhakkoottam)</option>
                     </select>
                   </div>
                   <div className="form-group">
-                    <label>Co-op Member Number<span className="required">*</span></label>
+                    <label>{t('coopMemberNumber')}<span className="required">*</span></label>
                     <input type="text" className="form-input" placeholder="e.g. 1004" value={newFarmer.memberNo} onChange={e => setNewFarmer({...newFarmer, memberNo: e.target.value})} required />
                   </div>
                   <div className="form-group">
-                    <label>Identity Proof Type</label>
+                    <label>{t('identityProofType')}</label>
                     <select className="form-select" value={newFarmer.kycType} onChange={e => setNewFarmer({...newFarmer, kycType: e.target.value})}>
-                      <option value="Aadhaar">Aadhaar Card</option>
-                      <option value="Voter ID">Voter ID</option>
-                      <option value="Ration Card">Ration Card</option>
+                      <option value="Aadhaar">{t('aadhaarCard')}</option>
+                      <option value="Voter ID">{t('voterId')}</option>
+                      <option value="Ration Card">{t('rationCard')}</option>
                     </select>
                   </div>
                   <div className="form-group">
-                    <label>Identity Document Number</label>
+                    <label>{t('identityDocNumber')}</label>
                     <input type="text" className="form-input" placeholder="e.g. 1234-5678-9012" value={newFarmer.kycNumber} onChange={e => setNewFarmer({...newFarmer, kycNumber: e.target.value})} />
                   </div>
                   <div className="form-group">
-                    <label>Bank Name</label>
+                    <label>{t('bankName')}</label>
                     <input type="text" className="form-input" value={newFarmer.bankName} onChange={e => setNewFarmer({...newFarmer, bankName: e.target.value})} />
                   </div>
                   <div className="form-group">
-                    <label>Bank Account Number</label>
+                    <label>{t('bankAccountNumber')}</label>
                     <input type="text" className="form-input" value={newFarmer.bankAccount} onChange={e => setNewFarmer({...newFarmer, bankAccount: e.target.value})} />
                   </div>
                   <div className="form-group">
-                    <label>IFSC Code</label>
+                    <label>{t('ifscCode')}</label>
                     <input type="text" className="form-input" value={newFarmer.bankIfsc} onChange={e => setNewFarmer({...newFarmer, bankIfsc: e.target.value})} />
                   </div>
                   <div className="form-group">
-                    <label>Cattle Count</label>
+                    <label>{t('cattleCount')}</label>
                     <input type="number" className="form-input" value={newFarmer.cattleCount} onChange={e => setNewFarmer({...newFarmer, cattleCount: parseInt(e.target.value) || 0})} />
                   </div>
                   <div className="form-group">
-                    <label>Avg Daily Supply (Liters)</label>
+                    <label>{t('avgDailySupply')}</label>
                     <input type="number" className="form-input" value={newFarmer.milkSupplyAvg} onChange={e => setNewFarmer({...newFarmer, milkSupplyAvg: parseFloat(e.target.value) || 0})} />
                   </div>
                 </div>
               </div>
               <div className="modal-footer">
-                <button type="button" className="btn btn-secondary" onClick={() => setIsNewFarmerOpen(false)}>Cancel</button>
-                <button type="submit" className="btn btn-primary">Save Farmer</button>
+                <button type="button" className="btn btn-secondary" onClick={() => setIsNewFarmerOpen(false)}>{t('cancel')}</button>
+                <button type="submit" className="btn btn-primary">{t('saveFarmer')}</button>
               </div>
             </form>
           </div>
@@ -1797,36 +1926,36 @@ function App() {
           <div className="modal-content" style={{maxWidth: '500px'}}>
             <form onSubmit={handleCreateTicket}>
               <div className="modal-header">
-                <h3 style={{fontWeight: '700', fontSize: '16px'}}>Raise Support Ticket</h3>
+                <h3 style={{fontWeight: '700', fontSize: '16px'}}>{t('raiseSupportTicket')}</h3>
                 <button type="button" onClick={() => setIsNewTicketOpen(false)} style={{background: 'none', border: 'none', cursor: 'pointer', fontSize: '20px'}}>×</button>
               </div>
               <div className="modal-body">
                 <div style={{display: 'flex', flexDirection: 'column', gap: '12px'}}>
                   <div className="form-group">
-                    <label>Module context</label>
+                    <label>{t('moduleContext')}</label>
                     <select className="form-select">
-                      <option value="Applications">Applications submission</option>
-                      <option value="Farmer Master">Farmer Master Details</option>
-                      <option value="Finance">Finance & Payment</option>
+                      <option value="Applications">{t('applicationsSubmission')}</option>
+                      <option value="Farmer Master">{t('farmerMasterDetails')}</option>
+                      <option value="Finance">{t('financePayment')}</option>
                     </select>
                   </div>
                   <div className="form-group">
-                    <label>Category</label>
+                    <label>{t('category')}</label>
                     <select className="form-select">
-                      <option value="General Inquiry">General Inquiry</option>
-                      <option value="Validation Error">Validation Error</option>
-                      <option value="System crash">System crash / Speed issues</option>
+                      <option value="General Inquiry">{t('generalInquiry')}</option>
+                      <option value="Validation Error">{t('validationError')}</option>
+                      <option value="System crash">{t('systemCrash')}</option>
                     </select>
                   </div>
                   <div className="form-group">
-                    <label>Subject</label>
-                    <input type="text" className="form-input" placeholder="Summarize the issue..." required />
+                    <label>{t('subject')}</label>
+                    <input type="text" className="form-input" placeholder={t('subjectPlaceholder')} required />
                   </div>
                 </div>
               </div>
               <div className="modal-footer">
-                <button type="button" className="btn btn-secondary" onClick={() => setIsNewTicketOpen(false)}>Cancel</button>
-                <button type="submit" className="btn btn-primary">Raise Ticket</button>
+                <button type="button" className="btn btn-secondary" onClick={() => setIsNewTicketOpen(false)}>{t('cancel')}</button>
+                <button type="submit" className="btn btn-primary">{t('raiseTicket')}</button>
               </div>
             </form>
           </div>
