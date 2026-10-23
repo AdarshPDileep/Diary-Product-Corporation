@@ -5,7 +5,7 @@ import {
   HelpCircle, Shield, Globe, LogOut, ChevronRight, Search, Plus,
   Upload, Download, FileSpreadsheet, Play, CheckCircle, XCircle, Clock,
   TrendingUp, CreditCard, PieChart, Eye, Settings, Info, ArrowLeft, ArrowRight,
-  Database, ShieldAlert, MessageSquare, Lock, Key, RotateCcw, Menu, UserCog
+  Database, ShieldAlert, MessageSquare, Lock, Key, RotateCcw, Menu, UserCog, SlidersHorizontal
 } from 'lucide-react';
 import {
   initialDistricts, initialUnits, initialSocieties, initialFarmers,
@@ -14,7 +14,8 @@ import {
   initialPortalUsers,
   initialPortalRoles,
   getDefaultPermissionsForRole,
-  initialNotifications
+  initialNotifications,
+  initialSystemSettings
 } from './mockData';
 
 // Background photos
@@ -42,6 +43,8 @@ import Reports from './components/Reports';
 import Tracking from './components/Tracking';
 import FarmerApproval from './components/FarmerApproval';
 import RolePermissions from './components/RolePermissions';
+import SystemConfig from './components/SystemConfig';
+import GlobalHeaderSearch from './components/GlobalHeaderSearch';
 
 // Shared status helper for dynamic badge values shown in modals
 import { statusText } from './i18n';
@@ -511,6 +514,9 @@ function App() {
   const [notifications, setNotifications] = useState(initialNotifications);
   const [notificationsOpen, setNotificationsOpen] = useState(false);
   const [profileMenuOpen, setProfileMenuOpen] = useState(false);
+  const [headerSearch, setHeaderSearch] = useState('');
+  const [trackingPrefill, setTrackingPrefill] = useState('');
+  const [systemSettings, setSystemSettings] = useState(initialSystemSettings);
   const [budgetAllocation, setBudgetAllocation] = useState({
     total: 7500000,
     utilized: 1920000,
@@ -628,6 +634,30 @@ function App() {
   }, [selectedApplication, closeDocumentPreview]);
 
   useEffect(() => () => closeDocumentPreview(), [closeDocumentPreview]);
+
+  const handleGlobalSearchNavigate = (item) => {
+    if (item.menu === 'Farmers' && item.farmerSearch) {
+      setFarmerSearch(item.farmerSearch);
+    }
+    if (item.menu === 'Tracking' && item.refNo) {
+      setTrackingPrefill(item.refNo);
+    } else if (item.menu !== 'Tracking') {
+      setTrackingPrefill('');
+    }
+    if (item.type === 'application' && item.refNo) {
+      const app = applications.find((a) => a.refNo === item.refNo);
+      if (app && ['Field Supervisor', 'P&I Officer', 'Section Head', 'Unit Head', 'Functional Head', 'Managing Director', 'Finance Head', 'Super Administrator'].includes(currentRole)) {
+        setSelectedApplication(app);
+      }
+    }
+    setActiveMenu(item.menu);
+    setHeaderSearch('');
+  };
+
+  const handleUpdateScheme = (updated) => {
+    setSchemes((list) => list.map((s) => (s.code === updated.code ? updated : s)));
+    addAuditLog('Scheme Master', 'Scheme', updated.code, 'Update Scheme', '—', updated.name, 'Scheme configuration updated (demo)');
+  };
 
   const handleSavePortalUser = (updatedUser) => {
     const previous = portalUsers.find((u) => u.id === updatedUser.id);
@@ -1327,6 +1357,10 @@ function App() {
                       <span>{t('rolePermissions')}</span>
                     </div>
                   )}
+                  <div className={`menu-item ${activeMenu === 'SystemConfig' ? 'active' : ''}`} onClick={() => setActiveMenu('SystemConfig')}>
+                    <SlidersHorizontal size={18}/>
+                    <span>{t('settings')}</span>
+                  </div>
                 </>
               )}
 
@@ -1374,10 +1408,16 @@ function App() {
                 <span className="sub">{currentRole} · Trivandrum Dairy </span>
               </div>
 
-              <div className="nav-search">
-                <Search size={15} style={{color: 'var(--text-light)'}}/>
-                <input type="text" placeholder={t('search')} />
-              </div>
+              <GlobalHeaderSearch
+                query={headerSearch}
+                setQuery={setHeaderSearch}
+                applications={applications}
+                farmers={farmers}
+                schemes={schemes}
+                lang={lang}
+                placeholder={t('search')}
+                onNavigate={handleGlobalSearchNavigate}
+              />
 
               <div className="nav-actions">
                 {/* LANG SWITCHER */}
@@ -1480,6 +1520,16 @@ function App() {
                 <Schemes
                   schemes={schemes}
                   onCreateScheme={() => openCreateScheme(true)}
+                  onUpdateScheme={handleUpdateScheme}
+                  t={t}
+                  lang={lang}
+                />
+              )}
+
+              {activeMenu === 'SystemConfig' && ['Super Administrator', 'Section Head'].includes(currentRole) && (
+                <SystemConfig
+                  settings={systemSettings}
+                  onSave={setSystemSettings}
                   t={t}
                   lang={lang}
                 />
@@ -1586,7 +1636,7 @@ function App() {
               )}
 
               {activeMenu === 'Tracking' && (
-                <Tracking applications={applications} t={t} lang={lang} />
+                <Tracking applications={applications} t={t} lang={lang} initialQuery={trackingPrefill} />
               )}
 
               {activeMenu === 'FarmerApproval' && (

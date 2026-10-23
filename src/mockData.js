@@ -242,6 +242,41 @@ export const initialSchemes = [
       'Quotation is from an authorized MILMA dealer',
       'Land and farm area verified as suitable'
     ]
+  },
+  {
+    code: 'SCH003',
+    name: 'Dairy Shed Renovation Grant',
+    nameMl: 'പശു കെട്ടിട നവീകരണ ഗ്രാന്റ്',
+    type: 'Grant',
+    description: 'One-time grant for improving ventilation, flooring, and drainage in existing dairy sheds.',
+    objective: 'Improve animal welfare and milk hygiene at society-level farms.',
+    schemeYear: '2025-26',
+    financialYear: '2025-26',
+    openDate: '2025-11-01',
+    closeDate: '2026-03-31',
+    applicableDistricts: ['TVM', 'PTA', 'ALp'],
+    beneficiaryType: 'Society-registered Active Farmer',
+    maxApplications: 1,
+    maxBenefitAmount: 25000,
+    budgetAllocation: 1800000,
+    utilizedBudget: 420000,
+    status: 'Draft',
+    version: '0.9',
+    requiredDocs: ['Shed Photos (Before)', 'Society Recommendation Letter', 'Estimate from Licensed Contractor'],
+    eligibility: {
+      minCattle: 2,
+      minMilkSupply: 8,
+      mustBeActive: true
+    },
+    fields: [
+      { key: 'shedArea', label: 'Shed Area (sq.ft)', labelMl: 'കെട്ടിട വിസ്തീർണ്ണം', type: 'number', mandatory: true },
+      { key: 'contractorName', label: 'Contractor Name', labelMl: 'കോൺട്രാക്ടർ', type: 'text', mandatory: true }
+    ],
+    checklist: [
+      'Before photos dated within 30 days',
+      'Estimate within scheme ceiling verified',
+      'Society secretary recommendation on letterhead'
+    ]
   }
 ];
 
@@ -880,6 +915,21 @@ export const initialPortalUsers = [
     permissions: getBuiltInDefaultPermissions('Super Administrator')
   }
 ];
+
+export const initialSystemSettings = {
+  portalName: 'TRCMPU Farmer Scheme ERP',
+  supportEmail: 'support@trcmpu.org.in',
+  defaultLanguage: 'en',
+  sessionTimeoutMins: 30,
+  maxUploadMb: 10,
+  auditRetentionDays: 365,
+  maintenanceMode: false,
+  otpLoginEnabled: true,
+  notificationEmailEnabled: true,
+  notificationSmsEnabled: false,
+  districtsEnabled: ['TVM', 'KLM', 'PTA', 'ALp'],
+  allDistricts: initialDistricts
+};
 
 export const initialNotifications = [
   {

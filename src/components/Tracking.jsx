@@ -1,12 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Search, CheckCircle, MapPin, CreditCard, Clock, FileText } from 'lucide-react';
 import { statusText } from '../i18n';
 import VerificationTimeline from './VerificationTimeline';
 
-export default function Tracking({ applications, t, lang }) {
-  const [query, setQuery] = useState('');
+export default function Tracking({ applications, t, lang, initialQuery = '' }) {
+  const [query, setQuery] = useState(initialQuery);
   const [result, setResult] = useState(null);
   const [searched, setSearched] = useState(false);
+
+  useEffect(() => {
+    if (!initialQuery?.trim()) return;
+    setQuery(initialQuery);
+    const found = applications.find((a) => a.refNo.toLowerCase() === initialQuery.trim().toLowerCase());
+    setResult(found || null);
+    setSearched(true);
+  }, [initialQuery, applications]);
 
   const ui = lang === 'ml' ? {
     subtitle: 'നിങ്ങളുടെ അപേക്ഷയുടെ റഫറൻസ് നമ്പർ നൽകി നിലവിലെ നില, അംഗീകാര ഘട്ടം, പേയ്മെന്റ് വിശദാംശങ്ങൾ എന്നിവ കാണുക.',
