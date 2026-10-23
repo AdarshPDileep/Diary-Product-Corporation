@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { resolveDocumentPreview } from './utils/documentPreview';
 import {
   Users, Layers, Award, FileText, CheckSquare, RefreshCw, AlertTriangle,
   HelpCircle, Shield, Bell, Globe, LogOut, ChevronRight, Search, Plus,
@@ -23,6 +24,7 @@ import BulkUpload from './components/BulkUpload';
 import Schemes from './components/Schemes';
 import FormBuilder from './components/FormBuilder';
 import SubmitApp from './components/SubmitApp';
+import DocumentPreviewModal from './components/DocumentPreviewModal';
 import ApprovalQueue from './components/ApprovalQueue';
 import Statements from './components/Statements';
 import Finance from './components/Finance';
@@ -147,6 +149,10 @@ const translations = {
     customSchemeDetails: "Custom Scheme Details",
     uploadedDocuments: "Uploaded Documents",
     previewPdf: "Preview PDF",
+    documentPreview: "Document Preview",
+    verificationCopy: "Verification copy",
+    previewWatermarkNote: "TRCMPU watermark applied for audit trail.",
+    download: "Download",
     verificationProgress: "Verification Progress",
     verificationChecklist: "Verification Checklist",
     checklistMembership: "Farmer membership verified & active",
@@ -326,6 +332,10 @@ const translations = {
     customSchemeDetails: "ഇഷ്ടാനുസൃത പദ്ധതി വിശദാംശങ്ങൾ",
     uploadedDocuments: "അപ്‌ലോഡ് ചെയ്ത രേഖകൾ",
     previewPdf: "PDF പ്രിവ്യൂ",
+    documentPreview: "രേഖ പ്രിവ്യൂ",
+    verificationCopy: "പരിശോധനാ പകർപ്പ്",
+    previewWatermarkNote: "TRCMPU വാട്ടർമാർക്ക് ഓഡിറ്റ് ട്രെയിലിനായി പ്രയോഗിച്ചിരിക്കുന്നു.",
+    download: "ഡൗൺലോഡ്",
     verificationProgress: "പരിശോധന പുരോഗതി",
     verificationChecklist: "പരിശോധന ചെക്ക്‌ലിസ്റ്റ്",
     checklistMembership: "കർഷക അംഗത്വം പരിശോധിച്ചു & സജീവം",
@@ -472,6 +482,8 @@ function App() {
   // Modal / Detail States
   const [selectedFarmer, setSelectedFarmer] = useState(null);
   const [selectedApplication, setSelectedApplication] = useState(null);
+  const [documentPreview, setDocumentPreview] = useState(null);
+  const documentPreviewUrlRef = useRef(null);
   const [selectedStatement, setSelectedStatement] = useState(null);
   const [isNewFarmerOpen, setIsNewFarmerOpen] = useState(false);
   const [isNewSchemeOpen, setIsNewSchemeOpen] = useState(false);
@@ -548,6 +560,36 @@ function App() {
 
   // Helper Translate Function
   const t = (key) => translations[lang][key] || key;
+
+  const closeDocumentPreview = useCallback(() => {
+    if (documentPreviewUrlRef.current) {
+      URL.revokeObjectURL(documentPreviewUrlRef.current);
+      documentPreviewUrlRef.current = null;
+    }
+    setDocumentPreview(null);
+  }, []);
+
+  const openDocumentPreview = useCallback((doc) => {
+    if (!selectedApplication) return;
+    closeDocumentPreview();
+    const resolved = resolveDocumentPreview(doc, selectedApplication);
+    if (resolved.revoke) {
+      documentPreviewUrlRef.current = resolved.url;
+    }
+    setDocumentPreview({
+      title: doc.name,
+      fileName: doc.file,
+      refNo: selectedApplication.refNo,
+      kind: resolved.kind,
+      url: resolved.url,
+    });
+  }, [selectedApplication, closeDocumentPreview]);
+
+  useEffect(() => {
+    if (!selectedApplication) closeDocumentPreview();
+  }, [selectedApplication, closeDocumentPreview]);
+
+  useEffect(() => () => closeDocumentPreview(), [closeDocumentPreview]);
 
   // Generate Unique Farmer ID
   const generateFarmerId = (dist, soc, member) => {
@@ -1626,7 +1668,14 @@ function App() {
                   <h4 style={{fontSize: '13px', fontWeight: '700', textTransform: 'uppercase', marginBottom: '8px'}}>{t('uploadedDocuments')}</h4>
                   <div style={{display: 'flex', gap: '10px'}}>
                     {selectedApplication.documents.map((d, i) => (
-                      <div key={i} style={{flex: 1, padding: '10px', border: '1px solid var(--border-color)', borderRadius: '6px', textAlign: 'center', backgroundColor: '#fff', cursor: 'pointer'}} onClick={() => alert('PDF Document Preview loaded with TRCMPU watermark')}>
+                      <div
+                        key={i}
+                        role="button"
+                        tabIndex={0}
+                        style={{flex: 1, padding: '10px', border: '1px solid var(--border-color)', borderRadius: '6px', textAlign: 'center', backgroundColor: '#fff', cursor: 'pointer'}}
+                        onClick={() => openDocumentPreview(d)}
+                        onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openDocumentPreview(d); } }}
+                      >
                         <span style={{fontSize: '12px', fontWeight: '600'}}>{d.name}</span>
                         <div style={{fontSize: '10px', color: 'var(--text-muted)', marginTop: '4px'}}>{t('previewPdf')}</div>
                       </div>
@@ -1703,6 +1752,19 @@ function App() {
             </div>
           </div>
         </div>
+      )}
+
+      {documentPreview && (
+        <DocumentPreviewModal
+          preview={documentPreview}
+          onClose={closeDocumentPreview}
+          labels={{
+            close: t('close'),
+            verificationCopy: t('verificationCopy'),
+            previewWatermarkNote: t('previewWatermarkNote'),
+            download: t('download'),
+          }}
+        />
       )}
 
       {/* DETAILED STATEMENT MODAL VIEW */}
