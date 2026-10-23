@@ -87,7 +87,7 @@ function OfficerDashboard({ farmers, schemes, applications, budgetAllocation, us
   const trendLabels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'];
 
   const ui = lang === 'ml' ? {
-    heroTitle: 'നിങ്ങളുടെ കർഷക പദ്ധതികൾ മികച്ച രീതിയിൽ പുരോഗമിക്കുന്നു 🌱',
+    heroTitle: 'നിങ്ങളുടെ കർഷക പദ്ധതികൾ മികച്ച രീതിയിൽ പുരോഗമിക്കുന്നു',
     heroSub: 'യൂണിയൻ തലത്തിലുള്ള ധനവിതരണം FY 2026-27-ലേക്ക് ലക്ഷ്യത്തിലാണ്. ചക്രത്തിന് മുന്നിൽ നിൽക്കാൻ അംഗീകാരങ്ങൾ തുടർന്നും നൽകുക.',
     activeFarmers: 'സജീവ കർഷകർ',
     openSchemes: 'സജീവ പദ്ധതികൾ',
@@ -123,7 +123,7 @@ function OfficerDashboard({ farmers, schemes, applications, budgetAllocation, us
     livesSuffix: ' ജീവിതങ്ങൾക്ക് പിന്തുണ',
     beneficiariesCycle: 'ഈ ചക്രത്തിലെ ഗുണഭോക്താക്കൾ'
   } : {
-    heroTitle: 'Your farmer schemes are performing excellently 🌱',
+    heroTitle: 'Your farmer schemes are performing excellently',
     heroSub: 'Union-wide disbursements are on track for FY 2026-27. Keep approvals moving to stay ahead of the cycle.',
     activeFarmers: 'Active Farmers',
     openSchemes: 'Open Schemes',
@@ -204,11 +204,11 @@ function OfficerDashboard({ farmers, schemes, applications, budgetAllocation, us
             <span className="card-section-title"><Activity size={16} /> {ui.trendTitle}</span>
             <span className="card-subtitle">{ui.trendSubtitle}</span>
           </div>
-          <div style={{ padding: '8px 22px 18px' }}>
-            <div style={{ display: 'flex', alignItems: 'baseline', gap: '12px', marginBottom: '6px' }}>
-              <span style={{ fontSize: '26px', fontWeight: 800, color: 'var(--text-main)' }}>{applications.length}</span>
-              <span style={{ fontSize: '12px', color: 'var(--text-muted)' }}>{ui.totalThisCycle}</span>
-              <span className="trend-up" style={{ fontSize: '12px', marginLeft: 'auto' }}><TrendingUp size={13} /> +12.5%</span>
+          <div className="dashboard-chart-body">
+            <div className="dashboard-chart-highlight">
+              <span className="dashboard-chart-highlight-val">{applications.length}</span>
+              <span className="dashboard-chart-highlight-sub">{ui.totalThisCycle}</span>
+              <span className="trend-up dashboard-chart-highlight-trend"><TrendingUp size={13} /> +12.5%</span>
             </div>
             <div className="area-chart-wrap"><AreaChart data={trendData} labels={trendLabels} color="#2196F3" /></div>
           </div>
@@ -218,7 +218,7 @@ function OfficerDashboard({ farmers, schemes, applications, budgetAllocation, us
             <span className="card-section-title"><PieChart size={16} /> {ui.performanceTitle}</span>
             <span className="card-subtitle">{ui.performanceSubtitle}</span>
           </div>
-          <div className="ring-row">
+          <div className="ring-row dashboard-ring-panel">
             <ProgressRing value={utilPct} label={ui.budgetUsed} color="#2196F3" />
             <ProgressRing value={approvalRate} label={ui.approvalRate} color="#4CAF50" />
             <ProgressRing value={adoptionPct} label={ui.schemeAdoption} color="#26A69A" />
@@ -226,7 +226,7 @@ function OfficerDashboard({ farmers, schemes, applications, budgetAllocation, us
         </div>
       </div>
 
-      <div className="dashboard-grid" style={{ marginTop: '22px' }}>
+      <div className="dashboard-grid">
         <div className="card-section">
           <div className="card-section-header">
             <span className="card-section-title">{ui.recentApps}</span>
@@ -237,22 +237,30 @@ function OfficerDashboard({ farmers, schemes, applications, budgetAllocation, us
               <tbody>
                 {applications.slice(0, 5).map(app => (
                   <tr key={app.id}>
-                    <td><span style={{ fontFamily: 'monospace', fontWeight: '600' }}>{app.refNo}</span></td>
+                    <td><span className="cell-mono">{app.refNo}</span></td>
                     <td>{app.farmerName}</td>
-                    <td style={{ maxWidth: '180px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{app.schemeName}</td>
+                    <td className="cell-ellipsis">{app.schemeName}</td>
                     <td><span className={`badge badge-${app.status.toLowerCase().includes('pending') ? 'pending' : app.status.toLowerCase().includes('return') ? 'returned' : app.status.toLowerCase()}`}>{statusText(lang, app.status)}</span></td>
-                    <td><button className="btn btn-secondary" style={{ padding: '5px 10px', fontSize: '11px' }} onClick={() => setSelectedApplication(app)}><Eye size={12} /> {ui.view}</button></td>
+                    <td>
+                      <button type="button" className="btn btn-secondary btn-sm" onClick={() => setSelectedApplication(app)}>
+                        <Eye size={12} /> {ui.view}
+                      </button>
+                    </td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
         </div>
-        <div className="card-section" style={{ padding: '20px 22px' }}>
-          <h4 style={{ fontSize: '14px', fontWeight: '700', marginBottom: '14px', display: 'flex', alignItems: 'center', gap: '6px' }}><Leaf size={16} style={{ color: 'var(--primary-color)' }} /> {ui.unionImpact}</h4>
-          <div className="env-impact-row"><div className="env-impact-icon"><Beef size={20} /></div><div className="env-impact-text"><div className="t">{farmers.reduce((s, f) => s + (f.cattleCount || 0), 0).toLocaleString()}{ui.cattleSuffix}</div><div className="d">{ui.acrossFarmers}</div></div></div>
-          <div className="env-impact-row"><div className="env-impact-icon"><Sprout size={20} /></div><div className="env-impact-text"><div className="t">{totalMilk.toFixed(0)}{ui.milkSuffix}</div><div className="d">{ui.avgDailySupply}</div></div></div>
-          <div className="env-impact-row"><div className="env-impact-icon"><Users size={20} /></div><div className="env-impact-text"><div className="t">{applications.length}{ui.livesSuffix}</div><div className="d">{ui.beneficiariesCycle}</div></div></div>
+        <div className="card-section dashboard-impact-card">
+          <div className="card-section-header">
+            <span className="card-section-title"><Leaf size={16} /> {ui.unionImpact}</span>
+          </div>
+          <div className="card-section-body">
+            <div className="env-impact-row"><div className="env-impact-icon"><Beef size={20} /></div><div className="env-impact-text"><div className="t">{farmers.reduce((s, f) => s + (f.cattleCount || 0), 0).toLocaleString()}{ui.cattleSuffix}</div><div className="d">{ui.acrossFarmers}</div></div></div>
+            <div className="env-impact-row"><div className="env-impact-icon"><Sprout size={20} /></div><div className="env-impact-text"><div className="t">{totalMilk.toFixed(0)}{ui.milkSuffix}</div><div className="d">{ui.avgDailySupply}</div></div></div>
+            <div className="env-impact-row"><div className="env-impact-icon"><Users size={20} /></div><div className="env-impact-text"><div className="t">{applications.length}{ui.livesSuffix}</div><div className="d">{ui.beneficiariesCycle}</div></div></div>
+          </div>
         </div>
       </div>
     </>
@@ -394,7 +402,7 @@ function FinanceDashboard({ budgetAllocation, schemes, setActiveMenu, t, lang })
   const remaining = budgetAllocation.total - budgetAllocation.utilized;
 
   const ui = lang === 'ml' ? {
-    heroTitle: 'ധനകാര്യ അവലോകനം · FY 2026-27 💰',
+    heroTitle: 'ധനകാര്യ അവലോകനം · FY 2026-27',
     heroSubRest: 'ബഡ്ജറ്റ് വകയിരുത്തൽ, ഉപയോഗം, ജില്ലാ/സഹകരണ സംഘം തലത്തിലുള്ള ചെലവ് എന്നിവ പിന്തുടരുക.',
     allocated: 'വകയിരുത്തിയത്',
     utilized: 'ഉപയോഗിച്ചത്',
@@ -406,7 +414,7 @@ function FinanceDashboard({ budgetAllocation, schemes, setActiveMenu, t, lang })
     paymentAwaitingSuffix: ' ധനമിടപാടിനായി കാത്തിരിക്കുന്നു',
     openFinanceModule: 'ധനകാര്യ മൊഡ്യൂൾ തുറക്കുക'
   } : {
-    heroTitle: 'Finance overview · FY 2026-27 💰',
+    heroTitle: 'Finance overview · FY 2026-27',
     heroSubRest: 'Track budget allocation, utilization and district/society-wise expenditure.',
     allocated: 'Allocated',
     utilized: 'Utilized',
@@ -474,7 +482,7 @@ export default function Dashboard(props) {
     : { region: 'Trivandrum Region Co-operative Milk Producers Union' };
 
   return (
-    <div>
+    <div className="dashboard-view">
       <div className="page-header">
         <div className="page-title">
           <h1>{props.t('dashboard')}</h1>

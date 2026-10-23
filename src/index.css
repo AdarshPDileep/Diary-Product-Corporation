@@ -804,6 +804,10 @@ body {
 }
 
 @media (max-width: 1100px) {
+  .dashboard-view .metrics-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .config-grid {
     grid-template-columns: 1fr;
   }
@@ -1280,14 +1284,109 @@ body {
   z-index: var(--z-main);
 }
 
-/* Dashboard background — outdoor grazing image with a light scrim for card readability */
-.main-content.dashboard-bg {
+/* Dashboard — full-bleed photo with strong scrim; cards stay readable */
+.main-content--dashboard {
+  background-color: #dce6ef;
   background-image:
-    linear-gradient(135deg, rgba(247, 251, 255, 0.86) 0%, rgba(235, 245, 239, 0.5) 100%),
-    url('./assets/photorealistic-view-cow-grazing-outdoors\ \(1\).jpg');
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.93) 0%,
+      rgba(248, 250, 252, 0.88) 38%,
+      rgba(241, 248, 244, 0.82) 100%
+    ),
+    linear-gradient(120deg, rgba(30, 136, 229, 0.12) 0%, transparent 55%),
+    url('./assets/photorealistic-view-cow-grazing-outdoors (1).jpg');
   background-size: cover;
-  background-position: center;
+  background-position: center 35%;
   background-repeat: no-repeat;
+}
+
+@media (min-width: 901px) {
+  .main-content--dashboard {
+    background-attachment: fixed;
+  }
+}
+
+.dashboard-view {
+  width: 100%;
+}
+
+.dashboard-view .page-header {
+  margin-bottom: 20px;
+  padding: 18px 22px;
+  background: rgba(255, 255, 255, 0.78);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.95);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.dashboard-view .metric-card,
+.dashboard-view .card-section {
+  background: rgba(255, 255, 255, 0.97);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-color: rgba(230, 236, 244, 0.95);
+  box-shadow: 0 8px 28px rgba(15, 23, 42, 0.06);
+}
+
+.dashboard-view .hero-card {
+  margin-bottom: 20px;
+  box-shadow: 0 22px 50px rgba(21, 101, 192, 0.32);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+}
+
+.dashboard-view .metrics-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+  margin-bottom: 20px;
+}
+
+.dashboard-view .dashboard-grid {
+  gap: 20px;
+}
+
+.dashboard-view .dashboard-grid + .dashboard-grid {
+  margin-top: 20px;
+}
+
+.dashboard-chart-highlight {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 10px 14px;
+  margin-bottom: 4px;
+}
+
+.dashboard-chart-highlight-val {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--text-main);
+  letter-spacing: -0.5px;
+}
+
+.dashboard-chart-highlight-sub {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.dashboard-chart-highlight-trend {
+  margin-left: auto;
+  font-size: 12px;
+}
+
+.dashboard-chart-body {
+  padding: 6px 22px 22px;
+}
+
+.dashboard-ring-panel {
+  padding: 12px 22px 26px;
+}
+
+.dashboard-impact-card .card-section-body {
+  padding-top: 6px;
 }
 
 /* Themed per-page background photos (see PAGE_BACKGROUNDS in App.jsx).
@@ -1696,6 +1795,13 @@ body {
 .cell-error { color: #c62828; font-size: 12px; font-weight: 500; }
 .cell-success { color: #2e7d32; font-size: 12px; font-weight: 500; }
 
+.cell-ellipsis {
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .file-upload-zone {
   position: relative;
   display: flex;
@@ -1982,6 +2088,52 @@ body {
   min-width: 240px;
   max-width: none;
   width: auto;
+}
+
+.tracking-demo-notice {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 16px;
+  margin-bottom: 18px;
+  border-radius: 12px;
+  background: #eff6ff;
+  border: 1px solid rgba(33, 150, 243, 0.22);
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--text-muted);
+  line-height: 1.45;
+}
+
+.tracking-demo-notice svg {
+  flex-shrink: 0;
+  margin-top: 1px;
+  color: var(--primary-color);
+}
+
+.tracking-metric-val {
+  font-size: 16px;
+}
+
+.tracking-metric-val-sm {
+  font-size: 15px;
+}
+
+.tracking-badge-wrap {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.tracking-metric-inline {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.tracking-unassigned {
+  color: var(--text-light);
+  font-size: 13px;
+  font-weight: 600;
 }
 
 .modal-panel {

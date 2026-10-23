@@ -18,9 +18,6 @@ import {
   initialSystemSettings
 } from './mockData';
 
-// Background photos
-import dashboardBgImg from './assets/photorealistic-view-cow-grazing-outdoors (1).jpg';
-
 // Component Pages
 import Auth from './components/Auth';
 import Dashboard from './components/Dashboard';
@@ -463,9 +460,7 @@ const demoRoles = [
 
 // Background photo is used only on the Dashboard (the login screen has its own
 // backdrop defined in CSS). All other pages render on a clean neutral surface.
-const PAGE_BACKGROUNDS = {
-  Dashboard: dashboardBgImg // local uploaded cow-grazing photo (src/assets)
-};
+/** Dashboard hero photo is applied via `.main-content--dashboard` in index.css */
 
 // Persist login across page refreshes (role + last page, never the password)
 const SESSION_KEY = 'trcmpu_session';
@@ -1219,14 +1214,7 @@ function App() {
     alert(`Support ticket raised successfully. Ticket No: ${tNo}`);
   };
 
-  // Resolve the themed background image + readability overlay for the active page
-  const pagePhoto = PAGE_BACKGROUNDS[activeMenu];
-  const mainBgStyle = pagePhoto ? {
-    backgroundImage: `linear-gradient(135deg, rgba(247,250,252,0.66) 0%, rgba(236,244,240,0.40) 100%), url('${pagePhoto}')`,
-    backgroundSize: 'cover',
-    backgroundPosition: 'center center',
-    backgroundRepeat: 'no-repeat'
-  } : undefined;
+  const isDashboardPage = activeMenu === 'Dashboard';
 
   return (
     <div id="root">
@@ -1476,7 +1464,7 @@ function App() {
             </header>
 
             {/* MAIN PORTAL AREA */}
-            <main className="main-content page-bg" style={mainBgStyle}>
+            <main className={`main-content ${isDashboardPage ? 'main-content--dashboard' : 'page-bg'}`}>
               <div className="page-shell">
               {activeMenu === 'Dashboard' && (
                 <Dashboard

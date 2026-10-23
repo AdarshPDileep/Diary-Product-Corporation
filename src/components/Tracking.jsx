@@ -1,27 +1,37 @@
 import React, { useState, useEffect } from 'react';
-import { Search, CheckCircle, MapPin, CreditCard, Clock, FileText } from 'lucide-react';
+import { Search, CheckCircle, MapPin, CreditCard, Clock, FileText, Info } from 'lucide-react';
 import { statusText } from '../i18n';
 import VerificationTimeline from './VerificationTimeline';
+import { resolveTrackingResult } from '../utils/trackingResolve';
 
 export default function Tracking({ applications, t, lang, initialQuery = '' }) {
   const [query, setQuery] = useState(initialQuery);
-  const [result, setResult] = useState(null);
+  const [resolved, setResolved] = useState(null);
   const [searched, setSearched] = useState(false);
+
+  const runSearch = (value) => {
+    const q = value.trim();
+    if (!q) {
+      setResolved(null);
+      setSearched(false);
+      return;
+    }
+    setResolved(resolveTrackingResult(q, applications));
+    setSearched(true);
+  };
 
   useEffect(() => {
     if (!initialQuery?.trim()) return;
     setQuery(initialQuery);
-    const found = applications.find((a) => a.refNo.toLowerCase() === initialQuery.trim().toLowerCase());
-    setResult(found || null);
+    setResolved(resolveTrackingResult(initialQuery, applications));
     setSearched(true);
   }, [initialQuery, applications]);
 
   const ui = lang === 'ml' ? {
     subtitle: 'നിങ്ങളുടെ അപേക്ഷയുടെ റഫറൻസ് നമ്പർ നൽകി നിലവിലെ നില, അംഗീകാര ഘട്ടം, പേയ്മെന്റ് വിശദാംശങ്ങൾ എന്നിവ കാണുക.',
-    searchPlaceholder: 'ഉദാ: FSA-2026-0000088',
+    searchPlaceholder: 'ഉദാ: FSA-2026-0000088 അല്ലെങ്കിൽ ഏതെങ്കിലും റഫ് നമ്പർ',
     trackBtn: 'അപേക്ഷാ ട്രാക്കിംഗ്',
-    notFoundTitle: 'അപേക്ഷ കണ്ടെത്താനായില്ല',
-    notFoundSub: 'റഫറൻസ് നമ്പർ പരിശോധിച്ച് വീണ്ടും ശ്രമിക്കുക.',
+    enterRef: 'ട്രാക്ക് ചെയ്യാൻ ഒരു റഫറൻസ് നമ്പർ നൽകുക.',
     submitted: 'സമർപ്പിച്ചത്',
     applicant: 'അപേക്ഷകൻ',
     approvalStatus: 'അംഗീകാര നില',
@@ -31,32 +41,34 @@ export default function Tracking({ applications, t, lang, initialQuery = '' }) {
     milkBillRef: 'പാൽ ബിൽ റഫറൻസ്',
     unassigned: 'നൽകിയിട്ടില്ല',
     verificationProgress: 'പരിശോധനാ പുരോഗതി',
+    demoNotice: 'ഡെമോ ട്രാക്കർ — ഈ റഫറൻസ് mock ഡാറ്റയിൽ ഇല്ല; സാമ്പിൾ workflow കാണിക്കുന്നു.'
   } : {
-    subtitle: 'Enter your application Reference Number to view its current status, approval stage, and payment details.',
-    searchPlaceholder: 'e.g. FSA-2026-0000088',
-    trackBtn: 'Track Application',
-    notFoundTitle: 'No application found',
-    notFoundSub: 'Please check the Reference Number and try again.',
+    subtitle: 'Enter your application reference number to view status, approval stage, and payment details.',
+    searchPlaceholder: 'e.g. FSA-2026-0000088 or any reference',
+    trackBtn: 'Track application',
+    enterRef: 'Enter a reference number to track.',
     submitted: 'Submitted',
     applicant: 'Applicant',
-    approvalStatus: 'Approval Status',
+    approvalStatus: 'Approval status',
     atLevel: (level) => `At ${level} level`,
-    paymentStatus: 'Payment Status',
+    paymentStatus: 'Payment status',
     sanctioned: (amount) => `₹${amount} sanctioned`,
-    milkBillRef: 'Milk Bill Reference',
+    milkBillRef: 'Milk bill reference',
     unassigned: 'Unassigned',
-    verificationProgress: 'Verification Progress',
+    verificationProgress: 'Verification progress',
+    demoNotice: 'Demo tracker — this reference is not in sample data; showing a sample workflow for demonstration.'
   };
 
   const handleSearch = (e) => {
     e.preventDefault();
-    const found = applications.find(a => a.refNo.toLowerCase() === query.trim().toLowerCase());
-    setResult(found || null);
-    setSearched(true);
+    runSearch(query);
   };
 
+  const result = resolved?.app;
+  const isDemo = resolved?.isDemo;
+
   return (
-    <div>
+    <div className="tracking-page">
       <div className="page-header">
         <div className="page-title">
           <h1>{t('tracking')}</h1>
@@ -64,7 +76,6 @@ export default function Tracking({ applications, t, lang, initialQuery = '' }) {
         </div>
       </div>
 
-      {/* Search */}
       <div className="card-section">
         <div className="card-section-body card-section-body--compact">
           <form onSubmit={handleSearch} className="track-search-form">
@@ -84,20 +95,23 @@ export default function Tracking({ applications, t, lang, initialQuery = '' }) {
         </div>
       </div>
 
-      {/* Result */}
       {searched && !result && (
         <div className="card-section">
           <div className="empty-state">
-            <CheckCircle size={32} className="empty-state-icon" aria-hidden />
-            <div className="empty-state-title">{ui.notFoundTitle}</div>
-            <div className="empty-state-sub">{ui.notFoundSub}</div>
+            <div className="empty-state-title">{ui.enterRef}</div>
           </div>
         </div>
       )}
 
       {result && (
         <>
-          {/* Status summary */}
+          {isDemo && (
+            <div className="tracking-demo-notice" role="status">
+              <Info size={18} aria-hidden />
+              <span>{ui.demoNotice}</span>
+            </div>
+          )}
+
           <div className="card-section">
             <div className="card-section-header">
               <span className="card-section-title">
@@ -112,7 +126,9 @@ export default function Tracking({ applications, t, lang, initialQuery = '' }) {
                     <span className="metric-title">{ui.applicant}</span>
                     <div className="metric-icon-wrapper"><FileText size={16} /></div>
                   </div>
-                  <span className="metric-val" style={{ fontSize: '16px' }}>{result.farmerName}</span>
+                  <span className="metric-val tracking-metric-val">
+                    {lang === 'ml' && result.farmerNameMl ? result.farmerNameMl : result.farmerName}
+                  </span>
                   <span className="metric-desc">{result.schemeName}</span>
                 </div>
 
@@ -121,10 +137,12 @@ export default function Tracking({ applications, t, lang, initialQuery = '' }) {
                     <span className="metric-title">{ui.approvalStatus}</span>
                     <div className="metric-icon-wrapper"><CheckCircle size={16} /></div>
                   </div>
-                  <span style={{ fontSize: '15px', fontWeight: '700' }}>
-                    <span className={`badge badge-${result.status === 'Approved' || result.status === 'Completed' ? 'approved' : 'pending'}`}>{statusText(lang, result.status)}</span>
+                  <span className="tracking-badge-wrap">
+                    <span className={`badge badge-${result.status === 'Approved' || result.status === 'Completed' ? 'approved' : 'pending'}`}>
+                      {statusText(lang, result.status)}
+                    </span>
                   </span>
-                  <span className="metric-desc" style={{ display: 'flex', alignItems: 'center', gap: '4px' }}><Clock size={12} /> {ui.atLevel(result.currentLevel)}</span>
+                  <span className="metric-desc tracking-metric-inline"><Clock size={12} /> {ui.atLevel(result.currentLevel)}</span>
                 </div>
 
                 <div className="metric-card">
@@ -132,10 +150,12 @@ export default function Tracking({ applications, t, lang, initialQuery = '' }) {
                     <span className="metric-title">{ui.paymentStatus}</span>
                     <div className="metric-icon-wrapper"><CreditCard size={16} /></div>
                   </div>
-                  <span style={{ fontSize: '15px', fontWeight: '700' }}>
-                    <span className={`badge badge-${result.paymentStatus === 'Paid' ? 'approved' : 'pending'}`}>{statusText(lang, result.paymentStatus)}</span>
+                  <span className="tracking-badge-wrap">
+                    <span className={`badge badge-${result.paymentStatus === 'Paid' ? 'approved' : 'pending'}`}>
+                      {statusText(lang, result.paymentStatus)}
+                    </span>
                   </span>
-                  <span className="metric-desc">{ui.sanctioned(result.benefitAmount.toLocaleString())}</span>
+                  <span className="metric-desc">{ui.sanctioned(result.benefitAmount.toLocaleString('en-IN'))}</span>
                 </div>
 
                 <div className="metric-card">
@@ -143,14 +163,15 @@ export default function Tracking({ applications, t, lang, initialQuery = '' }) {
                     <span className="metric-title">{ui.milkBillRef}</span>
                     <div className="metric-icon-wrapper"><MapPin size={16} /></div>
                   </div>
-                  <span className="metric-val" style={{ fontSize: '15px' }}>{result.milkBillRef || <span style={{ color: 'var(--text-light)', fontSize: '13px' }}>{ui.unassigned}</span>}</span>
+                  <span className="metric-val tracking-metric-val-sm">
+                    {result.milkBillRef || <span className="tracking-unassigned">{ui.unassigned}</span>}
+                  </span>
                   <span className="metric-desc">{result.societyName}</span>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Verification timeline */}
           <div className="card-section">
             <div className="card-section-header">
               <span className="card-section-title">{ui.verificationProgress}</span>
