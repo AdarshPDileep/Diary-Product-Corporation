@@ -511,3 +511,151 @@ export const financeBreakdown = {
     { societyId: 'SOC301', societyName: 'Adoor Cooperative Milk Society', fundAllocated: 500000, fundDistributed: 0, beneficiaryCount: 0 }
   ]
 };
+
+export const ALL_PORTAL_ROLES = [
+  'Society User',
+  'Field Supervisor',
+  'P&I Officer',
+  'Section Head',
+  'Unit Head',
+  'Functional Head',
+  'Managing Director',
+  'Finance Head',
+  'Super Administrator'
+];
+
+/** Module keys aligned with sidebar / portal areas */
+export const PERMISSION_MODULES = [
+  { key: 'dashboard', section: 'main', labelEn: 'Dashboard', labelMl: 'ഡാഷ്‌ബോർഡ്' },
+  { key: 'farmers', section: 'farmer', labelEn: 'Farmer Master', labelMl: 'കർഷക മാസ്റ്റർ' },
+  { key: 'bulkUpload', section: 'farmer', labelEn: 'Farmer Bulk Upload', labelMl: 'കർഷക ബൾക്ക് അപ്‌ലോഡ്' },
+  { key: 'submitApp', section: 'farmer', labelEn: 'Submit Application', labelMl: 'അപേക്ഷ സമർപ്പിക്കുക' },
+  { key: 'approvalQueue', section: 'verification', labelEn: 'Approval Queue', labelMl: 'അംഗീകാര ക്യൂ' },
+  { key: 'farmerApproval', section: 'verification', labelEn: 'Farmer Approvals', labelMl: 'കർഷക അംഗീകാരങ്ങൾ' },
+  { key: 'statements', section: 'verification', labelEn: 'Consolidated Statements', labelMl: 'ഏകീകൃത പ്രസ്താവനകൾ' },
+  { key: 'finance', section: 'finance', labelEn: 'Finance & Budget', labelMl: 'ധനകാര്യം & ബഡ്ജറ്റ്' },
+  { key: 'schemes', section: 'admin', labelEn: 'Scheme Configuration', labelMl: 'പദ്ധതി കോൺഫിഗറേഷൻ' },
+  { key: 'formBuilder', section: 'admin', labelEn: 'Form Builder', labelMl: 'ഫോം ബിൽഡർ' },
+  { key: 'rolePermissions', section: 'admin', labelEn: 'User Roles & Permissions', labelMl: 'ഉപയോക്തൃ റോളുകളും അനുമതികളും' },
+  { key: 'reports', section: 'ops', labelEn: 'MIS Reports', labelMl: 'MIS റിപ്പോർട്ടുകൾ' },
+  { key: 'tracking', section: 'ops', labelEn: 'Track Application', labelMl: 'അപേക്ഷ ട്രാക്ക് ചെയ്യുക' },
+  { key: 'helpdesk', section: 'ops', labelEn: 'Helpdesk Support', labelMl: 'ഹെൽപ്‌ഡെസ്‌ക്' },
+  { key: 'audit', section: 'ops', labelEn: 'Audit Trail', labelMl: 'ഓഡിറ്റ് ട്രെയിൽ' }
+];
+
+export function getBuiltInDefaultPermissions(role) {
+  const allKeys = PERMISSION_MODULES.map((m) => m.key);
+  if (role === 'Super Administrator') return [...allKeys];
+
+  const set = new Set(['dashboard', 'reports', 'tracking', 'helpdesk', 'audit']);
+
+  if (['Society User', 'Super Administrator'].includes(role)) {
+    set.add('farmers');
+    set.add('bulkUpload');
+    set.add('submitApp');
+  }
+  if (role !== 'Society User') {
+    set.add('approvalQueue');
+  }
+  if (['Field Supervisor', 'Unit Head', 'Super Administrator'].includes(role)) {
+    set.add('farmerApproval');
+  }
+  if (['P&I Officer', 'Section Head', 'Unit Head', 'Super Administrator'].includes(role)) {
+    set.add('statements');
+  }
+  if (['Finance Head', 'Super Administrator'].includes(role)) {
+    set.add('finance');
+  }
+  if (['Super Administrator', 'Section Head'].includes(role)) {
+    set.add('schemes');
+    set.add('formBuilder');
+  }
+  if (role === 'Super Administrator') {
+    set.add('rolePermissions');
+  }
+
+  return Array.from(set);
+}
+
+/** Resolve default module access from role catalog (custom or built-in). */
+export function getDefaultPermissionsForRole(roleName, portalRoles) {
+  const fromCatalog = portalRoles?.find((r) => r.name === roleName);
+  if (fromCatalog) return [...fromCatalog.permissions];
+  return getBuiltInDefaultPermissions(roleName);
+}
+
+export const initialPortalRoles = ALL_PORTAL_ROLES.map((name, index) => ({
+  id: `SYS_${index + 1}`,
+  name,
+  isSystem: true,
+  permissions: getBuiltInDefaultPermissions(name)
+}));
+
+export const initialPortalUsers = [
+  {
+    id: 'PU001',
+    userId: 'TVM_SOCIETY_101',
+    displayName: 'Society Secretary — Vattiyoorkavu',
+    email: 'soc101@trcmpu.demo',
+    unit: 'Trivandrum',
+    society: 'Vattiyoorkavu Milk Society',
+    role: 'Society User',
+    status: 'Active',
+    permissions: getBuiltInDefaultPermissions('Society User')
+  },
+  {
+    id: 'PU002',
+    userId: 'TVM_FIELD_01',
+    displayName: 'Sajeev Kumar',
+    email: 'field.supervisor@trcmpu.demo',
+    unit: 'Trivandrum',
+    society: '—',
+    role: 'Field Supervisor',
+    status: 'Active',
+    permissions: getBuiltInDefaultPermissions('Field Supervisor')
+  },
+  {
+    id: 'PU003',
+    userId: 'TVM_PI_01',
+    displayName: 'Anil Kumar K.',
+    email: 'pi.officer@trcmpu.demo',
+    unit: 'Trivandrum',
+    society: '—',
+    role: 'P&I Officer',
+    status: 'Active',
+    permissions: getBuiltInDefaultPermissions('P&I Officer')
+  },
+  {
+    id: 'PU004',
+    userId: 'TVM_SECTION_01',
+    displayName: 'Surendran M.',
+    email: 'section.head@trcmpu.demo',
+    unit: 'Trivandrum',
+    society: '—',
+    role: 'Section Head',
+    status: 'Active',
+    permissions: getBuiltInDefaultPermissions('Section Head')
+  },
+  {
+    id: 'PU005',
+    userId: 'TVM_FIN_01',
+    displayName: 'Finance Controller',
+    email: 'finance@trcmpu.demo',
+    unit: 'Trivandrum',
+    society: '—',
+    role: 'Finance Head',
+    status: 'Active',
+    permissions: getBuiltInDefaultPermissions('Finance Head')
+  },
+  {
+    id: 'PU006',
+    userId: 'TVM_ADMIN',
+    displayName: 'System Administrator',
+    email: 'admin@trcmpu.demo',
+    unit: 'TRCMPU HQ',
+    society: '—',
+    role: 'Super Administrator',
+    status: 'Active',
+    permissions: getBuiltInDefaultPermissions('Super Administrator')
+  }
+];

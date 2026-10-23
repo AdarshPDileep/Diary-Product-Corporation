@@ -5,12 +5,15 @@ import {
   HelpCircle, Shield, Bell, Globe, LogOut, ChevronRight, Search, Plus,
   Upload, Download, FileSpreadsheet, Play, CheckCircle, XCircle, Clock,
   TrendingUp, CreditCard, PieChart, Eye, Settings, Info, ArrowLeft, ArrowRight,
-  Database, ShieldAlert, MessageSquare, Lock, Key, RotateCcw, Menu
+  Database, ShieldAlert, MessageSquare, Lock, Key, RotateCcw, Menu, UserCog
 } from 'lucide-react';
 import {
   initialDistricts, initialUnits, initialSocieties, initialFarmers,
   initialSchemes, initialApplications, initialStatements, initialTickets,
-  initialAuditLogs, roleDashboardMetrics, reportTypes, financeBreakdown
+  initialAuditLogs, roleDashboardMetrics, reportTypes, financeBreakdown,
+  initialPortalUsers,
+  initialPortalRoles,
+  getDefaultPermissionsForRole
 } from './mockData';
 
 // Background photos
@@ -33,6 +36,7 @@ import Helpdesk from './components/Helpdesk';
 import Reports from './components/Reports';
 import Tracking from './components/Tracking';
 import FarmerApproval from './components/FarmerApproval';
+import RolePermissions from './components/RolePermissions';
 
 // Shared status helper for dynamic badge values shown in modals
 import { statusText } from './i18n';
@@ -47,6 +51,7 @@ const translations = {
     bulkUpload: "Farmer Bulk Upload",
     schemes: "Scheme Configuration",
     formBuilder: "Form Builder",
+    rolePermissions: "User Roles & Permissions",
     submitApp: "Submit Application",
     approvalQueue: "Approval Queue",
     statements: "Consolidated Statements",
@@ -230,6 +235,7 @@ const translations = {
     bulkUpload: "ബൾക്ക് അപ്‌ലോഡ്",
     schemes: "പദ്ധതി ക്രമീകരണം",
     formBuilder: "ഫോം ബിൽഡർ",
+    rolePermissions: "ഉപയോക്തൃ റോളുകളും അനുമതികളും",
     submitApp: "അപേക്ഷ സമർപ്പിക്കൽ",
     approvalQueue: "അംഗീകാരപ്പട്ടിക",
     statements: "ഏകീകൃത പ്രസ്താവനകൾ",
@@ -469,6 +475,8 @@ function App() {
   const [statements, setStatements] = useState(initialStatements);
   const [tickets, setTickets] = useState(initialTickets);
   const [auditLogs, setAuditLogs] = useState(initialAuditLogs);
+  const [portalUsers, setPortalUsers] = useState(initialPortalUsers);
+  const [portalRoles, setPortalRoles] = useState(initialPortalRoles);
   const [notifications, setNotifications] = useState([
     { id: 1, title: 'New Cattle Feed Subsidy Published', desc: 'Cattle Feed Subsidy Scheme 2026 is now open for applications.', category: 'Scheme', date: '2026-07-27 09:00', read: false },
     { id: 2, title: 'Payment Completed', desc: 'Payment completed for milk machine subsidy application reference FSA-2026-0000088.', category: 'Finance', date: '2026-07-26 15:30', read: false }
@@ -590,6 +598,48 @@ function App() {
   }, [selectedApplication, closeDocumentPreview]);
 
   useEffect(() => () => closeDocumentPreview(), [closeDocumentPreview]);
+
+  const handleSavePortalUser = (updatedUser) => {
+    const previous = portalUsers.find((u) => u.id === updatedUser.id);
+    if (!previous) return;
+    setPortalUsers((list) => list.map((u) => (u.id === updatedUser.id ? updatedUser : u)));
+    const permSummary = `${updatedUser.permissions.length} modules`;
+    addAuditLog(
+      'Security',
+      'User',
+      updatedUser.userId,
+      'Assign Role & Permissions',
+      `${previous.role} (${previous.permissions.length} modules)`,
+      `${updatedUser.role} (${permSummary})`,
+      `Role/permission update by ${username}`
+    );
+  };
+
+  const handleAddPortalUser = (newUser) => {
+    setPortalUsers((list) => [...list, newUser]);
+    addAuditLog(
+      'Security',
+      'User',
+      newUser.userId,
+      'Create Portal User',
+      '—',
+      `${newUser.role} (${newUser.permissions.length} modules)`,
+      `User created by ${username}`
+    );
+  };
+
+  const handleAddPortalRole = (newRole) => {
+    setPortalRoles((list) => [...list, newRole]);
+    addAuditLog(
+      'Security',
+      'Role',
+      newRole.name,
+      'Create Portal Role',
+      '—',
+      `${newRole.permissions.length} default modules`,
+      `Role created by ${username}`
+    );
+  };
 
   // Generate Unique Farmer ID
   const generateFarmerId = (dist, soc, member) => {
@@ -1233,6 +1283,12 @@ function App() {
                     <Settings size={18}/>
                     <span>{t('formBuilder')}</span>
                   </div>
+                  {currentRole === 'Super Administrator' && (
+                    <div className={`menu-item ${activeMenu === 'RolePermissions' ? 'active' : ''}`} onClick={() => setActiveMenu('RolePermissions')}>
+                      <UserCog size={18}/>
+                      <span>{t('rolePermissions')}</span>
+                    </div>
+                  )}
                 </>
               )}
 
@@ -1372,6 +1428,19 @@ function App() {
                   setSelectedBuilderField={setSelectedBuilderField}
                   handleAddFieldToBuilder={handleAddFieldToBuilder}
                   onPublishScheme={() => openCreateScheme(false)}
+                  t={t}
+                  lang={lang}
+                />
+              )}
+
+              {activeMenu === 'RolePermissions' && currentRole === 'Super Administrator' && (
+                <RolePermissions
+                  portalUsers={portalUsers}
+                  portalRoles={portalRoles}
+                  onSaveUser={handleSavePortalUser}
+                  onAddUser={handleAddPortalUser}
+                  onAddRole={handleAddPortalRole}
+                  getDefaultPermissionsForRole={(roleName) => getDefaultPermissionsForRole(roleName, portalRoles)}
                   t={t}
                   lang={lang}
                 />

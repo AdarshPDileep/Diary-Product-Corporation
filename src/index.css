@@ -1265,6 +1265,415 @@ body {
   background: #fff;
 }
 
+/* ---------------- User role & permissions ---------------- */
+.role-perm-page {
+  width: 100%;
+}
+
+.role-perm-page-header {
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.role-perm-header-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  flex-shrink: 0;
+  align-items: center;
+}
+
+.role-perm-header-actions .btn {
+  min-height: 40px;
+  padding: 0 16px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.role-perm-modal {
+  max-width: 560px;
+}
+
+.role-perm-modal-wide {
+  max-width: 640px;
+}
+
+.role-perm-form-error {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent-red);
+  background: var(--accent-red-light);
+  padding: 8px 12px;
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+
+.role-perm-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.role-perm-stat-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 20px;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-xs);
+}
+
+.role-perm-stat-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: var(--primary-soft);
+  color: var(--primary-dark);
+  flex-shrink: 0;
+}
+
+.role-perm-stat-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.role-perm-stat-val {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--text-main);
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+}
+
+.role-perm-stat-label {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.role-perm-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(300px, 380px);
+  gap: 16px;
+  align-items: start;
+}
+
+.role-perm-list,
+.role-perm-editor {
+  margin-bottom: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.role-perm-editor--idle {
+  position: sticky;
+  top: 0;
+}
+
+.role-perm-list-header {
+  align-items: flex-start;
+  padding-top: 18px;
+  padding-bottom: 14px;
+}
+
+.role-perm-toolbar {
+  display: flex;
+  gap: 12px;
+  padding: 0 22px 16px;
+  align-items: stretch;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.role-perm-search {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 42px;
+  padding: 0 14px;
+  border: 1px solid var(--hairline);
+  border-radius: 10px;
+  background: #fff;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.role-perm-search:focus-within {
+  border-color: rgba(33, 150, 243, 0.45);
+  box-shadow: 0 0 0 3px var(--primary-light);
+}
+
+.role-perm-search svg {
+  flex-shrink: 0;
+  color: var(--text-light);
+}
+
+.role-perm-search-input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 13px;
+  font-family: inherit;
+  color: var(--text-main);
+  height: 100%;
+  padding: 0;
+}
+
+.role-perm-search-input::placeholder {
+  color: var(--text-light);
+}
+
+.role-perm-filter {
+  flex: 0 0 200px;
+  width: 200px;
+  height: 42px;
+  min-height: 42px;
+  margin: 0;
+}
+
+.role-perm-table-wrap {
+  flex: 1;
+}
+
+.role-perm-list .app-table th:last-child,
+.role-perm-list .app-table td:last-child {
+  text-align: right;
+  width: 120px;
+}
+
+.role-perm-mono {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: -0.02em;
+}
+
+.role-perm-user-name {
+  font-weight: 600;
+  font-size: 13px;
+  line-height: 1.35;
+  color: var(--text-main);
+}
+
+.role-perm-user-email {
+  margin-top: 3px;
+  font-size: 12px;
+  line-height: 1.35;
+  color: var(--text-light);
+}
+
+.role-perm-unit {
+  font-size: 13px;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.role-perm-role-badge {
+  display: inline-block;
+  max-width: 160px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  vertical-align: middle;
+}
+
+.role-perm-actions-cell {
+  text-align: right;
+}
+
+.role-perm-action-btn {
+  padding: 7px 14px !important;
+  font-size: 12px !important;
+  font-weight: 600;
+  min-height: 34px;
+  border-radius: 9px;
+}
+
+.role-perm-row-active {
+  background: var(--primary-light) !important;
+}
+
+.role-perm-editor .card-section-header {
+  padding-top: 18px;
+  padding-bottom: 14px;
+}
+
+.role-perm-editor-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 18px 22px 22px;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+.role-perm-empty-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 220px;
+  padding: 28px 20px;
+}
+
+.role-perm-editor:not(.role-perm-editor--idle) {
+  min-height: 520px;
+}
+
+.role-perm-editor--idle .role-perm-editor-body {
+  padding-top: 12px;
+  padding-bottom: 16px;
+}
+
+.role-perm-empty {
+  max-width: 280px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.role-perm-empty-icon {
+  color: var(--text-light);
+  opacity: 0.55;
+}
+
+.role-perm-empty p {
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.role-perm-notice {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent-green-dark);
+  background: var(--status-approved-bg);
+  padding: 10px 12px;
+  border-radius: 10px;
+  margin-bottom: 14px;
+}
+
+.role-perm-account {
+  padding: 16px;
+  border-radius: 12px;
+  background: #f8fafc;
+  border: 1px solid var(--hairline);
+  margin-bottom: 18px;
+}
+
+.role-perm-account-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-light);
+}
+
+.role-perm-account-name {
+  font-size: 15px;
+  font-weight: 700;
+  margin-top: 6px;
+  line-height: 1.3;
+}
+
+.role-perm-account-meta {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 4px;
+  line-height: 1.4;
+}
+
+.role-perm-editor .form-group {
+  margin-bottom: 14px;
+}
+
+.role-perm-defaults-btn {
+  width: 100%;
+  margin-bottom: 18px;
+  font-size: 12px;
+  min-height: 38px;
+}
+
+.role-perm-modules {
+  margin-top: 4px;
+}
+
+.role-perm-modules-head {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-light);
+  margin-bottom: 12px;
+}
+
+.role-perm-section {
+  margin-bottom: 16px;
+}
+
+.role-perm-section-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.role-perm-checkgrid {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.role-perm-check span {
+  font-size: 13px;
+  line-height: 1.35;
+}
+
+.role-perm-editor-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: auto;
+  padding-top: 18px;
+  border-top: 1px solid var(--hairline);
+}
+
+@media (max-width: 1024px) {
+  .role-perm-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .role-perm-list,
+  .role-perm-editor {
+    min-height: auto;
+  }
+
+  .role-perm-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .role-perm-toolbar {
+    flex-direction: column;
+  }
+
+  .role-perm-filter {
+    flex: 1 1 auto;
+    width: 100%;
+  }
+}
+
 @media (max-width: 640px) {
   .doc-preview-footer {
     flex-direction: column;
