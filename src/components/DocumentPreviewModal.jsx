@@ -1,5 +1,6 @@
 import React, { Suspense, lazy } from 'react';
 import { Download, FileText, ShieldCheck, X } from 'lucide-react';
+import ModalPortal from './ModalPortal';
 
 const PdfCanvasViewer = lazy(() => import('./PdfCanvasViewer'));
 
@@ -15,6 +16,7 @@ export default function DocumentPreviewModal({ preview, labels, onClose }) {
   };
 
   return (
+    <ModalPortal>
     <div className="modal-overlay doc-preview-overlay" onClick={onClose} role="presentation">
       <div
         className="modal-content doc-preview-modal"
@@ -74,5 +76,6 @@ export default function DocumentPreviewModal({ preview, labels, onClose }) {
         </footer>
       </div>
     </div>
+    </ModalPortal>
   );
 }

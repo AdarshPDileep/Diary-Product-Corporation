@@ -1,4 +1,5 @@
 import React from 'react';
+import { Plus } from 'lucide-react';
 import { statusText } from '../i18n';
 
 export default function Helpdesk({ tickets, setIsNewTicketOpen, lang }) {
@@ -13,15 +14,15 @@ export default function Helpdesk({ tickets, setIsNewTicketOpen, lang }) {
     status: 'നില',
     createdDate: 'സൃഷ്ടിച്ച തീയതി'
   } : {
-    title: 'Helpdesk & Support Tickets',
-    subtitle: 'Submit bug logs, system issues, or layout queries.',
-    raiseTicket: 'Raise Ticket',
-    ticketNo: 'Ticket No',
+    title: 'Helpdesk and support',
+    subtitle: 'Log bugs, system issues, or access questions for the support team.',
+    raiseTicket: 'Raise ticket',
+    ticketNo: 'Ticket no.',
     module: 'Module',
     category: 'Category',
     subject: 'Subject',
     status: 'Status',
-    createdDate: 'Created Date'
+    createdDate: 'Created'
   };
 
   return (
@@ -31,9 +32,11 @@ export default function Helpdesk({ tickets, setIsNewTicketOpen, lang }) {
           <h1>{ui.title}</h1>
           <p>{ui.subtitle}</p>
         </div>
-        <button className="btn btn-primary" onClick={() => setIsNewTicketOpen(true)}>
-          {ui.raiseTicket}
-        </button>
+        <div className="page-header-actions">
+          <button type="button" className="btn btn-primary" onClick={() => setIsNewTicketOpen(true)}>
+            <Plus size={16} /> {ui.raiseTicket}
+          </button>
+        </div>
       </div>
 
       <div className="card-section">
@@ -50,9 +53,9 @@ export default function Helpdesk({ tickets, setIsNewTicketOpen, lang }) {
               </tr>
             </thead>
             <tbody>
-              {tickets.map(tkt => (
+              {tickets.map((tkt) => (
                 <tr key={tkt.id}>
-                  <td><span style={{fontFamily: 'monospace', fontWeight: '600'}}>{tkt.ticketNo}</span></td>
+                  <td><span className="cell-mono">{tkt.ticketNo}</span></td>
                   <td>{tkt.module}</td>
                   <td>{tkt.category}</td>
                   <td>{tkt.subject}</td>

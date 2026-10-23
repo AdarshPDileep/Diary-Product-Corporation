@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Plus, Eye, Pencil } from 'lucide-react';
 import { statusText } from '../i18n';
+import ModalPortal from './ModalPortal';
 
 function schemeToForm(scheme) {
   return {
@@ -119,9 +120,11 @@ export default function Schemes({ schemes, onCreateScheme, onUpdateScheme, t, la
           <h1>{t('schemes')}</h1>
           <p>{ui.subtitle}</p>
         </div>
-        <button type="button" className="btn btn-primary" onClick={onCreateScheme}>
-          <Plus size={16} /> {ui.createScheme}
-        </button>
+        <div className="page-header-actions">
+          <button type="button" className="btn btn-primary" onClick={onCreateScheme}>
+            <Plus size={16} /> {ui.createScheme}
+          </button>
+        </div>
       </div>
 
       <div className="card-section">
@@ -170,6 +173,7 @@ export default function Schemes({ schemes, onCreateScheme, onUpdateScheme, t, la
       </div>
 
       {viewScheme && (
+        <ModalPortal>
         <div className="modal-overlay" onClick={() => setViewScheme(null)}>
           <div className="modal-content" style={{ maxWidth: '640px' }} onClick={(e) => e.stopPropagation()}>
             <div className="modal-header">
@@ -223,9 +227,11 @@ export default function Schemes({ schemes, onCreateScheme, onUpdateScheme, t, la
             </div>
           </div>
         </div>
+        </ModalPortal>
       )}
 
       {editCode && editForm && (
+        <ModalPortal>
         <div className="modal-overlay">
           <form className="modal-content" style={{ maxWidth: '720px' }} onSubmit={saveEdit}>
             <div className="modal-header">
@@ -296,6 +302,7 @@ export default function Schemes({ schemes, onCreateScheme, onUpdateScheme, t, la
             </div>
           </form>
         </div>
+        </ModalPortal>
       )}
     </div>
   );

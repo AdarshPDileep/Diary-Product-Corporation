@@ -1,5 +1,5 @@
 import React from 'react';
-import { Plus, Search, Eye } from 'lucide-react';
+import { Plus, Search, Eye, Pencil } from 'lucide-react';
 import { initialDistricts } from '../mockData';
 import { statusText } from '../i18n';
 
@@ -24,17 +24,17 @@ export default function Farmers({
     edit: 'തിരുത്തുക',
     enterCattleCount: 'പുതുക്കിയ കന്നുകാലി എണ്ണം നൽകുക:',
   } : {
-    subtitle: 'View, modify and register unique milk producer records.',
-    registerFarmer: 'Register Farmer',
-    searchPlaceholder: 'Search by name, ID or mobile...',
-    allDistricts: 'All Districts',
+    subtitle: 'View, modify, and register unique milk producer records.',
+    registerFarmer: 'Register farmer',
+    searchPlaceholder: 'Search by name, ID, or mobile...',
+    allDistricts: 'All districts',
     farmerId: 'Farmer ID',
     name: 'Name',
     mobile: 'Mobile',
-    cattleCount: 'Cattle Count',
+    cattleCount: 'Cattle count',
     society: 'Society',
-    kycStatus: 'KYC Status',
-    recordStatus: 'Record Status',
+    kycStatus: 'KYC status',
+    recordStatus: 'Record status',
     actions: 'Actions',
     view: 'View',
     edit: 'Edit',
@@ -48,20 +48,37 @@ export default function Farmers({
           <h1>{t('farmers')}</h1>
           <p>{ui.subtitle}</p>
         </div>
-        <button className="btn btn-primary" onClick={() => setIsNewFarmerOpen(true)}>
-          <Plus size={16}/> {ui.registerFarmer}
-        </button>
+        <div className="page-header-actions">
+          <button type="button" className="btn btn-primary" onClick={() => setIsNewFarmerOpen(true)}>
+            <Plus size={16} /> {ui.registerFarmer}
+          </button>
+        </div>
       </div>
 
-      <div className="card-section" style={{padding: '16px', display: 'flex', gap: '16px', flexWrap: 'wrap'}}>
-        <div style={{flex: 1, minWidth: '200px'}} className="nav-search">
-          <Search size={16}/>
-          <input type="text" placeholder={ui.searchPlaceholder} value={farmerSearch} onChange={e => setFarmerSearch(e.target.value)} />
+      <div className="card-section">
+        <div className="filter-bar">
+          <div className="nav-search">
+            <Search size={16} aria-hidden />
+            <input
+              type="search"
+              placeholder={ui.searchPlaceholder}
+              value={farmerSearch}
+              onChange={(e) => setFarmerSearch(e.target.value)}
+              aria-label={ui.searchPlaceholder}
+            />
+          </div>
+          <select
+            className="form-input form-select"
+            value={farmerDistrictFilter}
+            onChange={(e) => setFarmerDistrictFilter(e.target.value)}
+            aria-label={ui.allDistricts}
+          >
+            <option value="">{ui.allDistricts}</option>
+            {initialDistricts.map((d) => (
+              <option key={d.code} value={d.code}>{lang === 'ml' ? d.nameMl : d.name}</option>
+            ))}
+          </select>
         </div>
-        <select className="form-select" value={farmerDistrictFilter} onChange={e => setFarmerDistrictFilter(e.target.value)}>
-          <option value="">{ui.allDistricts}</option>
-          {initialDistricts.map(d => <option key={d.code} value={d.code}>{d.name}</option>)}
-        </select>
       </div>
 
       <div className="card-section">
@@ -81,14 +98,14 @@ export default function Farmers({
             </thead>
             <tbody>
               {farmers
-                .filter(f => f.name.toLowerCase().includes(farmerSearch.toLowerCase()) || f.farmerId.includes(farmerSearch))
-                .filter(f => !farmerDistrictFilter || f.district === farmerDistrictFilter)
-                .map(farmer => (
+                .filter((f) => f.name.toLowerCase().includes(farmerSearch.toLowerCase()) || f.farmerId.includes(farmerSearch))
+                .filter((f) => !farmerDistrictFilter || f.district === farmerDistrictFilter)
+                .map((farmer) => (
                   <tr key={farmer.id}>
-                    <td><span style={{fontFamily: 'monospace', fontWeight: '600'}}>{farmer.farmerId}</span></td>
+                    <td><span className="cell-mono">{farmer.farmerId}</span></td>
                     <td>
                       <div>{farmer.name}</div>
-                      <div style={{fontSize: '11px', color: 'var(--text-light)'}}>{farmer.nameMl}</div>
+                      <div className="cell-sub">{farmer.nameMl}</div>
                     </td>
                     <td>{farmer.mobile}</td>
                     <td>{farmer.cattleCount}</td>
@@ -96,20 +113,24 @@ export default function Farmers({
                     <td><span className={`badge badge-${farmer.kycStatus === 'Verified' ? 'approved' : 'pending'}`}>{statusText(lang, farmer.kycStatus)}</span></td>
                     <td><span className={`badge badge-${farmer.status === 'Approved' ? 'approved' : farmer.status.includes('Pending') ? 'pending' : 'returned'}`}>{statusText(lang, farmer.status)}</span></td>
                     <td>
-                      <div style={{display: 'flex', gap: '6px'}}>
-                        <button className="btn btn-secondary" style={{padding: '6px 12px', fontSize: '12px'}} onClick={() => setSelectedFarmer(farmer)}>
-                          <Eye size={12}/> {ui.view}
+                      <div className="table-action-group">
+                        <button type="button" className="btn btn-secondary btn-sm" onClick={() => setSelectedFarmer(farmer)}>
+                          <Eye size={14} /> {ui.view}
                         </button>
-                        <button className="btn btn-secondary" style={{padding: '6px 12px', fontSize: '12px'}} onClick={() => {
-                          const newCattle = prompt(ui.enterCattleCount, farmer.cattleCount);
-                          if(newCattle) handleRequestModifyFarmer(farmer.id, 'cattleCount', parseInt(newCattle));
-                        }}>
-                          {ui.edit}
+                        <button
+                          type="button"
+                          className="btn btn-secondary btn-sm"
+                          onClick={() => {
+                            const newCattle = prompt(ui.enterCattleCount, farmer.cattleCount);
+                            if (newCattle) handleRequestModifyFarmer(farmer.id, 'cattleCount', parseInt(newCattle, 10));
+                          }}
+                        >
+                          <Pencil size={14} /> {ui.edit}
                         </button>
                       </div>
                     </td>
                   </tr>
-              ))}
+                ))}
             </tbody>
           </table>
         </div>

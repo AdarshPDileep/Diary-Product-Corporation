@@ -45,6 +45,7 @@ import FarmerApproval from './components/FarmerApproval';
 import RolePermissions from './components/RolePermissions';
 import SystemConfig from './components/SystemConfig';
 import GlobalHeaderSearch from './components/GlobalHeaderSearch';
+import ModalPortal from './components/ModalPortal';
 
 // Shared status helper for dynamic badge values shown in modals
 import { statusText } from './i18n';
@@ -1231,14 +1232,16 @@ function App() {
     <div id="root">
       {/* Session Expired / Timeout Alert */}
       {sessionExpired && (
-        <div className="modal-overlay">
-          <div className="auth-card text-center" style={{textAlign: 'center'}}>
-            <div className="logo-circle" style={{margin: '0 auto 16px auto'}}><Clock size={24}/></div>
-            <h3 style={{fontSize: '18px', fontWeight: '700', marginBottom: '8px'}}>{t('sessionExpired')}</h3>
-            <p style={{color: 'var(--text-muted)', fontSize: '13px', marginBottom: '24px'}}>{t('sessionExpiredMsg')}</p>
-            <button className="btn btn-primary" style={{width: '100%'}} onClick={() => { setSessionExpired(false); setIsLoggedIn(false); setAuthStep('login'); }}>{t('loginAgain')}</button>
+        <ModalPortal>
+          <div className="modal-overlay">
+            <div className="auth-card text-center" style={{textAlign: 'center'}}>
+              <div className="logo-circle" style={{margin: '0 auto 16px auto'}}><Clock size={24}/></div>
+              <h3 style={{fontSize: '18px', fontWeight: '700', marginBottom: '8px'}}>{t('sessionExpired')}</h3>
+              <p style={{color: 'var(--text-muted)', fontSize: '13px', marginBottom: '24px'}}>{t('sessionExpiredMsg')}</p>
+              <button className="btn btn-primary" style={{width: '100%'}} onClick={() => { setSessionExpired(false); setIsLoggedIn(false); setAuthStep('login'); }}>{t('loginAgain')}</button>
+            </div>
           </div>
-        </div>
+        </ModalPortal>
       )}
 
       {/* 1. AUTHENTICATION MODULE VIEW */}
@@ -1474,6 +1477,7 @@ function App() {
 
             {/* MAIN PORTAL AREA */}
             <main className="main-content page-bg" style={mainBgStyle}>
+              <div className="page-shell">
               {activeMenu === 'Dashboard' && (
                 <Dashboard
                   farmers={farmers}
@@ -1657,14 +1661,16 @@ function App() {
                   lang={lang}
                 />
               )}
+              </div>
             </main>
           </div>
         </div>
       )}
 
+      <ModalPortal>
       {/* DIALOG: FARMER MASTER APPROVAL / REJECTION (URS §4) */}
       {selectedFarmerApproval && (
-        <div className="modal-overlay" style={{zIndex: 110}}>
+        <div className="modal-overlay">
           <div className="auth-card">
             <h3 style={{fontWeight: '700', fontSize: '16px', marginBottom: '8px', color: selectedFarmerApproval.action === 'reject' ? '#ef4444' : 'var(--text-main)'}}>
               {selectedFarmerApproval.action === 'reject' ? t('reject') : t('approve')} {t('farmerRecord')}
@@ -1996,7 +2002,7 @@ function App() {
 
       {/* DIALOG: RETURN FOR REVIEW MODAL */}
       {returnModalOpen && (
-        <div className="modal-overlay" style={{zIndex: 110}}>
+        <div className="modal-overlay">
           <div className="auth-card">
             <h3 style={{fontWeight: '700', fontSize: '16px', marginBottom: '12px'}}>{t('return')}</h3>
             <div style={{display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '16px'}}>
@@ -2018,7 +2024,7 @@ function App() {
 
       {/* DIALOG: REJECTION MODAL */}
       {rejectionModalOpen && (
-        <div className="modal-overlay" style={{zIndex: 110}}>
+        <div className="modal-overlay">
           <div className="auth-card">
             <h3 style={{fontWeight: '700', fontSize: '16px', marginBottom: '12px', color: '#ef4444'}}>{t('rejectApplication')}</h3>
             <div className="form-group" style={{marginBottom: '12px'}}>
@@ -2189,6 +2195,7 @@ function App() {
           </div>
         </div>
       )}
+      </ModalPortal>
     </div>
   );
 }

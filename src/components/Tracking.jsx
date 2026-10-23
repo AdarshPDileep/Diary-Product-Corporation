@@ -65,29 +65,32 @@ export default function Tracking({ applications, t, lang, initialQuery = '' }) {
       </div>
 
       {/* Search */}
-      <div className="card-section" style={{ padding: '16px 20px' }}>
-        <form onSubmit={handleSearch} style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', alignItems: 'center' }}>
-          <div className="nav-search" style={{ flex: 1, minWidth: '240px' }}>
-            <Search size={16} style={{ color: 'var(--text-light)' }} />
-            <input
-              type="text"
-              placeholder={ui.searchPlaceholder}
-              value={query}
-              onChange={e => setQuery(e.target.value)}
-              autoFocus
-            />
-          </div>
-          <button type="submit" className="btn btn-primary">{ui.trackBtn}</button>
-        </form>
+      <div className="card-section">
+        <div className="card-section-body card-section-body--compact">
+          <form onSubmit={handleSearch} className="track-search-form">
+            <div className="nav-search">
+              <Search size={16} style={{ color: 'var(--text-light)' }} aria-hidden />
+              <input
+                type="search"
+                placeholder={ui.searchPlaceholder}
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                autoFocus
+                aria-label={ui.searchPlaceholder}
+              />
+            </div>
+            <button type="submit" className="btn btn-primary">{ui.trackBtn}</button>
+          </form>
+        </div>
       </div>
 
       {/* Result */}
       {searched && !result && (
         <div className="card-section">
-          <div style={{ textAlign: 'center', padding: '36px', color: 'var(--text-light)' }}>
-            <CheckCircle size={28} style={{ color: 'var(--accent-amber)', display: 'inline', marginBottom: '8px' }} />
-            <div style={{ fontWeight: '600', color: 'var(--text-main)' }}>{ui.notFoundTitle}</div>
-            <div style={{ fontSize: '12px', marginTop: '4px' }}>{ui.notFoundSub}</div>
+          <div className="empty-state">
+            <CheckCircle size={32} className="empty-state-icon" aria-hidden />
+            <div className="empty-state-title">{ui.notFoundTitle}</div>
+            <div className="empty-state-sub">{ui.notFoundSub}</div>
           </div>
         </div>
       )}
@@ -95,16 +98,16 @@ export default function Tracking({ applications, t, lang, initialQuery = '' }) {
       {result && (
         <>
           {/* Status summary */}
-          <div className="card-section" style={{ marginBottom: '20px' }}>
+          <div className="card-section">
             <div className="card-section-header">
               <span className="card-section-title">
                 <FileText size={16} /> {result.refNo}
               </span>
               <span className="card-subtitle">{ui.submitted} {result.submissionDate}</span>
             </div>
-            <div style={{ padding: '20px' }}>
-              <div className="metrics-grid" style={{ marginBottom: '0' }}>
-                <div className="metric-card" style={{ boxShadow: 'none', border: 'none', padding: '8px 0' }}>
+            <div className="tracking-metrics">
+              <div className="metrics-grid">
+                <div className="metric-card">
                   <div className="metric-header">
                     <span className="metric-title">{ui.applicant}</span>
                     <div className="metric-icon-wrapper"><FileText size={16} /></div>
@@ -113,7 +116,7 @@ export default function Tracking({ applications, t, lang, initialQuery = '' }) {
                   <span className="metric-desc">{result.schemeName}</span>
                 </div>
 
-                <div className="metric-card" style={{ boxShadow: 'none', border: 'none', padding: '8px 0' }}>
+                <div className="metric-card">
                   <div className="metric-header">
                     <span className="metric-title">{ui.approvalStatus}</span>
                     <div className="metric-icon-wrapper"><CheckCircle size={16} /></div>
@@ -124,7 +127,7 @@ export default function Tracking({ applications, t, lang, initialQuery = '' }) {
                   <span className="metric-desc" style={{ display: 'flex', alignItems: 'center', gap: '4px' }}><Clock size={12} /> {ui.atLevel(result.currentLevel)}</span>
                 </div>
 
-                <div className="metric-card" style={{ boxShadow: 'none', border: 'none', padding: '8px 0' }}>
+                <div className="metric-card">
                   <div className="metric-header">
                     <span className="metric-title">{ui.paymentStatus}</span>
                     <div className="metric-icon-wrapper"><CreditCard size={16} /></div>
@@ -135,7 +138,7 @@ export default function Tracking({ applications, t, lang, initialQuery = '' }) {
                   <span className="metric-desc">{ui.sanctioned(result.benefitAmount.toLocaleString())}</span>
                 </div>
 
-                <div className="metric-card" style={{ boxShadow: 'none', border: 'none', padding: '8px 0' }}>
+                <div className="metric-card">
                   <div className="metric-header">
                     <span className="metric-title">{ui.milkBillRef}</span>
                     <div className="metric-icon-wrapper"><MapPin size={16} /></div>
@@ -152,7 +155,7 @@ export default function Tracking({ applications, t, lang, initialQuery = '' }) {
             <div className="card-section-header">
               <span className="card-section-title">{ui.verificationProgress}</span>
             </div>
-            <div style={{ padding: '24px' }}>
+            <div className="card-section-body">
               <VerificationTimeline entries={result.remarksLog} />
             </div>
           </div>

@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import { KeyRound, Plus, Search, Shield, UserCog } from 'lucide-react';
 import { PERMISSION_MODULES } from '../mockData';
+import ModalPortal from './ModalPortal';
 
 const SECTION_LABELS = {
   en: {
@@ -501,6 +502,7 @@ export default function RolePermissions({
       </div>
 
       {addUserOpen && (
+        <ModalPortal>
         <div className="modal-overlay" onClick={() => setAddUserOpen(false)}>
           <div className="modal-content role-perm-modal" onClick={(e) => e.stopPropagation()}>
             <div className="modal-header">
@@ -591,9 +593,11 @@ export default function RolePermissions({
             </form>
           </div>
         </div>
+        </ModalPortal>
       )}
 
       {addRoleOpen && (
+        <ModalPortal>
         <div className="modal-overlay" onClick={() => setAddRoleOpen(false)}>
           <div className="modal-content role-perm-modal role-perm-modal-wide" onClick={(e) => e.stopPropagation()}>
             <div className="modal-header">
@@ -628,6 +632,7 @@ export default function RolePermissions({
             </form>
           </div>
         </div>
+        </ModalPortal>
       )}
     </div>
   );

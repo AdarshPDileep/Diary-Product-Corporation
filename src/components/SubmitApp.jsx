@@ -7,6 +7,12 @@ export default function SubmitApp({
   farmers, farmerSearch, setFarmerSearch, handleRunEligibilityCheck, handleSaveAppDetails,
   handleDocUploadForApp, handleAppSubmit, t, lang
 }) {
+  const activeSchemes = schemes.filter((s) => s.status === 'Published');
+  const selectedFarmer = farmers.find((f) => f.farmerId === newApp.farmerId);
+  const selectedScheme = schemes.find((s) => s.code === newApp.schemeCode);
+  const benefitDisplay = newApp.benefitAmount != null
+    ? `₹${Number(newApp.benefitAmount).toLocaleString('en-IN')}`
+    : '—';
   const ui = lang === 'ml' ? {
     newAppDesc: 'പുതിയ കർഷക അപേക്ഷ സൃഷ്ടിക്കുക',
     step: 'ഘട്ടം',
@@ -86,22 +92,22 @@ export default function SubmitApp({
         </div>
       </div>
 
-      <div className="card-section" style={{padding: '24px'}}>
+      <div className="card-section flow-card">
 
         {/* Step 1: Scheme Selector */}
         {appStep === 1 && (
           <div>
-            <h3 style={{fontSize: '16px', fontWeight: '600', marginBottom: '16px'}}>{ui.step} 1: {ui.selectScheme}</h3>
-            <div style={{display: 'flex', flexDirection: 'column', gap: '12px'}}>
-              {schemes.map(sch => (
-                <div key={sch.code} className="list-item" style={{cursor: 'pointer'}} onClick={() => handleSelectScheme(sch.code)}>
+            <h3 className="step-title">{ui.step} 1: {ui.selectScheme}</h3>
+            <div className="list-stack">
+              {activeSchemes.map((sch) => (
+                <div key={sch.code} className="list-item" role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && handleSelectScheme(sch.code)} onClick={() => handleSelectScheme(sch.code)}>
                   <div>
-                    <div style={{fontWeight: '600'}}>{sch.name}</div>
-                    <div style={{fontSize: '12px', color: 'var(--text-muted)'}}>{sch.description}</div>
+                    <div className="list-item-title">{sch.name}</div>
+                    <div className="list-item-desc">{sch.description}</div>
                   </div>
-                  <div style={{display: 'flex', alignItems: 'center', gap: '12px'}}>
-                    <span style={{fontSize: '13px', fontWeight: '700'}}>{ui.max}: ₹{sch.maxBenefitAmount}</span>
-                    <ArrowRight size={16} style={{color: 'var(--primary-color)'}}/>
+                  <div className="list-item-actions">
+                    <span className="list-item-meta">{ui.max}: ₹{sch.maxBenefitAmount.toLocaleString('en-IN')}</span>
+                    <ArrowRight size={16} style={{ color: 'var(--primary-color)' }} aria-hidden />
                   </div>
                 </div>
               ))}
@@ -112,21 +118,21 @@ export default function SubmitApp({
         {/* Step 2: Farmer search */}
         {appStep === 2 && (
           <div>
-            <h3 style={{fontSize: '16px', fontWeight: '600', marginBottom: '16px'}}>{ui.step} 2: {ui.chooseFarmer}</h3>
-            <div style={{marginBottom: '20px'}} className="nav-search">
-              <Search size={16}/>
-              <input type="text" placeholder={ui.searchFarmerPlaceholder} value={farmerSearch} onChange={e => setFarmerSearch(e.target.value)} />
+            <h3 className="step-title">{ui.step} 2: {ui.chooseFarmer}</h3>
+            <div className="nav-search" style={{ marginBottom: '20px', maxWidth: 'none', width: '100%' }}>
+              <Search size={16} aria-hidden />
+              <input type="search" placeholder={ui.searchFarmerPlaceholder} value={farmerSearch} onChange={(e) => setFarmerSearch(e.target.value)} />
             </div>
-            <div style={{display: 'flex', flexDirection: 'column', gap: '10px'}}>
+            <div className="list-stack">
               {farmers
-                .filter(f => f.name.toLowerCase().includes(farmerSearch.toLowerCase()) || f.farmerId.includes(farmerSearch))
-                .map(f => (
-                  <div key={f.id} className="list-item" style={{cursor: 'pointer'}} onClick={() => handleSelectFarmerForApp(f.farmerId)}>
+                .filter((f) => f.name.toLowerCase().includes(farmerSearch.toLowerCase()) || f.farmerId.includes(farmerSearch))
+                .map((f) => (
+                  <div key={f.id} className="list-item" role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && handleSelectFarmerForApp(f.farmerId)} onClick={() => handleSelectFarmerForApp(f.farmerId)}>
                     <div>
-                      <div style={{fontWeight: '600'}}>{f.name} ({f.farmerId})</div>
-                      <div style={{fontSize: '12px', color: 'var(--text-muted)'}}>{ui.cattle}: {f.cattleCount} | {ui.supply}: {f.milkSupplyAvg}L/{ui.day}</div>
+                      <div className="list-item-title">{f.name} <span className="cell-mono">({f.farmerId})</span></div>
+                      <div className="list-item-desc">{ui.cattle}: {f.cattleCount} · {ui.supply}: {f.milkSupplyAvg}L/{ui.day}</div>
                     </div>
-                    <ArrowRight size={16} style={{color: 'var(--primary-color)'}}/>
+                    <ArrowRight size={16} style={{ color: 'var(--primary-color)' }} aria-hidden />
                   </div>
                 ))}
             </div>
@@ -136,20 +142,20 @@ export default function SubmitApp({
         {/* Step 3: Eligibility checks */}
         {appStep === 3 && (
           <div>
-            <h3 style={{fontSize: '16px', fontWeight: '600', marginBottom: '16px'}}>{ui.step} 3: {ui.verificationPrecheck}</h3>
-            <div style={{padding: '16px', backgroundColor: '#f8fafc', borderRadius: '8px', marginBottom: '20px'}}>
-              <div style={{display: 'flex', gap: '8px', alignItems: 'center', marginBottom: '8px'}}>
-                <CheckCircle size={16} style={{color: '#10b981'}}/>
-                <span style={{fontSize: '13px'}}>{ui.farmerMasterStatus} {statusText(lang, 'Active')}</span>
+            <h3 className="step-title">{ui.step} 3: {ui.verificationPrecheck}</h3>
+            <div className="info-panel">
+              <div className="info-panel-row">
+                <CheckCircle size={16} aria-hidden />
+                <span>{ui.farmerMasterStatus} {statusText(lang, 'Active')}</span>
               </div>
-              <div style={{display: 'flex', gap: '8px', alignItems: 'center'}}>
-                <CheckCircle size={16} style={{color: '#10b981'}}/>
-                <span style={{fontSize: '13px'}}>{ui.panchayatVerification} {ui.match}</span>
+              <div className="info-panel-row">
+                <CheckCircle size={16} aria-hidden />
+                <span>{ui.panchayatVerification} {ui.match}</span>
               </div>
             </div>
-            <div style={{display: 'flex', gap: '10px'}}>
-              <button className="btn btn-secondary" onClick={() => setAppStep(2)}>{ui.back}</button>
-              <button className="btn btn-primary" onClick={handleRunEligibilityCheck}>{ui.checkEligibility}</button>
+            <div className="flow-actions">
+              <button type="button" className="btn btn-secondary" onClick={() => setAppStep(2)}>{ui.back}</button>
+              <button type="button" className="btn btn-primary" onClick={handleRunEligibilityCheck}>{ui.checkEligibility}</button>
             </div>
           </div>
         )}
@@ -157,8 +163,8 @@ export default function SubmitApp({
         {/* Step 4: Custom Fields Entry */}
         {appStep === 4 && (
           <div>
-            <h3 style={{fontSize: '16px', fontWeight: '600', marginBottom: '16px'}}>{ui.step} 4: {ui.customDetails}</h3>
-            <div className="form-grid" style={{padding: '0 0 20px 0'}}>
+            <h3 className="step-title">{ui.step} 4: {ui.customDetails}</h3>
+            <div className="form-grid" style={{ marginBottom: '20px' }}>
               <div className="form-group">
                 <label>{ui.purchasedQty}</label>
                 <input type="number" className="form-input" placeholder={ui.egQty} defaultValue={10} />
@@ -168,9 +174,9 @@ export default function SubmitApp({
                 <input type="text" className="form-input" placeholder={ui.egBill} />
               </div>
             </div>
-            <div style={{display: 'flex', gap: '10px'}}>
-              <button className="btn btn-secondary" onClick={() => setAppStep(3)}>{ui.back}</button>
-              <button className="btn btn-primary" onClick={() => handleSaveAppDetails({ feedQty: '10', billNo: 'B-8877/26' })}>{ui.nextStep}</button>
+            <div className="flow-actions">
+              <button type="button" className="btn btn-secondary" onClick={() => setAppStep(3)}>{ui.back}</button>
+              <button type="button" className="btn btn-primary" onClick={() => handleSaveAppDetails({ feedQty: '10', billNo: 'B-8877/26' })}>{ui.nextStep}</button>
             </div>
           </div>
         )}
@@ -178,26 +184,26 @@ export default function SubmitApp({
         {/* Step 5: Document Uploads */}
         {appStep === 5 && (
           <div>
-            <h3 style={{fontSize: '16px', fontWeight: '600', marginBottom: '16px'}}>{ui.step} 5: {ui.uploadDocs}</h3>
-            <div style={{display: 'flex', flexDirection: 'column', gap: '12px', marginBottom: '20px'}}>
-              <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px', border: '1px dashed var(--border-color)', borderRadius: '8px'}}>
+            <h3 className="step-title">{ui.step} 5: {ui.uploadDocs}</h3>
+            <div style={{ marginBottom: '20px' }}>
+              <div className="doc-upload-row">
                 <div>
-                  <div style={{fontWeight: '600', fontSize: '13px'}}>{ui.milkSupplyCert}</div>
-                  <div style={{fontSize: '11px', color: 'var(--text-light)'}}>{ui.required}</div>
+                  <div className="doc-upload-label">{ui.milkSupplyCert}</div>
+                  <div className="doc-upload-hint">{ui.required}</div>
                 </div>
-                <button className="btn btn-secondary" style={{padding: '6px 12px', fontSize: '12px'}}>{ui.chooseFile}</button>
+                <button type="button" className="btn btn-secondary btn-sm">{ui.chooseFile}</button>
               </div>
-              <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px', border: '1px dashed var(--border-color)', borderRadius: '8px'}}>
+              <div className="doc-upload-row">
                 <div>
-                  <div style={{fontWeight: '600', fontSize: '13px'}}>{ui.feedBill}</div>
-                  <div style={{fontSize: '11px', color: 'var(--text-light)'}}>{ui.required}</div>
+                  <div className="doc-upload-label">{ui.feedBill}</div>
+                  <div className="doc-upload-hint">{ui.required}</div>
                 </div>
-                <button className="btn btn-secondary" style={{padding: '6px 12px', fontSize: '12px'}}>{ui.chooseFile}</button>
+                <button type="button" className="btn btn-secondary btn-sm">{ui.chooseFile}</button>
               </div>
             </div>
-            <div style={{display: 'flex', gap: '10px'}}>
-              <button className="btn btn-secondary" onClick={() => setAppStep(4)}>{ui.back}</button>
-              <button className="btn btn-primary" onClick={() => handleDocUploadForApp({ uploaded: true })}>{ui.confirmDocs}</button>
+            <div className="flow-actions">
+              <button type="button" className="btn btn-secondary" onClick={() => setAppStep(4)}>{ui.back}</button>
+              <button type="button" className="btn btn-primary" onClick={() => handleDocUploadForApp({ uploaded: true })}>{ui.confirmDocs}</button>
             </div>
           </div>
         )}
@@ -205,19 +211,19 @@ export default function SubmitApp({
         {/* Step 6: Submit */}
         {appStep === 6 && (
           <div>
-            <h3 style={{fontSize: '16px', fontWeight: '600', marginBottom: '16px'}}>{ui.step} 6: {ui.previewDeclaration}</h3>
-            <div style={{padding: '16px', backgroundColor: '#f8fafc', borderRadius: '8px', marginBottom: '20px', fontSize: '13px'}}>
-              <p style={{marginBottom: '8px'}}><strong>{ui.applicant}:</strong> Radhakrishnan Nair</p>
-              <p style={{marginBottom: '8px'}}><strong>{ui.scheme}:</strong> Cattle Feed Subsidy Scheme 2026</p>
-              <p style={{marginBottom: '12px'}}><strong>{ui.estimateBenefit}:</strong> ₹7,500</p>
-              <label style={{display: 'flex', gap: '8px', cursor: 'pointer', fontWeight: '500'}}>
+            <h3 className="step-title">{ui.step} 6: {ui.previewDeclaration}</h3>
+            <div className="summary-panel">
+              <p><strong>{ui.applicant}:</strong> {selectedFarmer?.name || '—'}</p>
+              <p><strong>{ui.scheme}:</strong> {selectedScheme?.name || '—'}</p>
+              <p><strong>{ui.estimateBenefit}:</strong> {benefitDisplay}</p>
+              <label className="declaration-check">
                 <input type="checkbox" defaultChecked />
                 {ui.declarationText}
               </label>
             </div>
-            <div style={{display: 'flex', gap: '10px'}}>
-              <button className="btn btn-secondary" onClick={() => setAppStep(5)}>{ui.back}</button>
-              <button className="btn btn-primary" onClick={handleAppSubmit}>{ui.submitApp}</button>
+            <div className="flow-actions">
+              <button type="button" className="btn btn-secondary" onClick={() => setAppStep(5)}>{ui.back}</button>
+              <button type="button" className="btn btn-primary" onClick={handleAppSubmit}>{ui.submitApp}</button>
             </div>
           </div>
         )}
