@@ -31,6 +31,7 @@ import SubmitApp from './components/SubmitApp';
 import DocumentPreviewModal from './components/DocumentPreviewModal';
 import VerificationTimeline from './components/VerificationTimeline';
 import NotificationTray from './components/NotificationTray';
+import UserProfileMenu from './components/UserProfileMenu';
 import { buildSocietySubmissionProgress, pendingAtLevel } from './utils/verificationProgress';
 import ApprovalQueue from './components/ApprovalQueue';
 import Statements from './components/Statements';
@@ -64,6 +65,16 @@ const translations = {
     markAllNotificationsRead: "Mark all read",
     noNotifications: "No notifications yet.",
     unreadNotifications: (n) => `${n} unread`,
+    myProfile: "My Profile",
+    userId: "User ID",
+    email: "Email",
+    unitLabel: "Unit",
+    societyLabelProfile: "Society",
+    accountStatus: "Account status",
+    moduleAccess: "Module access",
+    modulesGranted: (n) => `${n} modules granted`,
+    organization: "Trivandrum Region Co-operative Milk Producers Union",
+    notApplicable: "Not applicable",
     helpdesk: "Helpdesk Support",
     audit: "Audit Trail",
     settings: "System Config",
@@ -251,6 +262,16 @@ const translations = {
     markAllNotificationsRead: "എല്ലാം വായിച്ചതായി",
     noNotifications: "ഇതുവരെ അറിയിപ്പുകളില്ല.",
     unreadNotifications: (n) => `${n} വായിക്കാത്തവ`,
+    myProfile: "എന്റെ പ്രൊഫൈൽ",
+    userId: "ഉപയോക്തൃ ഐഡി",
+    email: "ഇമെയിൽ",
+    unitLabel: "യൂണിറ്റ്",
+    societyLabelProfile: "സഹകരണ സംഘം",
+    accountStatus: "അക്കൗണ്ട് നില",
+    moduleAccess: "മോഡ്യുൾ പ്രവേശനം",
+    modulesGranted: (n) => `${n} മോഡ്യൂളുകൾ അനുവദിച്ചു`,
+    organization: "തിരുവനന്തപുരം MILMA യൂണിയൻ",
+    notApplicable: "ബാധകമല്ല",
     helpdesk: "ഹെൽപ്പ് ഡെസ്ക്",
     audit: "ഓഡിറ്റ് ലോഗുകൾ",
     settings: "ക്രമീകരണങ്ങൾ",
@@ -489,6 +510,7 @@ function App() {
   const [portalRoles, setPortalRoles] = useState(initialPortalRoles);
   const [notifications, setNotifications] = useState(initialNotifications);
   const [notificationsOpen, setNotificationsOpen] = useState(false);
+  const [profileMenuOpen, setProfileMenuOpen] = useState(false);
   const [budgetAllocation, setBudgetAllocation] = useState({
     total: 7500000,
     utilized: 1920000,
@@ -1368,7 +1390,10 @@ function App() {
                   notifications={notifications}
                   setNotifications={setNotifications}
                   isOpen={notificationsOpen}
-                  setIsOpen={setNotificationsOpen}
+                  setIsOpen={(open) => {
+                    setNotificationsOpen(open);
+                    if (open) setProfileMenuOpen(false);
+                  }}
                   title={t('notifications')}
                   markAllReadLabel={t('markAllNotificationsRead')}
                   noNotificationsLabel={t('noNotifications')}
@@ -1376,16 +1401,34 @@ function App() {
                   lang={lang}
                 />
 
-                {/* USER PROFILE */}
-                <div className="user-profile" onClick={() => setSessionExpired(true)}>
-                  <div className="user-avatar">
-                    {username.substring(0, 2).toUpperCase()}
-                  </div>
-                  <div style={{lineHeight: 1.2}}>
-                    <div style={{fontSize: '13px', fontWeight: '600'}}>{username}</div>
-                    <div style={{fontSize: '11px', color: 'var(--text-muted)'}}>{currentRole}</div>
-                  </div>
-                </div>
+                <UserProfileMenu
+                  username={username}
+                  currentRole={currentRole}
+                  portalUsers={portalUsers}
+                  isOpen={profileMenuOpen}
+                  setIsOpen={(open) => {
+                    setProfileMenuOpen(open);
+                    if (open) setNotificationsOpen(false);
+                  }}
+                  onLogout={() => {
+                    setIsLoggedIn(false);
+                    setAuthStep('login');
+                  }}
+                  labels={{
+                    myProfile: t('myProfile'),
+                    userId: t('userId'),
+                    email: t('email'),
+                    unit: t('unitLabel'),
+                    society: t('societyLabelProfile'),
+                    status: t('accountStatus'),
+                    moduleAccess: t('moduleAccess'),
+                    modulesGranted: t('modulesGranted'),
+                    organization: t('organization'),
+                    notApplicable: t('notApplicable'),
+                    close: t('close'),
+                    logout: t('logout')
+                  }}
+                />
               </div>
             </header>
 
