@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { resolveDocumentPreview } from './utils/documentPreview';
 import {
   Users, Layers, Award, FileText, CheckSquare, RefreshCw, AlertTriangle,
-  HelpCircle, Shield, Bell, Globe, LogOut, ChevronRight, Search, Plus,
+  HelpCircle, Shield, Globe, LogOut, ChevronRight, Search, Plus,
   Upload, Download, FileSpreadsheet, Play, CheckCircle, XCircle, Clock,
   TrendingUp, CreditCard, PieChart, Eye, Settings, Info, ArrowLeft, ArrowRight,
   Database, ShieldAlert, MessageSquare, Lock, Key, RotateCcw, Menu, UserCog
@@ -13,7 +13,8 @@ import {
   initialAuditLogs, roleDashboardMetrics, reportTypes, financeBreakdown,
   initialPortalUsers,
   initialPortalRoles,
-  getDefaultPermissionsForRole
+  getDefaultPermissionsForRole,
+  initialNotifications
 } from './mockData';
 
 // Background photos
@@ -29,6 +30,7 @@ import FormBuilder from './components/FormBuilder';
 import SubmitApp from './components/SubmitApp';
 import DocumentPreviewModal from './components/DocumentPreviewModal';
 import VerificationTimeline from './components/VerificationTimeline';
+import NotificationTray from './components/NotificationTray';
 import { buildSocietySubmissionProgress, pendingAtLevel } from './utils/verificationProgress';
 import ApprovalQueue from './components/ApprovalQueue';
 import Statements from './components/Statements';
@@ -59,6 +61,9 @@ const translations = {
     statements: "Consolidated Statements",
     finance: "Finance & Budget",
     notifications: "Notifications",
+    markAllNotificationsRead: "Mark all read",
+    noNotifications: "No notifications yet.",
+    unreadNotifications: (n) => `${n} unread`,
     helpdesk: "Helpdesk Support",
     audit: "Audit Trail",
     settings: "System Config",
@@ -243,6 +248,9 @@ const translations = {
     statements: "ഏകീകൃത പ്രസ്താവനകൾ",
     finance: "ധനകാര്യവും ബഡ്ജറ്റും",
     notifications: "അറിയിപ്പുകൾ",
+    markAllNotificationsRead: "എല്ലാം വായിച്ചതായി",
+    noNotifications: "ഇതുവരെ അറിയിപ്പുകളില്ല.",
+    unreadNotifications: (n) => `${n} വായിക്കാത്തവ`,
     helpdesk: "ഹെൽപ്പ് ഡെസ്ക്",
     audit: "ഓഡിറ്റ് ലോഗുകൾ",
     settings: "ക്രമീകരണങ്ങൾ",
@@ -479,10 +487,8 @@ function App() {
   const [auditLogs, setAuditLogs] = useState(initialAuditLogs);
   const [portalUsers, setPortalUsers] = useState(initialPortalUsers);
   const [portalRoles, setPortalRoles] = useState(initialPortalRoles);
-  const [notifications, setNotifications] = useState([
-    { id: 1, title: 'New Cattle Feed Subsidy Published', desc: 'Cattle Feed Subsidy Scheme 2026 is now open for applications.', category: 'Scheme', date: '2026-07-27 09:00', read: false },
-    { id: 2, title: 'Payment Completed', desc: 'Payment completed for milk machine subsidy application reference FSA-2026-0000088.', category: 'Finance', date: '2026-07-26 15:30', read: false }
-  ]);
+  const [notifications, setNotifications] = useState(initialNotifications);
+  const [notificationsOpen, setNotificationsOpen] = useState(false);
   const [budgetAllocation, setBudgetAllocation] = useState({
     total: 7500000,
     utilized: 1920000,
@@ -1358,11 +1364,17 @@ function App() {
                   <span>{t('lang')}</span>
                 </button>
 
-                {/* NOTIFICATIONS TRAY */}
-                <button className="icon-btn" onClick={() => alert('Notifications Panel: 2 Unread items.')}>
-                  <Bell size={18}/>
-                  <span className="badge-dot"></span>
-                </button>
+                <NotificationTray
+                  notifications={notifications}
+                  setNotifications={setNotifications}
+                  isOpen={notificationsOpen}
+                  setIsOpen={setNotificationsOpen}
+                  title={t('notifications')}
+                  markAllReadLabel={t('markAllNotificationsRead')}
+                  noNotificationsLabel={t('noNotifications')}
+                  unreadLabel={t('unreadNotifications')}
+                  lang={lang}
+                />
 
                 {/* USER PROFILE */}
                 <div className="user-profile" onClick={() => setSessionExpired(true)}>

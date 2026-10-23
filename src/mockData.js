@@ -880,3 +880,76 @@ export const initialPortalUsers = [
     permissions: getBuiltInDefaultPermissions('Super Administrator')
   }
 ];
+
+export const initialNotifications = [
+  {
+    id: 1,
+    title: 'New Cattle Feed Subsidy Published',
+    titleMl: 'പുതിയ കാലിത്തീറ്റ സബ്‌സിഡി പ്രസിദ്ധീകരിച്ചു',
+    desc: 'Cattle Feed Subsidy Scheme 2026 is open for applications until 31 Dec 2026.',
+    descMl: 'കാലിത്തീറ്റ സബ്‌സിഡി പദ്ധതി 2026-ൽ 2026 ഡിസംബർ 31 വരെ അപേക്ഷിക്കാം.',
+    category: 'Scheme',
+    date: '2026-07-27 09:00',
+    read: false
+  },
+  {
+    id: 2,
+    title: 'Application pending your action',
+    titleMl: 'നിങ്ങളുടെ നടപടി ആവശ്യമാണ്',
+    desc: 'FSA-2026-0000123 is awaiting verification at your approval level.',
+    descMl: 'FSA-2026-0000123 നിങ്ങളുടെ അംഗീകാര ഘട്ടത്തിൽ കാത്തിരിക്കുന്നു.',
+    category: 'Workflow',
+    date: '2026-07-27 08:45',
+    read: false
+  },
+  {
+    id: 3,
+    title: 'Payment file received — Finance',
+    titleMl: 'പേയ്മെന്റ് ഫയൽ ലഭിച്ചു — ധനകാര്യം',
+    desc: 'Milking machine subsidy FSA-2026-0000088 is queued for sanction review.',
+    descMl: 'Milking machine subsidy FSA-2026-0000088 സാങ്കشن പരിശോധനയ്ക്കായി ക്യൂവിൽ.',
+    category: 'Finance',
+    date: '2026-07-26 15:30',
+    read: false
+  },
+  {
+    id: 4,
+    title: 'Bulk farmer upload validated',
+    titleMl: 'ബൾക്ക് കർഷക അപ്‌ലോഡ് സാധൂകരിച്ചു',
+    desc: '12 farmer records from Vattiyoorkavu society passed validation.',
+    descMl: 'വട്ടിയൂർക്കാവ് സംഘത്തിലെ 12 കർഷക റെക്കോർഡുകൾ സാധൂകരിച്ചു.',
+    category: 'Farmer Master',
+    date: '2026-07-26 11:20',
+    read: true
+  },
+  {
+    id: 5,
+    title: 'Consolidated statement CS-2026-07-001',
+    titleMl: 'ഏകീകൃത പ്രസ്താവന CS-2026-07-001',
+    desc: 'Statement with 2 applications is pending verification.',
+    descMl: '2 അപേക്ഷകളുള്ള പ്രസ്താവന പരിശോധനയ്ക്കായി കാത്തിരിക്കുന്നു.',
+    category: 'Statements',
+    date: '2026-07-25 16:00',
+    read: true
+  },
+  {
+    id: 6,
+    title: 'Scheduled maintenance — 28 Jul',
+    titleMl: 'പരിപാലനം — 28 Jul',
+    desc: 'Portal will be read-only from 11:00 PM to 1:00 AM IST for backup.',
+    descMl: 'ബാക്കപ്പിനായി 11:00 PM–1:00 AM IST പോർട്ടൽ read-only ആയിരിക്കും.',
+    category: 'System',
+    date: '2026-07-24 18:00',
+    read: true
+  },
+  {
+    id: 7,
+    title: 'Helpdesk ticket update',
+    titleMl: 'ഹെൽപ്‌ഡെസ്‌ക് ടിക്കറ്റ് അപ്‌ഡേറ്റ്',
+    desc: 'TKT-2026-003 — duplicate Voter ID warning is marked In Progress.',
+    descMl: 'TKT-2026-003 — ഡുപ്ലിക്കേറ്റ് Voter ID മുന്നറിയിപ്പ് In Progress.',
+    category: 'Helpdesk',
+    date: '2026-07-23 10:15',
+    read: false
+  }
+];
