@@ -1817,6 +1817,27 @@ form label {
   box-shadow: 0 0 0 2px var(--primary-color);
 }
 
+.timeline-dot.pending {
+  background: #fff;
+  box-shadow: 0 0 0 2px var(--accent-amber);
+  border-color: var(--accent-amber);
+}
+
+.timeline-action {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--primary-color);
+  margin-top: 2px;
+}
+
+.timeline-action--pending {
+  color: var(--status-pending-text);
+}
+
+.timeline-item--pending .timeline-header {
+  color: var(--text-muted);
+}
+
 .timeline-line {
   width: 2px;
   flex: 1;

@@ -28,6 +28,8 @@ import Schemes from './components/Schemes';
 import FormBuilder from './components/FormBuilder';
 import SubmitApp from './components/SubmitApp';
 import DocumentPreviewModal from './components/DocumentPreviewModal';
+import VerificationTimeline from './components/VerificationTimeline';
+import { buildSocietySubmissionProgress, pendingAtLevel } from './utils/verificationProgress';
 import ApprovalQueue from './components/ApprovalQueue';
 import Statements from './components/Statements';
 import Finance from './components/Finance';
@@ -948,9 +950,17 @@ function App() {
       data: newApp.data,
       documents: scheme.requiredDocs.map(d => ({ name: d, file: 'uploaded_doc.pdf', status: 'Uploaded' })),
       checklistAnswers: {},
-      remarksLog: [
-        { user: 'Society Secretary', role: 'Society User', action: 'Submitted', date: new Date().toISOString().substring(0, 16).replace('T', ' '), note: 'Submitted via portal.' }
-      ],
+      remarksLog: (() => {
+        const subDate = new Date().toISOString().substring(0, 10);
+        const submittedAt = new Date().toISOString().substring(0, 16).replace('T', ' ');
+        const logs = buildSocietySubmissionProgress({
+          submissionDate: subDate,
+          submitNote: 'Submitted via portal with society checklist complete.'
+        });
+        logs[logs.length - 1].date = submittedAt;
+        logs.push(pendingAtLevel('Field Supervisor', 'Awaiting Field Supervisor verification.', submittedAt));
+        return logs;
+      })(),
       paymentStatus: 'Not Initiated',
       milkBillRef: ''
     };
@@ -1752,28 +1762,10 @@ function App() {
                   </div>
                 </div>
 
-                {/* Verification timeline history */}
-                <div>
-                  <h4 style={{fontSize: '13px', fontWeight: '700', textTransform: 'uppercase', marginBottom: '8px'}}>{t('verificationProgress')}</h4>
-                  <div className="timeline">
-                    {selectedApplication.remarksLog.map((log, index) => (
-                      <div key={index} className="timeline-item">
-                        <div className="timeline-marker">
-                          <div className="timeline-dot active"></div>
-                          <div className="timeline-line"></div>
-                        </div>
-                        <div className="timeline-content">
-                          <div className="timeline-header">
-                            <span>{log.role} ({log.user})</span>
-                            <span style={{color: 'var(--text-light)', fontWeight: '400'}}>{log.date}</span>
-                          </div>
-                          <div style={{fontSize: '12px', fontWeight: '600', color: 'var(--primary-color)'}}>{log.action}</div>
-                          <div className="timeline-note">{log.note}</div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
+                <VerificationTimeline
+                  entries={selectedApplication.remarksLog}
+                  title={t('verificationProgress')}
+                />
               </div>
 
               {/* Right pane: Checklist & Workflow actions */}

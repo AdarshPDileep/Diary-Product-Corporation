@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Search, CheckCircle, MapPin, CreditCard, Clock, FileText } from 'lucide-react';
 import { statusText } from '../i18n';
+import VerificationTimeline from './VerificationTimeline';
 
 export default function Tracking({ applications, t, lang }) {
   const [query, setQuery] = useState('');
@@ -144,24 +145,7 @@ export default function Tracking({ applications, t, lang }) {
               <span className="card-section-title">{ui.verificationProgress}</span>
             </div>
             <div style={{ padding: '24px' }}>
-              <div className="timeline">
-                {result.remarksLog.map((log, index) => (
-                  <div key={index} className="timeline-item">
-                    <div className="timeline-marker">
-                      <div className={`timeline-dot ${index === 0 ? 'active' : ''}`}></div>
-                      <div className="timeline-line"></div>
-                    </div>
-                    <div className="timeline-content">
-                      <div className="timeline-header">
-                        <span>{log.role} ({log.user})</span>
-                        <span style={{ color: 'var(--text-light)', fontWeight: '400' }}>{log.date}</span>
-                      </div>
-                      <div style={{ fontSize: '12px', fontWeight: '700', color: 'var(--primary-color)' }}>{log.action}</div>
-                      <div className="timeline-note">{log.note}</div>
-                    </div>
-                  </div>
-                ))}
-              </div>
+              <VerificationTimeline entries={result.remarksLog} />
             </div>
           </div>
         </>

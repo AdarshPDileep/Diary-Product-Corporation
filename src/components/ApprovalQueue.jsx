@@ -26,17 +26,28 @@ export default function ApprovalQueue({ applications, currentRole, setSelectedAp
     empty: 'No applications require your verification level at this time.',
   };
 
+  const rolePendingStatus = {
+    'Field Supervisor': 'Pending Field Supervisor',
+    'P&I Officer': 'Pending P&I Officer',
+    'Section Head': 'Pending Section Head',
+    'Unit Head': 'Pending Unit Head',
+    'Functional Head': 'Pending Functional Head',
+    'Managing Director': 'Pending Managing Director',
+    'Finance Head': 'Pending Finance'
+  };
+
   const getFilteredApps = () => {
-    return applications.filter(app => {
-      if (currentRole === 'Field Supervisor') return app.status === 'Pending Field Supervisor';
-      if (currentRole === 'P&I Officer') return app.status === 'Pending P&I Officer';
-      if (currentRole === 'Section Head') return app.status === 'Pending Section Head';
-      if (currentRole === 'Unit Head') return app.status === 'Pending Unit Head';
-      if (currentRole === 'Functional Head') return app.status === 'Pending Functional Head';
-      if (currentRole === 'Managing Director') return app.status === 'Pending Managing Director';
-      if (currentRole === 'Finance Head') return app.status === 'Pending Finance' || app.paymentStatus === 'Awaiting Finance Approval';
-      return true;
-    });
+    if (currentRole === 'Super Administrator') {
+      return applications.filter((app) => app.status.startsWith('Pending ') || app.paymentStatus === 'Awaiting Finance Approval');
+    }
+    if (currentRole === 'Finance Head') {
+      return applications.filter(
+        (app) => app.status === rolePendingStatus['Finance Head'] || app.paymentStatus === 'Awaiting Finance Approval'
+      );
+    }
+    const pendingStatus = rolePendingStatus[currentRole];
+    if (!pendingStatus) return [];
+    return applications.filter((app) => app.status === pendingStatus);
   };
 
   const filteredApps = getFilteredApps();

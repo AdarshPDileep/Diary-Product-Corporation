@@ -278,7 +278,11 @@ export const initialApplications = [
       'Prior year benefit details verified': false
     },
     remarksLog: [
-      { user: 'Society Secretary', role: 'Society User', action: 'Submitted', date: '2026-07-15 10:30', note: 'All original bills verified.' }
+      { user: 'Society Secretary', role: 'Society User', action: 'Draft Created', date: '2026-07-14 09:20', note: 'Cattle feed subsidy application opened for Radhakrishnan Nair.' },
+      { user: 'Society Secretary', role: 'Society User', action: 'Documents Uploaded', date: '2026-07-14 11:45', note: 'Milk supply certificate and feed purchase bill scanned and attached.' },
+      { user: 'Society Secretary', role: 'Society User', action: 'Eligibility Checked', date: '2026-07-15 10:08', note: 'Active membership, cattle count, and minimum milk supply verified.' },
+      { user: 'Society Secretary', role: 'Society User', action: 'Submitted', date: '2026-07-15 10:30', note: 'All original bills verified and forwarded for field verification.' },
+      { user: 'TRCMPU Portal', role: 'System', action: 'Pending', date: '2026-07-15 10:31', note: 'Awaiting Field Supervisor verification (Trivandrum unit queue).' }
     ],
     paymentStatus: 'Not Initiated',
     milkBillRef: ''
@@ -315,9 +319,13 @@ export const initialApplications = [
       'Prior year benefit details verified': true
     },
     remarksLog: [
-      { user: 'Society Secretary', role: 'Society User', action: 'Submitted', date: '2026-07-16 11:15', note: 'Submitted for verification.' },
-      { user: 'Sajeev Kumar', role: 'Field Supervisor', action: 'Verified', date: '2026-07-18 14:20', note: 'Checked cattle quantity and supply record. Recommend approval.' },
-      { user: 'Anil Kumar K.', role: 'P&I Officer', action: 'Recommended', date: '2026-07-20 09:45', note: 'Recommended for Section Head approval.' }
+      { user: 'Society Secretary', role: 'Society User', action: 'Draft Created', date: '2026-07-15 14:10', note: 'Application draft created for Sumathy Amma.' },
+      { user: 'Society Secretary', role: 'Society User', action: 'Documents Uploaded', date: '2026-07-16 10:40', note: 'Feed bill and milk supply certificate uploaded.' },
+      { user: 'Society Secretary', role: 'Society User', action: 'Eligibility Checked', date: '2026-07-16 11:02', note: 'Scheme eligibility and duplicate-benefit check completed.' },
+      { user: 'Society Secretary', role: 'Society User', action: 'Submitted', date: '2026-07-16 11:15', note: 'Submitted for verification with society endorsement.' },
+      { user: 'Sajeev Kumar', role: 'Field Supervisor', action: 'Verified', date: '2026-07-18 14:20', note: 'Field visit completed. Cattle quantity and supply records match society register.' },
+      { user: 'Anil Kumar K.', role: 'P&I Officer', action: 'Recommended', date: '2026-07-20 09:45', note: 'Checklist complete. Recommended for Section Head approval.' },
+      { user: 'TRCMPU Portal', role: 'System', action: 'Pending', date: '2026-07-20 09:46', note: 'Awaiting Section Head review and sanction recommendation.' }
     ],
     paymentStatus: 'Not Initiated',
     milkBillRef: ''
@@ -352,13 +360,226 @@ export const initialApplications = [
       'Land and farm area verified as suitable': true
     },
     remarksLog: [
-      { user: 'Society Secretary', role: 'Society User', action: 'Submitted', date: '2026-07-10 09:00', note: 'Farmer holds 4 cows and supplies 20+ liters daily.' },
-      { user: 'Sajeev Kumar', role: 'Field Supervisor', action: 'Verified', date: '2026-07-11 16:30', note: 'Field inspection completed. 4 cows in healthy condition.' },
-      { user: 'Anil Kumar K.', role: 'P&I Officer', action: 'Recommended', date: '2026-07-12 11:20', note: 'Recommended.' },
-      { user: 'Surendran M.', role: 'Section Head', action: 'Approved', date: '2026-07-13 15:45', note: 'Approved and forwarded.' },
-      { user: 'Devi G.', role: 'Unit Head', action: 'Approved', date: '2026-07-14 10:10', note: 'Unit verification positive.' },
-      { user: 'Madhavan Nair', role: 'Functional Head', action: 'Approved', date: '2026-07-15 14:00', note: 'All documentation fits budget norms.' },
-      { user: 'MD - Trivandrum Dairy', role: 'Managing Director', action: 'Approved', date: '2026-07-16 17:00', note: 'Final management approval granted.' }
+      { user: 'Society Secretary', role: 'Society User', action: 'Draft Created', date: '2026-07-09 11:00', note: 'Milking machine subsidy application initiated.' },
+      { user: 'Society Secretary', role: 'Society User', action: 'Documents Uploaded', date: '2026-07-09 15:30', note: 'Farm license and authorized dealer quotation uploaded.' },
+      { user: 'Society Secretary', role: 'Society User', action: 'Eligibility Checked', date: '2026-07-10 08:45', note: 'Minimum cattle count and dealer authorization validated.' },
+      { user: 'Society Secretary', role: 'Society User', action: 'Submitted', date: '2026-07-10 09:00', note: 'Farmer holds 4 cows and supplies 20+ liters daily — submitted for verification.' },
+      { user: 'Sajeev Kumar', role: 'Field Supervisor', action: 'Verified', date: '2026-07-11 16:30', note: 'Field inspection completed. Four cows in healthy condition; shed suitable for machine install.' },
+      { user: 'Anil Kumar K.', role: 'P&I Officer', action: 'Recommended', date: '2026-07-12 11:20', note: 'Quotation within scheme cap. Recommended for administrative approval.' },
+      { user: 'Surendran M.', role: 'Section Head', action: 'Approved', date: '2026-07-13 15:45', note: 'Section-level sanction approved and forwarded to unit head.' },
+      { user: 'Devi G.', role: 'Unit Head', action: 'Approved', date: '2026-07-14 10:10', note: 'Unit verification positive. No duplicate claim in unit records.' },
+      { user: 'Madhavan Nair', role: 'Functional Head', action: 'Approved', date: '2026-07-15 14:00', note: 'Budget head and documentation align with scheme norms.' },
+      { user: 'MD - Trivandrum Dairy', role: 'Managing Director', action: 'Approved', date: '2026-07-16 17:00', note: 'Final management approval granted; file sent to finance.' },
+      { user: 'Finance Controller', role: 'Finance Head', action: 'Under Review', date: '2026-07-17 09:30', note: 'Bank account, IFSC, and sanction amount verification in progress.' }
+    ],
+    paymentStatus: 'Awaiting Finance Approval',
+    milkBillRef: ''
+  },
+  {
+    id: 'APP2026004',
+    appNo: 'TRCMPU/2026-27/SCH001/TVM/0000125',
+    refNo: 'FSA-2026-0000125',
+    farmerId: 'TVM-T102-2005',
+    farmerName: 'John Sebastian',
+    farmerNameMl: 'ജോൺ സെബാസ്റ്റ്യൻ',
+    societyId: 'SOC102',
+    societyName: 'Kazhakkoottam Milk Society',
+    schemeCode: 'SCH001',
+    schemeName: 'Cattle Feed Subsidy Scheme 2026',
+    submissionDate: '2026-07-17',
+    status: 'Pending P&I Officer',
+    currentLevel: 'P&I Officer',
+    benefitAmount: 8200,
+    data: {
+      feedQty: '12',
+      billNo: 'B-9012/2026',
+      billDate: '2026-07-14',
+      feedAgency: 'Milma'
+    },
+    documents: [
+      { name: 'Milk Supply Certificate', file: 'milk_supply.pdf', status: 'Uploaded' },
+      { name: 'Feed Purchase Bill', file: 'feed_bill.jpg', status: 'Uploaded' }
+    ],
+    checklistAnswers: {
+      'Farmer Active Status in Society verified': true,
+      'Original purchase bill attached and scanned properly': true,
+      'Average monthly milk supply exceeds 5 liters/day limit': true,
+      'Prior year benefit details verified': true
+    },
+    remarksLog: [
+      { user: 'Society Secretary', role: 'Society User', action: 'Submitted', date: '2026-07-17 09:40', note: 'Kazhakkoottam society submission — high-volume supplier.' },
+      { user: 'Sajeev Kumar', role: 'Field Supervisor', action: 'Verified', date: '2026-07-19 11:05', note: 'Field verification complete. Five cattle recorded; supply ledger matches.' },
+      { user: 'TRCMPU Portal', role: 'System', action: 'Pending', date: '2026-07-19 11:06', note: 'Awaiting P&I Officer checklist and recommendation.' }
+    ],
+    paymentStatus: 'Not Initiated',
+    milkBillRef: ''
+  },
+  {
+    id: 'APP2026005',
+    appNo: 'TRCMPU/2026-27/SCH001/KLM/0000042',
+    refNo: 'FSA-2026-0000042',
+    farmerId: 'KLM-K201-2010',
+    farmerName: 'Latha Menon',
+    farmerNameMl: 'ലത മേനോൻ',
+    societyId: 'SOC201',
+    societyName: 'Kottarakkara Milk Society',
+    schemeCode: 'SCH001',
+    schemeName: 'Cattle Feed Subsidy Scheme 2026',
+    submissionDate: '2026-07-19',
+    status: 'Pending Unit Head',
+    currentLevel: 'Unit Head',
+    benefitAmount: 5500,
+    data: {
+      feedQty: '7',
+      billNo: 'B-7721/2026',
+      billDate: '2026-07-16',
+      feedAgency: 'Milma'
+    },
+    documents: [
+      { name: 'Milk Supply Certificate', file: 'milk_supply.pdf', status: 'Uploaded' },
+      { name: 'Feed Purchase Bill', file: 'feed_bill.jpg', status: 'Uploaded' }
+    ],
+    checklistAnswers: {
+      'Farmer Active Status in Society verified': true,
+      'Original purchase bill attached and scanned properly': true,
+      'Average monthly milk supply exceeds 5 liters/day limit': true,
+      'Prior year benefit details verified': false
+    },
+    remarksLog: [
+      { user: 'Society Secretary', role: 'Society User', action: 'Submitted', date: '2026-07-19 10:15', note: 'Kottarakkara society — new member feed subsidy claim.' },
+      { user: 'Ramesh Chennithala', role: 'Field Supervisor', action: 'Verified', date: '2026-07-20 15:30', note: 'Field visit done. Three cattle verified.' },
+      { user: 'Bindu S. Nair', role: 'P&I Officer', action: 'Recommended', date: '2026-07-21 09:20', note: 'Documents and supply average validated.' },
+      { user: 'Surendran M.', role: 'Section Head', action: 'Approved', date: '2026-07-22 14:00', note: 'Section sanction granted; forwarded to unit head.' },
+      { user: 'TRCMPU Portal', role: 'System', action: 'Pending', date: '2026-07-22 14:01', note: 'Awaiting Unit Head verification and forward.' }
+    ],
+    paymentStatus: 'Not Initiated',
+    milkBillRef: ''
+  },
+  {
+    id: 'APP2026006',
+    appNo: 'TRCMPU/2026-27/SCH001/TVM/0000126',
+    refNo: 'FSA-2026-0000126',
+    farmerId: 'TVM-T101-1002',
+    farmerName: 'Sumathy Amma',
+    farmerNameMl: 'സുമതി അമ്മ',
+    societyId: 'SOC101',
+    societyName: 'Vattiyoorkavu Milk Society',
+    schemeCode: 'SCH001',
+    schemeName: 'Cattle Feed Subsidy Scheme 2026',
+    submissionDate: '2026-07-12',
+    status: 'Pending Functional Head',
+    currentLevel: 'Functional Head',
+    benefitAmount: 4800,
+    data: {
+      feedQty: '6',
+      billNo: 'B-8890/2026',
+      billDate: '2026-07-08',
+      feedAgency: 'Milma'
+    },
+    documents: [
+      { name: 'Milk Supply Certificate', file: 'milk_supply.pdf', status: 'Uploaded' },
+      { name: 'Feed Purchase Bill', file: 'feed_bill.jpg', status: 'Uploaded' }
+    ],
+    checklistAnswers: {
+      'Farmer Active Status in Society verified': true,
+      'Original purchase bill attached and scanned properly': true,
+      'Average monthly milk supply exceeds 5 liters/day limit': true,
+      'Prior year benefit details verified': true
+    },
+    remarksLog: [
+      { user: 'Society Secretary', role: 'Society User', action: 'Submitted', date: '2026-07-12 11:00', note: 'Second tranche feed subsidy application.' },
+      { user: 'Sajeev Kumar', role: 'Field Supervisor', action: 'Verified', date: '2026-07-13 16:00', note: 'Verified on site.' },
+      { user: 'Anil Kumar K.', role: 'P&I Officer', action: 'Recommended', date: '2026-07-14 10:30', note: 'Recommended.' },
+      { user: 'Surendran M.', role: 'Section Head', action: 'Approved', date: '2026-07-15 11:00', note: 'Approved.' },
+      { user: 'Devi G.', role: 'Unit Head', action: 'Approved', date: '2026-07-16 09:45', note: 'Unit head clearance complete.' },
+      { user: 'TRCMPU Portal', role: 'System', action: 'Pending', date: '2026-07-16 09:46', note: 'Awaiting Functional Head budget and policy review.' }
+    ],
+    paymentStatus: 'Not Initiated',
+    milkBillRef: ''
+  },
+  {
+    id: 'APP2026007',
+    appNo: 'TRCMPU/2026-27/SCH001/TVM/0000127',
+    refNo: 'FSA-2026-0000127',
+    farmerId: 'TVM-T102-2005',
+    farmerName: 'John Sebastian',
+    farmerNameMl: 'ജോൺ സെബാസ്റ്റ്യൻ',
+    societyId: 'SOC102',
+    societyName: 'Kazhakkoottam Milk Society',
+    schemeCode: 'SCH001',
+    schemeName: 'Cattle Feed Subsidy Scheme 2026',
+    submissionDate: '2026-07-08',
+    status: 'Pending Managing Director',
+    currentLevel: 'Managing Director',
+    benefitAmount: 9000,
+    data: {
+      feedQty: '14',
+      billNo: 'B-8650/2026',
+      billDate: '2026-07-05',
+      feedAgency: 'Milma'
+    },
+    documents: [
+      { name: 'Milk Supply Certificate', file: 'milk_supply.pdf', status: 'Uploaded' },
+      { name: 'Feed Purchase Bill', file: 'feed_bill.jpg', status: 'Uploaded' }
+    ],
+    checklistAnswers: {
+      'Farmer Active Status in Society verified': true,
+      'Original purchase bill attached and scanned properly': true,
+      'Average monthly milk supply exceeds 5 liters/day limit': true,
+      'Prior year benefit details verified': true
+    },
+    remarksLog: [
+      { user: 'Society Secretary', role: 'Society User', action: 'Submitted', date: '2026-07-08 09:30', note: 'Bulk feed purchase subsidy — priority supplier.' },
+      { user: 'Sajeev Kumar', role: 'Field Supervisor', action: 'Verified', date: '2026-07-09 14:00', note: 'Verified.' },
+      { user: 'Anil Kumar K.', role: 'P&I Officer', action: 'Recommended', date: '2026-07-10 10:00', note: 'Recommended.' },
+      { user: 'Surendran M.', role: 'Section Head', action: 'Approved', date: '2026-07-11 15:00', note: 'Approved.' },
+      { user: 'Devi G.', role: 'Unit Head', action: 'Approved', date: '2026-07-12 11:30', note: 'Approved.' },
+      { user: 'Madhavan Nair', role: 'Functional Head', action: 'Approved', date: '2026-07-13 16:20', note: 'Within annual budget allocation.' },
+      { user: 'TRCMPU Portal', role: 'System', action: 'Pending', date: '2026-07-13 16:21', note: 'Awaiting Managing Director final approval.' }
+    ],
+    paymentStatus: 'Not Initiated',
+    milkBillRef: ''
+  },
+  {
+    id: 'APP2026008',
+    appNo: 'TRCMPU/2026-27/SCH001/TVM/0000128',
+    refNo: 'FSA-2026-0000128',
+    farmerId: 'TVM-T101-1001',
+    farmerName: 'Radhakrishnan Nair',
+    farmerNameMl: 'രാധാകൃഷ്ണൻ നായർ',
+    societyId: 'SOC101',
+    societyName: 'Vattiyoorkavu Milk Society',
+    schemeCode: 'SCH001',
+    schemeName: 'Cattle Feed Subsidy Scheme 2026',
+    submissionDate: '2026-07-06',
+    status: 'Pending Finance',
+    currentLevel: 'Finance',
+    benefitAmount: 7200,
+    data: {
+      feedQty: '9',
+      billNo: 'B-8501/2026',
+      billDate: '2026-07-02',
+      feedAgency: 'Milma'
+    },
+    documents: [
+      { name: 'Milk Supply Certificate', file: 'milk_supply.pdf', status: 'Uploaded' },
+      { name: 'Feed Purchase Bill', file: 'feed_bill.jpg', status: 'Uploaded' }
+    ],
+    checklistAnswers: {
+      'Farmer Active Status in Society verified': true,
+      'Original purchase bill attached and scanned properly': true,
+      'Average monthly milk supply exceeds 5 liters/day limit': true,
+      'Prior year benefit details verified': true
+    },
+    remarksLog: [
+      { user: 'Society Secretary', role: 'Society User', action: 'Submitted', date: '2026-07-06 10:00', note: 'Submitted for full workflow demo.' },
+      { user: 'Sajeev Kumar', role: 'Field Supervisor', action: 'Verified', date: '2026-07-07 11:00', note: 'Verified.' },
+      { user: 'Anil Kumar K.', role: 'P&I Officer', action: 'Recommended', date: '2026-07-08 09:00', note: 'Recommended.' },
+      { user: 'Surendran M.', role: 'Section Head', action: 'Approved', date: '2026-07-09 10:00', note: 'Approved.' },
+      { user: 'Devi G.', role: 'Unit Head', action: 'Approved', date: '2026-07-10 11:00', note: 'Approved.' },
+      { user: 'Madhavan Nair', role: 'Functional Head', action: 'Approved', date: '2026-07-11 12:00', note: 'Approved.' },
+      { user: 'MD - Trivandrum Dairy', role: 'Managing Director', action: 'Approved', date: '2026-07-12 15:00', note: 'Management approval granted.' },
+      { user: 'TRCMPU Portal', role: 'System', action: 'Pending', date: '2026-07-12 15:01', note: 'Awaiting finance sanction and payment processing.' }
     ],
     paymentStatus: 'Awaiting Finance Approval',
     milkBillRef: ''
